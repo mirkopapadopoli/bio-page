@@ -84,7 +84,7 @@ const CONFIG = {
                     title: "PLAUD NotePin",
                     description: "AI wearable per registrare e trascrivere",
                     icon: "fas fa-microphone",
-                    url: "https://www.amazon.it/dp/B0D25P17KH",
+                    url: "https://bit.ly/plaudnotepin-mirkopapadopoli",
                     style: "default"
                 },
 
@@ -110,6 +110,49 @@ const CONFIG = {
                     url: "https://paperloops.com?sca_ref=9860932.coptS7MXDKJTh",
                     style: "default"
                 }
+
+                // ============================================================
+                // 📅 ESEMPIO: Link con Schedule (mostra solo in certi orari/giorni)
+                // ============================================================
+                /*
+                ,{
+                    title: "Live Streaming",
+                    description: "Seguimi in diretta ogni lunedì e mercoledì",
+                    icon: "fas fa-video",
+                    url: "https://youtube.com/live",
+                    style: "featured",
+                    // Schedule: il link sarà cliccabile solo nei giorni/orari specificati
+                    schedule: {
+                        days: ["lunedì", "mercoledì"],  // Giorni della settimana
+                        hours: "20:00-22:00",             // Fascia oraria (formato 24h)
+                        liveBadge: true                   // Mostra badge "LIVE" quando attivo
+                    }
+                }
+                // Altri esempi:
+
+                // Solo in un giorno specifico
+                ,{
+                    title: "Black Friday Deals",
+                    description: "Offerte speciali solo oggi!",
+                    icon: "fas fa-tag",
+                    url: "https://example.com/black-friday",
+                    badge: "OGGI",
+                    schedule: {
+                        date: "2024-11-29"  // Solo in questa data (formato YYYY-MM-DD)
+                    }
+                }
+
+                // Solo in certi giorni (senza orario)
+                ,{
+                    title: "Weekend Special",
+                    description: "Contenuti esclusivi del weekend",
+                    icon: "fas fa-star",
+                    url: "https://example.com/weekend",
+                    schedule: {
+                        days: ["sabato", "domenica"]
+                    }
+                }
+                */
             ]
         },
         {

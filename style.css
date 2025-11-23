@@ -357,10 +357,10 @@ body::before {
     color: var(--text-primary);
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
-    margin-bottom: 12px;
     position: relative;
     overflow: hidden;
     backdrop-filter: blur(10px);
+    width: 100%;
 }
 
 .link-card::before {
@@ -495,6 +495,124 @@ body::before {
     box-shadow: 0 0 10px var(--accent-glow);
 }
 
+/* Schedule Badge */
+.schedule-badge {
+    display: inline-block;
+    background: rgba(255, 179, 71, 0.2);
+    color: #FFB347;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 6px;
+    border: 1px solid rgba(255, 179, 71, 0.3);
+}
+
+/* Link Inattivo (schedulato per dopo) */
+.link-inactive {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.link-inactive .link-icon,
+.link-inactive .link-card-grid-icon {
+    filter: grayscale(70%);
+}
+
+/* =============================================================================
+   SHARE BUTTONS
+   ============================================================================= */
+
+/* Wrapper per link + share button */
+.link-wrapper {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+/* Share button - vista lista */
+.share-btn {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    opacity: 0;
+}
+
+.link-wrapper:hover .share-btn {
+    opacity: 1;
+}
+
+.share-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.share-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.share-btn i {
+    font-size: 14px;
+}
+
+/* Share button - vista card */
+.share-btn-card {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    opacity: 0;
+}
+
+.link-wrapper:hover .share-btn-card {
+    opacity: 1;
+}
+
+.share-btn-card:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.share-btn-card:active {
+    transform: scale(0.95);
+}
+
+.share-btn-card i {
+    font-size: 14px;
+}
+
 /* Footer */
 .footer {
     text-align: center;
@@ -560,6 +678,28 @@ body::before {
         left: 14px;
         font-size: 14px;
     }
+
+    /* Share buttons su mobile: sempre visibili */
+    .share-btn,
+    .share-btn-card {
+        opacity: 1;
+    }
+
+    .share-btn {
+        width: 32px;
+        height: 32px;
+        right: 36px;
+    }
+
+    .share-btn-card {
+        width: 32px;
+        height: 32px;
+    }
+
+    .share-btn i,
+    .share-btn-card i {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -577,18 +717,18 @@ body::before {
 }
 
 /* Animazioni al caricamento */
-.link-card {
+.link-wrapper {
     animation: slideIn 0.5s ease-out backwards;
 }
 
-.link-card:nth-child(1) { animation-delay: 0.1s; }
-.link-card:nth-child(2) { animation-delay: 0.15s; }
-.link-card:nth-child(3) { animation-delay: 0.2s; }
-.link-card:nth-child(4) { animation-delay: 0.25s; }
-.link-card:nth-child(5) { animation-delay: 0.3s; }
-.link-card:nth-child(6) { animation-delay: 0.35s; }
-.link-card:nth-child(7) { animation-delay: 0.4s; }
-.link-card:nth-child(8) { animation-delay: 0.45s; }
+.link-wrapper:nth-child(1) { animation-delay: 0.1s; }
+.link-wrapper:nth-child(2) { animation-delay: 0.15s; }
+.link-wrapper:nth-child(3) { animation-delay: 0.2s; }
+.link-wrapper:nth-child(4) { animation-delay: 0.25s; }
+.link-wrapper:nth-child(5) { animation-delay: 0.3s; }
+.link-wrapper:nth-child(6) { animation-delay: 0.35s; }
+.link-wrapper:nth-child(7) { animation-delay: 0.4s; }
+.link-wrapper:nth-child(8) { animation-delay: 0.45s; }
 
 @keyframes slideIn {
     from {
@@ -652,6 +792,11 @@ body::before {
     gap: 16px;
 }
 
+/* Vista grid: il wrapper non usa margin-bottom */
+.links-grid-container .link-wrapper {
+    margin-bottom: 0;
+}
+
 .link-card-grid {
     display: flex;
     flex-direction: column;
@@ -669,6 +814,8 @@ body::before {
     overflow: hidden;
     backdrop-filter: blur(10px);
     min-height: 200px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .link-card-grid::before {

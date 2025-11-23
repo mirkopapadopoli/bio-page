@@ -64,8 +64,14 @@ function generateSocialIcons(socials) {
  * Genera un singolo link card
  */
 function createLinkCard(link, viewMode = 'list') {
+    // Verifica se il link ha uno schedule e se è attivo
+    const scheduleInfo = checkLinkSchedule(link);
+    const isActive = scheduleInfo.isActive;
+    const scheduleBadge = scheduleInfo.badge;
+
     const badge = link.badge ? `<span class="discount-badge">${link.badge}</span>` : '';
     const styleClass = link.style || 'default';
+    const inactiveClass = !isActive ? 'link-inactive' : '';
 
     // Determina se l'icona è un'immagine o una font icon
     const isImage = link.icon && (
@@ -85,39 +91,202 @@ function createLinkCard(link, viewMode = 'list') {
     // Vista lista (attuale)
     if (viewMode === 'list') {
         return `
-            <a href="${link.url}"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="link-card ${styleClass}">
-                <div class="link-icon">
-                    ${iconContent}
-                </div>
-                <div class="link-content">
-                    <h3 class="link-title">${link.title}</h3>
-                    <p class="link-description">${link.description}</p>
-                </div>
-                ${badge}
-                <i class="fas fa-chevron-right link-arrow"></i>
-            </a>
+            <div class="link-wrapper">
+                <a href="${isActive ? link.url : '#'}"
+                   ${isActive ? 'target="_blank" rel="noopener noreferrer"' : ''}
+                   class="link-card ${styleClass} ${inactiveClass}"
+                   ${!isActive ? 'onclick="return false;"' : ''}>
+                    <div class="link-icon">
+                        ${iconContent}
+                    </div>
+                    <div class="link-content">
+                        <h3 class="link-title">${link.title}</h3>
+                        <p class="link-description">${link.description}</p>
+                        ${scheduleBadge ? `<span class="schedule-badge">${scheduleBadge}</span>` : ''}
+                    </div>
+                    ${badge}
+                    <i class="fas fa-chevron-right link-arrow"></i>
+                </a>
+                <button class="share-btn"
+                        onclick="shareLink(event, '${link.title}', '${link.url}')"
+                        aria-label="Condividi ${link.title}">
+                    <i class="fas fa-share-nodes"></i>
+                </button>
+            </div>
         `;
     }
 
     // Vista card (nuova)
     return `
-        <a href="${link.url}"
-           target="_blank"
-           rel="noopener noreferrer"
-           class="link-card-grid ${styleClass}">
-            <div class="link-card-grid-icon">
-                ${iconContent}
-            </div>
-            <div class="link-card-grid-content">
-                <h3 class="link-card-grid-title">${link.title}</h3>
-                <p class="link-card-grid-description">${link.description}</p>
-                ${badge}
-            </div>
-        </a>
+        <div class="link-wrapper">
+            <a href="${isActive ? link.url : '#'}"
+               ${isActive ? 'target="_blank" rel="noopener noreferrer"' : ''}
+               class="link-card-grid ${styleClass} ${inactiveClass}"
+               ${!isActive ? 'onclick="return false;"' : ''}>
+                <div class="link-card-grid-icon">
+                    ${iconContent}
+                </div>
+                <div class="link-card-grid-content">
+                    <h3 class="link-card-grid-title">${link.title}</h3>
+                    <p class="link-card-grid-description">${link.description}</p>
+                    ${scheduleBadge ? `<span class="schedule-badge">${scheduleBadge}</span>` : ''}
+                    ${badge}
+                </div>
+            </a>
+            <button class="share-btn share-btn-card"
+                    onclick="shareLink(event, '${link.title}', '${link.url}')"
+                    aria-label="Condividi ${link.title}">
+                <i class="fas fa-share-nodes"></i>
+            </button>
+        </div>
     `;
+}
+
+// =============================================================================
+// 🔗 SHARE FUNCTIONALITY
+// =============================================================================
+
+/**
+ * Condividi un link tramite Web Share API o copia negli appunti
+ */
+function shareLink(event, title, url) {
+    // Impedisce il click sul link parent
+    event.preventDefault();
+    event.stopPropagation();
+
+    const shareData = {
+        title: title,
+        text: `Guarda questo link: ${title}`,
+        url: url
+    };
+
+    // Verifica se Web Share API è disponibile (principalmente mobile)
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => {
+                console.log('✅ Link condiviso con successo');
+            })
+            .catch((error) => {
+                // Se l'utente annulla la condivisione, non mostrare errore
+                if (error.name !== 'AbortError') {
+                    console.error('Errore nella condivisione:', error);
+                    // Fallback a copia negli appunti
+                    copyLinkToClipboard(title, url);
+                }
+            });
+    } else {
+        // Fallback: copia il link negli appunti
+        copyLinkToClipboard(title, url);
+    }
+}
+
+/**
+ * Copia il link negli appunti
+ */
+function copyLinkToClipboard(title, url) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(url)
+            .then(() => {
+                showNotification('🔗 Link copiato negli appunti!');
+            })
+            .catch((error) => {
+                console.error('Errore nella copia:', error);
+                showNotification('❌ Errore nella copia del link');
+            });
+    } else {
+        // Fallback per browser più vecchi
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            showNotification('🔗 Link copiato negli appunti!');
+        } catch (error) {
+            console.error('Errore nella copia:', error);
+            showNotification('❌ Errore nella copia del link');
+        }
+
+        document.body.removeChild(textArea);
+    }
+}
+
+// =============================================================================
+// ⏰ LINK SCHEDULER
+// =============================================================================
+
+/**
+ * Verifica se un link è attivo in base al suo schedule
+ */
+function checkLinkSchedule(link) {
+    // Se non c'è schedule, il link è sempre attivo
+    if (!link.schedule) {
+        return { isActive: true, badge: null };
+    }
+
+    const now = new Date();
+    const currentDay = now.toLocaleDateString('it-IT', { weekday: 'long' }).toLowerCase();
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    const currentTime = currentHour * 60 + currentMinute;
+
+    // Verifica giorni della settimana
+    if (link.schedule.days && Array.isArray(link.schedule.days)) {
+        const daysNormalized = link.schedule.days.map(d => d.toLowerCase());
+        if (!daysNormalized.includes(currentDay)) {
+            const nextDay = link.schedule.days[0];
+            return {
+                isActive: false,
+                badge: `🗓️ Disponibile ${nextDay}`
+            };
+        }
+    }
+
+    // Verifica orario
+    if (link.schedule.hours) {
+        const [startTime, endTime] = link.schedule.hours.split('-');
+        const [startHour, startMin] = startTime.split(':').map(Number);
+        const [endHour, endMin] = endTime.split(':').map(Number);
+
+        const start = startHour * 60 + (startMin || 0);
+        const end = endHour * 60 + (endMin || 0);
+
+        if (currentTime < start || currentTime > end) {
+            return {
+                isActive: false,
+                badge: `🕐 Disponibile ${startTime}-${endTime}`
+            };
+        }
+    }
+
+    // Verifica data specifica (formato ISO: YYYY-MM-DD)
+    if (link.schedule.date) {
+        const scheduleDate = new Date(link.schedule.date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        scheduleDate.setHours(0, 0, 0, 0);
+
+        if (scheduleDate.getTime() !== today.getTime()) {
+            const dateStr = scheduleDate.toLocaleDateString('it-IT', {
+                day: 'numeric',
+                month: 'long'
+            });
+            return {
+                isActive: false,
+                badge: `📅 Disponibile il ${dateStr}`
+            };
+        }
+    }
+
+    // Se siamo qui, il link è attivo
+    // Mostra badge "Live" se ha schedule
+    return {
+        isActive: true,
+        badge: link.schedule.liveBadge ? '🔴 LIVE' : null
+    };
 }
 
 // Variabile globale per tracciare la vista corrente
