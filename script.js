@@ -320,6 +320,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup interazioni
     setupCardInteractions();
 
+    // Setup search functionality
+    setupSearch();
+
     // Smooth scroll (per eventuali anchor)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -443,4 +446,158 @@ function showNotification(message) {
         notification.style.animation = 'slideDown 0.3s ease-out';
         setTimeout(() => notification.remove(), 300);
     }, 2000);
+}
+
+// =============================================================================
+// 🔍 SEARCH FUNCTIONALITY
+// =============================================================================
+
+/**
+ * Setup della funzionalità di ricerca
+ */
+function setupSearch() {
+    const searchInput = document.getElementById('search-input');
+    const searchClear = document.getElementById('search-clear');
+    const searchResultsCount = document.getElementById('search-results-count');
+
+    if (!searchInput) return;
+
+    // Event listener per l'input di ricerca
+    searchInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.toLowerCase().trim();
+
+        // Mostra/nasconde il bottone clear
+        searchClear.style.display = searchTerm ? 'flex' : 'none';
+
+        // Filtra i link
+        filterLinks(searchTerm);
+
+        // Aggiorna il contatore risultati
+        updateResultsCount(searchTerm);
+    });
+
+    // Event listener per il bottone clear
+    searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        filterLinks('');
+        searchResultsCount.style.display = 'none';
+        searchInput.focus();
+    });
+
+    // Shortcut da tastiera: Ctrl+K o Cmd+K per focus sulla search
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            searchInput.focus();
+        }
+
+        // Esc per pulire la ricerca
+        if (e.key === 'Escape' && document.activeElement === searchInput) {
+            searchInput.value = '';
+            searchClear.style.display = 'none';
+            filterLinks('');
+            searchResultsCount.style.display = 'none';
+            searchInput.blur();
+        }
+    });
+}
+
+/**
+ * Filtra i link in base al termine di ricerca
+ */
+function filterLinks(searchTerm) {
+    const allCards = document.querySelectorAll('.link-card, .link-card-grid');
+    const allSections = document.querySelectorAll('[class$="-section"]');
+
+    if (!searchTerm) {
+        // Mostra tutti i link e sezioni
+        allCards.forEach(card => {
+            card.style.display = '';
+            removeHighlight(card);
+        });
+        allSections.forEach(section => section.style.display = '');
+        return;
+    }
+
+    // Filtra i link
+    allCards.forEach(card => {
+        const title = card.querySelector('.link-title, .link-card-grid-title')?.textContent.toLowerCase() || '';
+        const description = card.querySelector('.link-description, .link-card-grid-description')?.textContent.toLowerCase() || '';
+
+        const matches = title.includes(searchTerm) || description.includes(searchTerm);
+
+        if (matches) {
+            card.style.display = '';
+            highlightText(card, searchTerm);
+        } else {
+            card.style.display = 'none';
+            removeHighlight(card);
+        }
+    });
+
+    // Nascondi sezioni senza risultati
+    allSections.forEach(section => {
+        const visibleCards = section.querySelectorAll('.link-card:not([style*="display: none"]), .link-card-grid:not([style*="display: none"])');
+        section.style.display = visibleCards.length > 0 ? '' : 'none';
+    });
+}
+
+/**
+ * Evidenzia il testo cercato
+ */
+function highlightText(card, searchTerm) {
+    const titleElement = card.querySelector('.link-title, .link-card-grid-title');
+    const descriptionElement = card.querySelector('.link-description, .link-card-grid-description');
+
+    [titleElement, descriptionElement].forEach(element => {
+        if (!element) return;
+
+        const originalText = element.getAttribute('data-original-text') || element.textContent;
+        if (!element.getAttribute('data-original-text')) {
+            element.setAttribute('data-original-text', originalText);
+        }
+
+        const regex = new RegExp(`(${searchTerm})`, 'gi');
+        const highlightedText = originalText.replace(regex, '<span class="search-highlight">$1</span>');
+        element.innerHTML = highlightedText;
+    });
+}
+
+/**
+ * Rimuove l'evidenziazione dal testo
+ */
+function removeHighlight(card) {
+    const titleElement = card.querySelector('.link-title, .link-card-grid-title');
+    const descriptionElement = card.querySelector('.link-description, .link-card-grid-description');
+
+    [titleElement, descriptionElement].forEach(element => {
+        if (!element) return;
+
+        const originalText = element.getAttribute('data-original-text');
+        if (originalText) {
+            element.textContent = originalText;
+        }
+    });
+}
+
+/**
+ * Aggiorna il contatore dei risultati
+ */
+function updateResultsCount(searchTerm) {
+    const searchResultsCount = document.getElementById('search-results-count');
+    if (!searchResultsCount) return;
+
+    if (!searchTerm) {
+        searchResultsCount.style.display = 'none';
+        return;
+    }
+
+    const visibleCards = document.querySelectorAll('.link-card:not([style*="display: none"]), .link-card-grid:not([style*="display: none"])');
+    const count = visibleCards.length;
+
+    searchResultsCount.style.display = 'block';
+    searchResultsCount.textContent = count === 0
+        ? 'Nessun risultato trovato'
+        : `${count} risultat${count === 1 ? 'o' : 'i'} trovat${count === 1 ? 'o' : 'i'}`;
 }

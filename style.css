@@ -174,7 +174,92 @@ body::before {
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 32px;
+}
+
+/* =============================================================================
+   SEARCH BAR
+   ============================================================================= */
+
+.search-container {
+    max-width: 500px;
+    margin: 0 auto 32px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 16px;
+    color: var(--text-secondary);
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: 14px 48px 14px 48px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-family: var(--font-main);
+    font-size: 14px;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+}
+
+.search-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+.search-clear {
+    position: absolute;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: var(--transition);
+}
+
+.search-clear:hover {
+    background: var(--hover-bg);
+    color: var(--accent-color);
+}
+
+.search-results-count {
+    text-align: center;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    opacity: 0.8;
+}
+
+/* Highlight sul testo cercato */
+.search-highlight {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(167, 139, 250, 0.2));
+    color: var(--accent-color);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-weight: 600;
 }
 
 .social-icon {
@@ -464,6 +549,16 @@ body::before {
 
     .section-header {
         gap: 8px;
+    }
+
+    .search-input {
+        padding: 12px 44px 12px 44px;
+        font-size: 13px;
+    }
+
+    .search-icon {
+        left: 14px;
+        font-size: 14px;
     }
 }
 
