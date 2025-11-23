@@ -63,40 +63,138 @@ function generateSocialIcons(socials) {
 /**
  * Genera un singolo link card
  */
-function createLinkCard(link) {
+function createLinkCard(link, viewMode = 'list') {
     const badge = link.badge ? `<span class="discount-badge">${link.badge}</span>` : '';
     const styleClass = link.style || 'default';
 
+    // Determina se l'icona è un'immagine o una font icon
+    const isImage = link.icon && (
+        link.icon.includes('.png') ||
+        link.icon.includes('.jpg') ||
+        link.icon.includes('.jpeg') ||
+        link.icon.includes('.gif') ||
+        link.icon.includes('.svg') ||
+        link.icon.includes('.webp')
+    );
+
+    // Genera il contenuto dell'icona
+    const iconContent = isImage
+        ? `<img src="${link.icon}" alt="${link.title}" class="link-icon-image">`
+        : `<i class="${link.icon}"></i>`;
+
+    // Vista lista (attuale)
+    if (viewMode === 'list') {
+        return `
+            <a href="${link.url}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="link-card ${styleClass}">
+                <div class="link-icon">
+                    ${iconContent}
+                </div>
+                <div class="link-content">
+                    <h3 class="link-title">${link.title}</h3>
+                    <p class="link-description">${link.description}</p>
+                </div>
+                ${badge}
+                <i class="fas fa-chevron-right link-arrow"></i>
+            </a>
+        `;
+    }
+
+    // Vista card (nuova)
     return `
         <a href="${link.url}"
            target="_blank"
            rel="noopener noreferrer"
-           class="link-card ${styleClass}">
-            <div class="link-icon">
-                <i class="${link.icon}"></i>
+           class="link-card-grid ${styleClass}">
+            <div class="link-card-grid-icon">
+                ${iconContent}
             </div>
-            <div class="link-content">
-                <h3 class="link-title">${link.title}</h3>
-                <p class="link-description">${link.description}</p>
+            <div class="link-card-grid-content">
+                <h3 class="link-card-grid-title">${link.title}</h3>
+                <p class="link-card-grid-description">${link.description}</p>
+                ${badge}
             </div>
-            ${badge}
-            <i class="fas fa-chevron-right link-arrow"></i>
         </a>
     `;
 }
 
+// Variabile globale per tracciare la vista corrente
+let currentViewMode = 'list'; // 'list' o 'grid'
+
 /**
  * Genera tutte le sezioni di link
  */
-function generateSections(sections) {
+function generateSections(sections, viewMode = 'list') {
     const sectionsContainer = document.getElementById('sections-container');
 
-    sectionsContainer.innerHTML = sections.map(section => `
-        <div class="${section.id}-section">
-            <h2 class="section-title">${section.title}</h2>
-            ${section.links.map(link => createLinkCard(link)).join('')}
-        </div>
-    `).join('');
+    sectionsContainer.innerHTML = sections.map((section, index) => {
+        // Solo la prima sezione cambia vista, le altre rimangono sempre in lista
+        const sectionViewMode = index === 0 ? viewMode : 'list';
+        const gridClass = sectionViewMode === 'grid' ? 'links-grid-container' : '';
+
+        return `
+            <div class="${section.id}-section">
+                <div class="section-header">
+                    <h2 class="section-title">${section.title}</h2>
+                    ${index === 0 ? `
+                        <button class="view-toggle-btn" onclick="toggleViewMode()" aria-label="Cambia vista">
+                            <i class="fas fa-${viewMode === 'list' ? 'th' : 'list'} view-toggle-icon"></i>
+                        </button>
+                    ` : ''}
+                </div>
+                <div class="${gridClass}">
+                    ${section.links.map(link => createLinkCard(link, sectionViewMode)).join('')}
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    // Re-applica gli observer per le animazioni
+    reapplyCardObservers();
+}
+
+/**
+ * Riapplica gli observer ai card dopo la rigenerazione
+ */
+function reapplyCardObservers() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('fade-in');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    const cards = document.querySelectorAll('.link-card, .link-card-grid');
+    cards.forEach(card => observer.observe(card));
+
+    // Re-applica gli event listener
+    setupCardInteractions();
+}
+
+/**
+ * Toggle tra vista lista e griglia
+ */
+function toggleViewMode() {
+    currentViewMode = currentViewMode === 'list' ? 'grid' : 'list';
+    generateSections(CONFIG.sections, currentViewMode);
+
+    // Aggiorna l'icona del toggle button
+    const toggleIcon = document.querySelector('.view-toggle-icon');
+
+    if (toggleIcon) {
+        toggleIcon.className = currentViewMode === 'list'
+            ? 'fas fa-th view-toggle-icon'
+            : 'fas fa-list view-toggle-icon';
+    }
 }
 
 /**
@@ -117,6 +215,50 @@ function updateMetaTags(meta) {
     document.getElementById('meta-author').content = meta.author;
     document.getElementById('meta-og-title').content = meta.title;
     document.getElementById('meta-og-description').content = meta.description;
+}
+
+/**
+ * Setup interazioni per i card (click tracking, effetti 3D)
+ */
+function setupCardInteractions() {
+    // Track click sui link (utile per analytics)
+    const links = document.querySelectorAll('.link-card, .link-card-grid, .social-icon');
+    links.forEach(link => {
+        link.addEventListener('click', () => {
+            const linkTitle = link.querySelector('.link-title, .link-card-grid-title')?.textContent ||
+                             link.getAttribute('aria-label') ||
+                             'Unknown';
+            const linkUrl = link.getAttribute('href');
+
+            console.log('🔗 Link clicked:', {
+                title: linkTitle,
+                url: linkUrl,
+                timestamp: new Date().toISOString()
+            });
+        });
+    });
+
+    // Effetto hover 3D sui card
+    const cards = document.querySelectorAll('.link-card, .link-card-grid');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
 }
 
 // =============================================================================
@@ -172,36 +314,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Osserva tutti i link cards
-    const cards = document.querySelectorAll('.link-card');
+    const cards = document.querySelectorAll('.link-card, .link-card-grid');
     cards.forEach(card => observer.observe(card));
 
-    // Track click sui link (utile per analytics)
-    const links = document.querySelectorAll('.link-card, .social-icon');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            const linkTitle = link.querySelector('.link-title')?.textContent ||
-                             link.getAttribute('aria-label') ||
-                             'Unknown';
-            const linkUrl = link.getAttribute('href');
-
-            console.log('🔗 Link clicked:', {
-                title: linkTitle,
-                url: linkUrl,
-                timestamp: new Date().toISOString()
-            });
-
-            // Se vuoi integrare Google Analytics:
-            /*
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'click', {
-                    'event_category': 'Link',
-                    'event_label': linkTitle,
-                    'value': linkUrl
-                });
-            }
-            */
-        });
-    });
+    // Setup interazioni
+    setupCardInteractions();
 
     // Smooth scroll (per eventuali anchor)
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -218,7 +335,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Effetto parallax leggero allo scroll
-    let lastScrollY = window.scrollY;
     const background = document.querySelector('.background-gradient');
 
     window.addEventListener('scroll', () => {
@@ -227,30 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (background) {
             background.style.transform = `translateY(${scrollY * 0.3}px)`;
         }
-
-        lastScrollY = scrollY;
     }, { passive: true });
-
-    // Effetto hover 3D sui card
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-        });
-    });
 
     // Preload immagine profilo per performance
     const profileImage = document.querySelector('.profile-image');

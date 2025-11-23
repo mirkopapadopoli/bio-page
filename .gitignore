@@ -10,9 +10,6 @@ Thumbs.db
 *.swo
 *~
 
-# Vercel
-.vercel
-
 # Node (se usi npm per dev server)
 node_modules/
 package-lock.json

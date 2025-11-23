@@ -106,7 +106,7 @@ const CONFIG = {
                     title: "Sedia Ergonomica",
                     description: "Sedia ergonomica PaperLooos per lavoro, studio e gioco",
                     //icon: "fas fa-bolt",
-                    icon: "img/sedia.png",
+                    icon: "img/sedia.jpg",
                     url: "https://paperloops.com?sca_ref=9860932.coptS7MXDKJTh",
                     style: "default"
                 }
@@ -116,19 +116,20 @@ const CONFIG = {
             id: "support",
             title: "Supporta il mio lavoro",
             links: [
-                {
-                    title: "Offrimi un caffè ☕",
-                    description: "Se i miei contenuti ti sono utili",
-                    icon: "fab fa-paypal",
-                    url: "https://paypal.com/paypalme/rkomii",
-                    style: "support"
-                },
+            
                 {
                     title: "Media Kit",
                     description: "Per collaborazioni",
                     icon: "fas fa-briefcase",
                     url: "https://beacons.ai/mirkopapadopoli/mediakit",
                     style: "default"
+                },
+                {
+                    title: "Offrimi un caffè ☕",
+                    description: "Se i miei contenuti ti sono utili",
+                    icon: "fab fa-paypal",
+                    url: "https://paypal.com/paypalme/rkomii",
+                    style: "support"
                 }
             ]
         }

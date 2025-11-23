@@ -240,11 +240,19 @@ body::before {
     margin-bottom: 40px;
 }
 
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
 .section-title {
     font-size: 18px;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 16px;
+    margin: 0;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -344,6 +352,15 @@ body::before {
     font-size: 20px;
     color: var(--accent-color);
     transition: var(--transition);
+    overflow: hidden;
+}
+
+/* Immagine come icona */
+.link-icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 6px;
 }
 
 .link-card:hover .link-icon {
@@ -444,6 +461,10 @@ body::before {
     .section-title {
         font-size: 16px;
     }
+
+    .section-header {
+        gap: 8px;
+    }
 }
 
 @media (max-width: 400px) {
@@ -488,4 +509,251 @@ body::before {
 /* Loading State */
 .link-card:active {
     transform: scale(0.98);
+}
+
+/* =============================================================================
+   TOGGLE VISTA LISTA/CARD
+   ============================================================================= */
+
+.view-toggle-btn {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+}
+
+.view-toggle-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--accent-color);
+    transform: scale(1.1);
+    box-shadow: var(--shadow-md);
+}
+
+.view-toggle-btn:active {
+    transform: scale(0.95);
+}
+
+.view-toggle-icon {
+    font-size: 16px;
+    color: var(--accent-color);
+}
+
+/* =============================================================================
+   VISTA CARD/GRID
+   ============================================================================= */
+
+.links-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.link-card-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: var(--card-bg);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    text-decoration: none;
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    min-height: 200px;
+}
+
+.link-card-grid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.1), rgba(167, 139, 250, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.link-card-grid:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow-md);
+    border-color: var(--accent-color);
+    background: var(--hover-bg);
+}
+
+.link-card-grid:hover::before {
+    left: 100%;
+}
+
+/* Card Grid Featured */
+.link-card-grid.featured {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.15), rgba(167, 139, 250, 0.1));
+    border: 1px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--shadow-md);
+}
+
+.link-card-grid.featured .link-card-grid-icon {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(167, 139, 250, 0.2));
+    color: var(--accent-color);
+}
+
+/* Card Grid Support */
+.link-card-grid.support {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(255, 179, 71, 0.1));
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+.link-card-grid.support .link-card-grid-icon {
+    background: rgba(255, 107, 107, 0.2);
+    color: #FF6B6B;
+}
+
+/* Card Grid Icon */
+.link-card-grid-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--card-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.link-card-grid-icon .link-icon-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.link-card-grid:hover .link-card-grid-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Card Grid Content */
+.link-card-grid-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.link-card-grid-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.link-card-grid-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0 0 12px 0;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+/* Badge in card grid */
+.link-card-grid .discount-badge {
+    margin-right: 0;
+    margin-top: 8px;
+}
+
+/* Animazioni per grid cards */
+.link-card-grid {
+    animation: slideInScale 0.5s ease-out backwards;
+}
+
+.link-card-grid:nth-child(1) { animation-delay: 0.1s; }
+.link-card-grid:nth-child(2) { animation-delay: 0.15s; }
+.link-card-grid:nth-child(3) { animation-delay: 0.2s; }
+.link-card-grid:nth-child(4) { animation-delay: 0.25s; }
+.link-card-grid:nth-child(5) { animation-delay: 0.3s; }
+.link-card-grid:nth-child(6) { animation-delay: 0.35s; }
+.link-card-grid:nth-child(7) { animation-delay: 0.4s; }
+.link-card-grid:nth-child(8) { animation-delay: 0.45s; }
+
+@keyframes slideInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.link-card-grid:active {
+    transform: scale(0.96);
+}
+
+/* =============================================================================
+   RESPONSIVE GRID VIEW
+   ============================================================================= */
+
+@media (max-width: 640px) {
+    .links-grid-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .link-card-grid {
+        padding: 20px;
+        min-height: 180px;
+    }
+
+    .link-card-grid-icon {
+        width: 64px;
+        height: 64px;
+        font-size: 28px;
+    }
+
+    .link-card-grid-title {
+        font-size: 15px;
+    }
+
+    .link-card-grid-description {
+        font-size: 13px;
+    }
+
+    .view-toggle-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .view-toggle-icon {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+    .links-grid-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 901px) {
+    .links-grid-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
