@@ -1,0 +1,23 @@
+# Sistema
+.DS_Store
+Thumbs.db
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Vercel
+.vercel
+
+# Node (se usi npm per dev server)
+node_modules/
+package-lock.json
+
+# Backup
+*.backup
+*.bak
+*.old
