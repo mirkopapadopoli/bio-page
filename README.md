@@ -1,18 +1,24 @@
 # 🚀 Bio Page - Mirko Papadopoli
 
-Bio page personale con tema Matrix/Hacker, completamente personalizzabile tramite file di configurazione.
+Bio page personale con tema Cyberpunk Blu-Viola, completamente personalizzabile tramite file di configurazione. Supporta sistema a tab, link affiliati, PWA e funziona offline.
 
 ## 📁 Struttura del Progetto
 
 ```
 bio-page/
 ├── index.html          # Template HTML (non modificare)
-├── style.css           # Stili Matrix theme
+├── style.css           # Stili Cyberpunk theme
 ├── script.js           # Logic principale (non modificare)
 ├── config.js           # ⚙️ FILE DI CONFIGURAZIONE (modifica questo!)
-├── profile.jpg         # Tua foto profilo
-├── DEPLOY.md          # Istruzioni per il deploy
-└── README.md          # Questo file
+├── manifest.json       # PWA manifest
+├── sw.js               # Service Worker per offline support
+├── img/
+│   ├── profile.PNG     # Foto profilo
+│   ├── icon-512x512.png    # Icona PWA grande
+│   ├── icon-192x192.png    # Icona PWA piccola
+│   └── apple-touch-icon.png # Icona iOS
+├── DEPLOY.md           # Istruzioni per il deploy
+└── README.md           # Questo file
 ```
 
 ## ✨ Come Personalizzare la Pagina
