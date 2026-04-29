@@ -593,6 +593,12 @@ body::before {
     color: var(--accent-color);
 }
 
+/* Hide arrow when share button is visible */
+.link-wrapper:hover .link-arrow {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* Discount Badge */
 .discount-badge {
     background: var(--accent-color);
@@ -644,7 +650,7 @@ body::before {
 .share-btn {
     position: absolute;
     top: 50%;
-    right: 40px;
+    right: 8px;
     transform: translateY(-50%);
     width: 36px;
     height: 36px;
@@ -798,7 +804,7 @@ body::before {
     .share-btn {
         width: 32px;
         height: 32px;
-        right: 36px;
+        right: 6px;
     }
 
     .share-btn-card {

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Bio Page Manager</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0a0a1f;
+            --surface: rgba(0, 212, 255, 0.03);
+            --border: rgba(0, 212, 255, 0.2);
+            --cyan: #00d4ff;
+            --violet: #a78bfa;
+            --amber: #FFB347;
+            --red: #FF6B6B;
+            --text: #e0e0e0;
+            --text-dim: #888;
+            --font: 'Courier New', monospace;
+            --radius: 10px;
+            --transition: all 0.25s ease;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .admin-header {
+            text-align: center;
+            padding: 24px 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+        .admin-header h1 {
+            font-size: 24px;
+            color: var(--cyan);
+            text-shadow: 0 0 10px rgba(0,212,255,0.4);
+            margin-bottom: 6px;
+        }
+        .admin-header p { color: var(--text-dim); font-size: 13px; }
+
+        /* Section Tabs */
+        .section-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .section-tab {
+            flex: 1;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 7px;
+            color: var(--text-dim);
+            font-family: var(--font);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .section-tab:hover { color: var(--text); background: rgba(0,212,255,0.05); }
+        .section-tab.active {
+            color: var(--cyan);
+            background: rgba(0,212,255,0.1);
+            border: 1px solid rgba(0,212,255,0.3);
+            box-shadow: 0 0 12px rgba(0,212,255,0.15);
+        }
+
+        /* Section Panel */
+        .section-panel { display: none; }
+        .section-panel.active { display: block; }
+
+        /* Link Card (admin) */
+        .admin-link-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 14px;
+            margin-bottom: 10px;
+            transition: var(--transition);
+            cursor: grab;
+        }
+        .admin-link-card:active { cursor: grabbing; }
+        .admin-link-card.dragging { opacity: 0.4; border-style: dashed; }
+        .admin-link-card.drag-over { border-color: var(--cyan); box-shadow: 0 0 15px rgba(0,212,255,0.2); }
+        .admin-link-card .card-grip { color: var(--text-dim); font-size: 14px; cursor: grab; }
+        .admin-link-card .card-icon {
+            width: 36px; height: 36px; min-width: 36px;
+            border-radius: 6px; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: var(--cyan); overflow: hidden;
+        }
+        .admin-link-card .card-icon img { width: 100%; height: 100%; object-fit: cover; border-radius: 5px; }
+        .admin-link-card .card-info { flex: 1; min-width: 0; }
+        .admin-link-card .card-info h4 { font-size: 14px; color: var(--cyan); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-link-card .card-info p { font-size: 11px; color: var(--text-dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-link-card .card-badge { background: var(--cyan); color: var(--bg); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+        .admin-link-card .card-actions { display: flex; gap: 6px; }
+
+        .btn-icon {
+            width: 30px; height: 30px;
+            display: flex; align-items: center; justify-content: center;
+            background: transparent; border: 1px solid var(--border);
+            border-radius: 6px; color: var(--text-dim);
+            cursor: pointer; transition: var(--transition); font-size: 12px;
+        }
+        .btn-icon:hover { color: var(--cyan); border-color: var(--cyan); }
+        .btn-icon.delete:hover { color: var(--red); border-color: var(--red); }
+
+        /* Add Link Button */
+        .btn-add {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--text-dim);
+            font-family: var(--font);
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 10px;
+        }
+        .btn-add:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,212,255,0.03); }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.open { display: flex; }
+        .modal {
+            background: #0d0d2b;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 28px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 40px rgba(0,212,255,0.15);
+        }
+        .modal h2 { font-size: 18px; color: var(--cyan); margin-bottom: 20px; text-align: center; }
+
+        /* Form */
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 12px; color: var(--text-dim); margin-bottom: 5px; font-weight: 600; }
+        .form-group input, .form-group select {
+            width: 100%; padding: 10px 12px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            color: var(--text);
+            font-family: var(--font);
+            font-size: 13px;
+            transition: var(--transition);
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0,212,255,0.2);
+        }
+        .form-group select option { background: #0d0d2b; }
+        .form-row { display: flex; gap: 12px; }
+        .form-row .form-group { flex: 1; }
+
+        .btn-primary {
+            width: 100%; padding: 12px;
+            background: rgba(0,212,255,0.15);
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
+            color: var(--cyan);
+            font-family: var(--font);
+            font-size: 14px; font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-primary:hover { background: rgba(0,212,255,0.25); box-shadow: 0 0 15px rgba(0,212,255,0.2); }
+
+        .btn-secondary {
+            width: 100%; padding: 10px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-dim);
+            font-family: var(--font);
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+        .btn-secondary:hover { border-color: var(--text-dim); color: var(--text); }
+
+        /* Download Bar */
+        .download-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            padding: 16px 20px;
+            background: rgba(10,10,31,0.95);
+            border-top: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            z-index: 50;
+        }
+        .download-bar .btn-download {
+            padding: 12px 32px;
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(167,139,250,0.15));
+            border: 1px solid var(--cyan);
+            border-radius: 8px;
+            color: var(--cyan);
+            font-family: var(--font);
+            font-size: 14px; font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            text-shadow: 0 0 8px rgba(0,212,255,0.4);
+        }
+        .download-bar .btn-download:hover {
+            background: linear-gradient(135deg, rgba(0,212,255,0.3), rgba(167,139,250,0.25));
+            box-shadow: 0 0 20px rgba(0,212,255,0.3);
+        }
+        .download-bar .change-count { color: var(--text-dim); font-size: 12px; }
+
+        .empty-state {
+            text-align: center; padding: 40px 20px;
+            color: var(--text-dim); font-size: 13px;
+        }
+        .empty-state i { font-size: 32px; margin-bottom: 12px; display: block; opacity: 0.4; }
+
+        /* Spacer for fixed download bar */
+        .bottom-spacer { height: 80px; }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            body { padding: 12px; }
+            .form-row { flex-direction: column; gap: 0; }
+            .admin-header h1 { font-size: 20px; }
+            .section-tab { font-size: 11px; padding: 8px 6px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-terminal"></i> Bio Page Admin</h1>
+            <p>Gestisci i tuoi link visualmente. Scarica il config.js aggiornato e fai deploy.</p>
+        </div>
+
+        <div class="section-tabs" id="admin-tabs"></div>
+        <div id="admin-panels"></div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <h2 id="modal-title">Aggiungi Link</h2>
+            <input type="hidden" id="edit-section-id">
+            <input type="hidden" id="edit-link-index" value="-1">
+
+            <div class="form-group">
+                <label>Titolo *</label>
+                <input type="text" id="field-title" placeholder="Es: INSTA360 X5">
+            </div>
+            <div class="form-group">
+                <label>Descrizione *</label>
+                <input type="text" id="field-description" placeholder="Es: Action Cam 360">
+            </div>
+            <div class="form-group">
+                <label>URL *</label>
+                <input type="url" id="field-url" placeholder="https://...">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Icona (FontAwesome o percorso immagine)</label>
+                    <input type="text" id="field-icon" placeholder="fas fa-link  o  img/foto.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Stile</label>
+                    <select id="field-style">
+                        <option value="default">Default</option>
+                        <option value="featured">Featured</option>
+                        <option value="deal">Deal (affiliato)</option>
+                        <option value="support">Support</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Badge (opzionale)</label>
+                <input type="text" id="field-badge" placeholder="Es: -15%  o  PROMO">
+            </div>
+
+            <button class="btn-primary" onclick="saveLink()"><i class="fas fa-check"></i> Salva Link</button>
+            <button class="btn-secondary" onclick="closeModal()">Annulla</button>
+        </div>
+    </div>
+
+    <!-- Download Bar -->
+    <div class="download-bar">
+        <span class="change-count" id="change-count"></span>
+        <button class="btn-download" onclick="downloadConfig()">
+            <i class="fas fa-download"></i> Scarica config.js
+        </button>
+    </div>
+
+    <!-- Load current config -->
+    <script src="config.js"></script>
+    <script>
+    // =========================================================================
+    // ADMIN PANEL — Logic
+    // =========================================================================
+
+    // Deep clone CONFIG to work on
+    let adminConfig = JSON.parse(JSON.stringify(CONFIG));
+    let changesMade = 0;
+
+    // =========================================================================
+    // RENDER
+    // =========================================================================
+
+    function render() {
+        renderTabs();
+        renderPanels();
+        updateChangeCount();
+    }
+
+    function renderTabs() {
+        const tabsEl = document.getElementById('admin-tabs');
+        tabsEl.innerHTML = adminConfig.sections.map((section, i) => `
+            <button class="section-tab ${i === 0 ? 'active' : ''}"
+                    data-section="${section.id}"
+                    onclick="switchAdminTab('${section.id}')">
+                ${section.title}
+            </button>
+        `).join('');
+    }
+
+    function renderPanels() {
+        const panelsEl = document.getElementById('admin-panels');
+        panelsEl.innerHTML = adminConfig.sections.map((section, i) => `
+            <div class="section-panel ${i === 0 ? 'active' : ''}" data-section="${section.id}">
+                <div id="links-${section.id}">
+                    ${section.links.length === 0
+                        ? `<div class="empty-state"><i class="fas fa-inbox"></i>Nessun link. Aggiungine uno!</div>`
+                        : section.links.map((link, li) => renderLinkCard(section.id, link, li)).join('')
+                    }
+                </div>
+                <button class="btn-add" onclick="openModal('${section.id}')">
+                    <i class="fas fa-plus"></i> Aggiungi Link
+                </button>
+            </div>
+        `).join('');
+
+        // Setup drag & drop
+        setupDragAndDrop();
+    }
+
+    function renderLinkCard(sectionId, link, index) {
+        const isImage = link.icon && (link.icon.includes('.png') || link.icon.includes('.jpg') || link.icon.includes('.jpeg') || link.icon.includes('.svg') || link.icon.includes('.webp') || link.icon.includes('.gif'));
+        const iconHtml = isImage
+            ? `<img src="${link.icon}" alt="${link.title}">`
+            : `<i class="${link.icon || 'fas fa-link'}"></i>`;
+        const badgeHtml = link.badge ? `<span class="card-badge">${link.badge}</span>` : '';
+
+        return `
+            <div class="admin-link-card" draggable="true" data-section="${sectionId}" data-index="${index}">
+                <span class="card-grip"><i class="fas fa-grip-vertical"></i></span>
+                <div class="card-icon">${iconHtml}</div>
+                <div class="card-info">
+                    <h4>${link.title}</h4>
+                    <p>${link.description}</p>
+                </div>
+                ${badgeHtml}
+                <div class="card-actions">
+                    <button class="btn-icon" onclick="openModalEdit('${sectionId}', ${index})" title="Modifica">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="btn-icon delete" onclick="deleteLink('${sectionId}', ${index})" title="Elimina">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+
+    // =========================================================================
+    // TABS
+    // =========================================================================
+
+    function switchAdminTab(sectionId) {
+        document.querySelectorAll('.section-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sectionId));
+        document.querySelectorAll('.section-panel').forEach(p => p.classList.toggle('active', p.dataset.section === sectionId));
+    }
+
+    // =========================================================================
+    // MODAL (Add / Edit)
+    // =========================================================================
+
+    function openModal(sectionId) {
+        document.getElementById('modal-title').textContent = 'Aggiungi Link';
+        document.getElementById('edit-section-id').value = sectionId;
+        document.getElementById('edit-link-index').value = -1;
+        clearModalFields();
+        document.getElementById('modal-overlay').classList.add('open');
+    }
+
+    function openModalEdit(sectionId, index) {
+        const section = adminConfig.sections.find(s => s.id === sectionId);
+        const link = section.links[index];
+        document.getElementById('modal-title').textContent = 'Modifica Link';
+        document.getElementById('edit-section-id').value = sectionId;
+        document.getElementById('edit-link-index').value = index;
+        document.getElementById('field-title').value = link.title || '';
+        document.getElementById('field-description').value = link.description || '';
+        document.getElementById('field-url').value = link.url || '';
+        document.getElementById('field-icon').value = link.icon || '';
+        document.getElementById('field-style').value = link.style || 'default';
+        document.getElementById('field-badge').value = link.badge || '';
+        document.getElementById('modal-overlay').classList.add('open');
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('open');
+    }
+
+    function clearModalFields() {
+        ['field-title','field-description','field-url','field-icon','field-badge'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('field-style').value = 'default';
+    }
+
+    // =========================================================================
+    // CRUD
+    // =========================================================================
+
+    function saveLink() {
+        const title = document.getElementById('field-title').value.trim();
+        const description = document.getElementById('field-description').value.trim();
+        const url = document.getElementById('field-url').value.trim();
+        if (!title || !description || !url) { alert('Compila Titolo, Descrizione e URL.'); return; }
+
+        const sectionId = document.getElementById('edit-section-id').value;
+        const linkIndex = parseInt(document.getElementById('edit-link-index').value);
+        const section = adminConfig.sections.find(s => s.id === sectionId);
+
+        const linkObj = {
+            title,
+            description,
+            icon: document.getElementById('field-icon').value.trim() || 'fas fa-link',
+            url,
+            style: document.getElementById('field-style').value
+        };
+        const badge = document.getElementById('field-badge').value.trim();
+        if (badge) linkObj.badge = badge;
+
+        if (linkIndex === -1) {
+            section.links.push(linkObj);
+        } else {
+            section.links[linkIndex] = linkObj;
+        }
+
+        changesMade++;
+        closeModal();
+        render();
+    }
+
+    function deleteLink(sectionId, index) {
+        if (!confirm('Eliminare questo link?')) return;
+        const section = adminConfig.sections.find(s => s.id === sectionId);
+        section.links.splice(index, 1);
+        changesMade++;
+        render();
+    }
+
+    // =========================================================================
+    // DRAG & DROP
+    // =========================================================================
+
+    function setupDragAndDrop() {
+        const cards = document.querySelectorAll('.admin-link-card');
+        cards.forEach(card => {
+            card.addEventListener('dragstart', (e) => {
+                card.classList.add('dragging');
+                e.dataTransfer.setData('text/plain', JSON.stringify({
+                    section: card.dataset.section,
+                    index: parseInt(card.dataset.index)
+                }));
+            });
+            card.addEventListener('dragend', () => card.classList.remove('dragging'));
+            card.addEventListener('dragover', (e) => { e.preventDefault(); card.classList.add('drag-over'); });
+            card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+            card.addEventListener('drop', (e) => {
+                e.preventDefault();
+                card.classList.remove('drag-over');
+                const from = JSON.parse(e.dataTransfer.getData('text/plain'));
+                const to = { section: card.dataset.section, index: parseInt(card.dataset.index) };
+                if (from.section === to.section && from.index !== to.index) {
+                    const section = adminConfig.sections.find(s => s.id === from.section);
+                    const [moved] = section.links.splice(from.index, 1);
+                    section.links.splice(to.index, 0, moved);
+                    changesMade++;
+                    render();
+                    switchAdminTab(from.section);
+                }
+            });
+        });
+    }
+
+    // =========================================================================
+    // GENERATE & DOWNLOAD config.js
+    // =========================================================================
+
+    function generateConfigJS() {
+        const c = adminConfig;
+        const indent = '    ';
+
+        function formatLink(link, ind) {
+            let s = `${ind}{\n`;
+            s += `${ind}    title: ${JSON.stringify(link.title)},\n`;
+            s += `${ind}    description: ${JSON.stringify(link.description)},\n`;
+            s += `${ind}    icon: ${JSON.stringify(link.icon)},\n`;
+            s += `${ind}    url: ${JSON.stringify(link.url)},\n`;
+            s += `${ind}    style: ${JSON.stringify(link.style)}`;
+            if (link.badge) s += `,\n${ind}    badge: ${JSON.stringify(link.badge)}`;
+            if (link.schedule) s += `,\n${ind}    schedule: ${JSON.stringify(link.schedule)}`;
+            s += `\n${ind}}`;
+            return s;
+        }
+
+        function formatSection(sec, ind) {
+            let s = `${ind}{\n`;
+            s += `${ind}    id: ${JSON.stringify(sec.id)},\n`;
+            s += `${ind}    title: ${JSON.stringify(sec.title)},\n`;
+            s += `${ind}    links: [\n`;
+            s += sec.links.map(l => formatLink(l, ind + '        ')).join(',\n');
+            s += `\n${ind}    ]\n`;
+            s += `${ind}}`;
+            return s;
+        }
+
+        let out = `// =============================================================================\n`;
+        out += `// 🔧 FILE DI CONFIGURAZIONE\n`;
+        out += `// Modifica questo file per personalizzare la tua bio page!\n`;
+        out += `// =============================================================================\n\n`;
+        out += `const CONFIG = {\n`;
+        out += `    profile: {\n`;
+        out += `        name: ${JSON.stringify(c.profile.name)},\n`;
+        out += `        bio: ${JSON.stringify(c.profile.bio)},\n`;
+        out += `        image: ${JSON.stringify(c.profile.image)}\n`;
+        out += `    },\n\n`;
+        out += `    socials: ${JSON.stringify(c.socials, null, 8).replace(/^/gm, '    ').trimStart()},\n\n`;
+        out += `    tabbedSections: ${JSON.stringify(c.tabbedSections)},\n\n`;
+        out += `    sections: [\n`;
+        out += c.sections.map(s => formatSection(s, '        ')).join(',\n');
+        out += `\n    ],\n\n`;
+        out += `    settings: {\n`;
+        out += `        typingSpeed: ${c.settings.typingSpeed},\n`;
+        out += `        footerText: ${JSON.stringify(c.settings.footerText)},\n`;
+        out += `        meta: {\n`;
+        out += `            title: ${JSON.stringify(c.settings.meta.title)},\n`;
+        out += `            description: ${JSON.stringify(c.settings.meta.description)},\n`;
+        out += `            author: ${JSON.stringify(c.settings.meta.author)}\n`;
+        out += `        }\n`;
+        out += `    }\n`;
+        out += `};\n\n`;
+        out += `// Rendi CONFIG disponibile globalmente\n`;
+        out += `window.CONFIG = CONFIG;\n`;
+
+        return out;
+    }
+
+    function downloadConfig() {
+        const content = generateConfigJS();
+        const blob = new Blob([content], { type: 'application/javascript' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'config.js';
+        a.click();
+        URL.revokeObjectURL(url);
+        changesMade = 0;
+        updateChangeCount();
+    }
+
+    function updateChangeCount() {
+        const el = document.getElementById('change-count');
+        el.textContent = changesMade > 0 ? `${changesMade} modific${changesMade === 1 ? 'a' : 'he'} non salvat${changesMade === 1 ? 'a' : 'e'}` : 'Nessuna modifica';
+    }
+
+    // Close modal on overlay click
+    document.getElementById('modal-overlay').addEventListener('click', (e) => {
+        if (e.target === e.currentTarget) closeModal();
+    });
+
+    // Keyboard: Escape to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    // Init
+    render();
+    </script>
+</body>
+</html>
