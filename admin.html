@@ -248,35 +248,6 @@
 
         .bottom-spacer { height: 80px; }
 
-        /* Style Picker */
-        .style-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .style-card {
-            display: flex; align-items: center; gap: 8px;
-            padding: 10px 12px;
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-        }
-        .style-card:hover { border-color: #aaa; }
-        .style-card.selected { border-color: var(--primary); background: var(--primary-light); }
-        .style-card .style-dot {
-            width: 14px; height: 14px; min-width: 14px;
-            border-radius: 50%;
-        }
-        .style-card .style-label {
-            font-size: 13px; font-weight: 600; color: var(--text);
-        }
-        .style-card .style-desc {
-            font-size: 10px; color: var(--text-secondary);
-        }
-        .style-dot-default { background: linear-gradient(135deg, #00d4ff, #a78bfa); }
-        .style-dot-featured { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .style-dot-deal { background: linear-gradient(135deg, #FFB347, #FF6B6B); }
-        .style-dot-support { background: linear-gradient(135deg, #FF6B6B, #FFB347); }
-
         @media (max-width: 640px) {
             body { padding: 12px; }
             .form-row { flex-direction: column; gap: 0; }
@@ -317,29 +288,19 @@
                 <label>URL *</label>
                 <input type="url" id="field-url" placeholder="https://...">
             </div>
-            <div class="form-group">
-                <label>Icona (FontAwesome o percorso immagine)</label>
-                <input type="text" id="field-icon" placeholder="fas fa-link  o  img/foto.jpg">
-            </div>
-            <div class="form-group">
-                <label>Stile del link</label>
-                <div class="style-picker" id="style-picker">
-                    <div class="style-card selected" data-style="default" onclick="selectStyle('default')">
-                        <span class="style-dot style-dot-default"></span>
-                        <div><div class="style-label">Standard</div><div class="style-desc">Bordo blu base</div></div>
-                    </div>
-                    <div class="style-card" data-style="featured" onclick="selectStyle('featured')">
-                        <span class="style-dot style-dot-featured"></span>
-                        <div><div class="style-label">In Evidenza</div><div class="style-desc">Viola gradient</div></div>
-                    </div>
-                    <div class="style-card" data-style="deal" onclick="selectStyle('deal')">
-                        <span class="style-dot style-dot-deal"></span>
-                        <div><div class="style-label">Offerta</div><div class="style-desc">Dorato affiliato</div></div>
-                    </div>
-                    <div class="style-card" data-style="support" onclick="selectStyle('support')">
-                        <span class="style-dot style-dot-support"></span>
-                        <div><div class="style-label">Supporto</div><div class="style-desc">Rosso donazione</div></div>
-                    </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Icona (FontAwesome o percorso immagine)</label>
+                    <input type="text" id="field-icon" placeholder="fas fa-link  o  img/foto.jpg">
+                </div>
+                <div class="form-group">
+                    <label>Stile</label>
+                    <select id="field-style">
+                        <option value="default">Default</option>
+                        <option value="featured">Featured</option>
+                        <option value="deal">Deal (affiliato)</option>
+                        <option value="support">Support</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -471,18 +432,9 @@
         document.getElementById('field-description').value = link.description || '';
         document.getElementById('field-url').value = link.url || '';
         document.getElementById('field-icon').value = link.icon || '';
-        selectStyle(link.style || 'default');
+        document.getElementById('field-style').value = link.style || 'default';
         document.getElementById('field-badge').value = link.badge || '';
         document.getElementById('modal-overlay').classList.add('open');
-    }
-
-    // Style picker helper
-    let selectedStyle = 'default';
-    function selectStyle(style) {
-        selectedStyle = style;
-        document.querySelectorAll('.style-card').forEach(c => {
-            c.classList.toggle('selected', c.dataset.style === style);
-        });
     }
 
     function closeModal() {
@@ -491,7 +443,7 @@
 
     function clearModalFields() {
         ['field-title','field-description','field-url','field-icon','field-badge'].forEach(id => document.getElementById(id).value = '');
-        selectStyle('default');
+        document.getElementById('field-style').value = 'default';
     }
 
     // =========================================================================
@@ -513,7 +465,7 @@
             description,
             icon: document.getElementById('field-icon').value.trim() || 'fas fa-link',
             url,
-            style: selectedStyle
+            style: document.getElementById('field-style').value
         };
         const badge = document.getElementById('field-badge').value.trim();
         if (badge) linkObj.badge = badge;
