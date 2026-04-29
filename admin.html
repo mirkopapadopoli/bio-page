@@ -331,6 +331,7 @@
     // Deep clone CONFIG to work on
     let adminConfig = JSON.parse(JSON.stringify(CONFIG));
     let changesMade = 0;
+    let activeAdminTab = adminConfig.sections[0]?.id || 'featured';
 
     // =========================================================================
     // RENDER
@@ -344,8 +345,8 @@
 
     function renderTabs() {
         const tabsEl = document.getElementById('admin-tabs');
-        tabsEl.innerHTML = adminConfig.sections.map((section, i) => `
-            <button class="section-tab ${i === 0 ? 'active' : ''}"
+        tabsEl.innerHTML = adminConfig.sections.map((section) => `
+            <button class="section-tab ${section.id === activeAdminTab ? 'active' : ''}"
                     data-section="${section.id}"
                     onclick="switchAdminTab('${section.id}')">
                 ${section.title}
@@ -355,8 +356,8 @@
 
     function renderPanels() {
         const panelsEl = document.getElementById('admin-panels');
-        panelsEl.innerHTML = adminConfig.sections.map((section, i) => `
-            <div class="section-panel ${i === 0 ? 'active' : ''}" data-section="${section.id}">
+        panelsEl.innerHTML = adminConfig.sections.map((section) => `
+            <div class="section-panel ${section.id === activeAdminTab ? 'active' : ''}" data-section="${section.id}">
                 <div id="links-${section.id}">
                     ${section.links.length === 0
                         ? `<div class="empty-state"><i class="fas fa-inbox"></i>Nessun link. Aggiungine uno!</div>`
@@ -406,6 +407,7 @@
     // =========================================================================
 
     function switchAdminTab(sectionId) {
+        activeAdminTab = sectionId;
         document.querySelectorAll('.section-tab').forEach(t => t.classList.toggle('active', t.dataset.section === sectionId));
         document.querySelectorAll('.section-panel').forEach(p => p.classList.toggle('active', p.dataset.section === sectionId));
     }
