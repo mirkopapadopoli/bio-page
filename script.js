@@ -85,7 +85,7 @@ function createLinkCard(link, viewMode = 'list') {
 
     // Genera il contenuto dell'icona
     const iconContent = isImage
-        ? `<img src="${link.icon}" alt="${link.title}" class="link-icon-image">`
+        ? `<img src="${link.icon}" alt="${link.title}" class="link-icon-image" loading="lazy">`
         : `<i class="${link.icon}"></i>`;
 
     // Vista lista (attuale)
@@ -292,36 +292,125 @@ function checkLinkSchedule(link) {
 // Variabile globale per tracciare la vista corrente
 let currentViewMode = 'list'; // 'list' o 'grid'
 
+// Variabile globale per il tab attivo
+let activeTabId = null;
+
 /**
- * Genera tutte le sezioni di link
+ * Genera tutte le sezioni di link con supporto tab
  */
 function generateSections(sections, viewMode = 'list') {
     const sectionsContainer = document.getElementById('sections-container');
+    const tabbedIds = CONFIG.tabbedSections || [];
 
-    sectionsContainer.innerHTML = sections.map((section, index) => {
-        // Solo la prima sezione cambia vista, le altre rimangono sempre in lista
-        const sectionViewMode = index === 0 ? viewMode : 'list';
-        const gridClass = sectionViewMode === 'grid' ? 'links-grid-container' : '';
+    // Separa sezioni tabbed da quelle normali
+    const tabbedSections = sections.filter(s => tabbedIds.includes(s.id));
+    const normalSections = sections.filter(s => !tabbedIds.includes(s.id));
 
-        return `
-            <div class="${section.id}-section">
-                <div class="section-header">
-                    <h2 class="section-title">${section.title}</h2>
-                    ${index === 0 ? `
+    // Imposta il tab attivo di default (primo tab)
+    if (!activeTabId && tabbedSections.length > 0) {
+        activeTabId = tabbedSections[0].id;
+    }
+
+    // Genera HTML
+    let html = '';
+
+    // === TAB BAR ===
+    if (tabbedSections.length > 0) {
+        html += `<div class="tab-container">`;
+
+        // Tab buttons
+        html += `<div class="tab-bar" role="tablist">`;
+        tabbedSections.forEach(section => {
+            const isActive = section.id === activeTabId;
+            html += `
+                <button class="tab-btn ${isActive ? 'tab-btn-active' : ''}"
+                        role="tab"
+                        aria-selected="${isActive}"
+                        aria-controls="tab-panel-${section.id}"
+                        data-tab-id="${section.id}"
+                        onclick="switchTab('${section.id}')">
+                    ${section.title}
+                </button>
+            `;
+        });
+        html += `</div>`;
+
+        // Tab panels
+        tabbedSections.forEach(section => {
+            const isActive = section.id === activeTabId;
+            const sectionViewMode = viewMode;
+            const gridClass = sectionViewMode === 'grid' ? 'links-grid-container' : '';
+
+            html += `
+                <div class="tab-panel ${isActive ? 'tab-panel-active' : ''}"
+                     id="tab-panel-${section.id}"
+                     role="tabpanel"
+                     data-tab-id="${section.id}">
+                    <div class="section-header">
+                        <h2 class="section-title">${section.title}</h2>
                         <button class="view-toggle-btn" onclick="toggleViewMode()" aria-label="Cambia vista">
                             <i class="fas fa-${viewMode === 'list' ? 'th' : 'list'} view-toggle-icon"></i>
                         </button>
-                    ` : ''}
+                    </div>
+                    <div class="${gridClass}">
+                        ${section.links.map(link => createLinkCard(link, sectionViewMode)).join('')}
+                    </div>
                 </div>
-                <div class="${gridClass}">
-                    ${section.links.map(link => createLinkCard(link, sectionViewMode)).join('')}
+            `;
+        });
+
+        html += `</div>`;
+    }
+
+    // === SEZIONI NORMALI (non tabbed, es. "Supporta il mio lavoro") ===
+    normalSections.forEach(section => {
+        html += `
+            <div class="${section.id}-section">
+                <div class="section-header">
+                    <h2 class="section-title">${section.title}</h2>
+                </div>
+                <div>
+                    ${section.links.map(link => createLinkCard(link, 'list')).join('')}
                 </div>
             </div>
         `;
-    }).join('');
+    });
+
+    sectionsContainer.innerHTML = html;
 
     // Re-applica gli observer per le animazioni
     reapplyCardObservers();
+}
+
+/**
+ * Cambia il tab attivo
+ */
+function switchTab(tabId) {
+    activeTabId = tabId;
+
+    // Aggiorna i bottoni del tab
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        const isActive = btn.dataset.tabId === tabId;
+        btn.classList.toggle('tab-btn-active', isActive);
+        btn.setAttribute('aria-selected', isActive);
+    });
+
+    // Aggiorna i pannelli
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+        const isActive = panel.dataset.tabId === tabId;
+        panel.classList.toggle('tab-panel-active', isActive);
+    });
+
+    // Re-applica le animazioni per il nuovo pannello
+    reapplyCardObservers();
+}
+
+/**
+ * Toggle tra vista lista e griglia
+ */
+function toggleViewMode() {
+    currentViewMode = currentViewMode === 'list' ? 'grid' : 'list';
+    generateSections(CONFIG.sections, currentViewMode);
 }
 
 /**
@@ -347,23 +436,6 @@ function reapplyCardObservers() {
 
     // Re-applica gli event listener
     setupCardInteractions();
-}
-
-/**
- * Toggle tra vista lista e griglia
- */
-function toggleViewMode() {
-    currentViewMode = currentViewMode === 'list' ? 'grid' : 'list';
-    generateSections(CONFIG.sections, currentViewMode);
-
-    // Aggiorna l'icona del toggle button
-    const toggleIcon = document.querySelector('.view-toggle-icon');
-
-    if (toggleIcon) {
-        toggleIcon.className = currentViewMode === 'list'
-            ? 'fas fa-th view-toggle-icon'
-            : 'fas fa-list view-toggle-icon';
-    }
 }
 
 /**
@@ -571,13 +643,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // 🛠️ UTILITY FUNCTIONS
 // =============================================================================
 
-// Service Worker per PWA (opzionale)
+// Service Worker per PWA
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        // Decommentare per attivare PWA
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(registration => console.log('SW registered'))
-        //     .catch(err => console.log('SW registration failed'));
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('✅ SW registered:', registration.scope))
+            .catch(err => console.log('⚠️ SW registration failed:', err));
     });
 }
 
@@ -673,21 +744,33 @@ function setupSearch() {
 }
 
 /**
- * Filtra i link in base al termine di ricerca
+ * Filtra i link in base al termine di ricerca (cross-tab)
  */
 function filterLinks(searchTerm) {
     const allCards = document.querySelectorAll('.link-card, .link-card-grid');
+    const allPanels = document.querySelectorAll('.tab-panel');
     const allSections = document.querySelectorAll('[class$="-section"]');
 
     if (!searchTerm) {
-        // Mostra tutti i link e sezioni
+        // Mostra tutti i link
         allCards.forEach(card => {
             card.style.display = '';
             removeHighlight(card);
         });
         allSections.forEach(section => section.style.display = '');
+
+        // Ripristina la visibilità tab normale
+        allPanels.forEach(panel => {
+            const isActive = panel.dataset.tabId === activeTabId;
+            panel.classList.toggle('tab-panel-active', isActive);
+        });
         return;
     }
+
+    // Durante la ricerca, mostra TUTTI i tab panel per cercare ovunque
+    allPanels.forEach(panel => {
+        panel.classList.add('tab-panel-active');
+    });
 
     // Filtra i link
     allCards.forEach(card => {
@@ -705,7 +788,15 @@ function filterLinks(searchTerm) {
         }
     });
 
-    // Nascondi sezioni senza risultati
+    // Nascondi pannelli tab senza risultati
+    allPanels.forEach(panel => {
+        const visibleCards = panel.querySelectorAll('.link-card:not([style*="display: none"]), .link-card-grid:not([style*="display: none"])');
+        if (visibleCards.length === 0) {
+            panel.classList.remove('tab-panel-active');
+        }
+    });
+
+    // Nascondi sezioni normali senza risultati
     allSections.forEach(section => {
         const visibleCards = section.querySelectorAll('.link-card:not([style*="display: none"]), .link-card-grid:not([style*="display: none"])');
         section.style.display = visibleCards.length > 0 ? '' : 'none';

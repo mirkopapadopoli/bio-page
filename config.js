@@ -37,7 +37,7 @@ const CONFIG = {
         {
             name: "TikTok",
             icon: "fab fa-tiktok",
-            url: "https://tiktok.com/@mirkopapadopoli",
+            url: "https://bit.ly/mirkopapadopoli-tiktok",
             cssClass: "tiktok"
         },
         {
@@ -47,6 +47,13 @@ const CONFIG = {
             cssClass: "email"
         }
     ],
+
+    // =========================================================================
+    // 🗂️ TAB — Sezioni raggruppate in tab
+    // =========================================================================
+    // Le sezioni con questi ID verranno raggruppate in un tab bar.
+    // Le altre sezioni restano visibili sotto, sempre.
+    tabbedSections: ["featured", "deals"],
 
     // =========================================================================
     // 📋 SEZIONI DI LINK
@@ -63,9 +70,16 @@ const CONFIG = {
                     icon: "fab fa-amazon",
                     url: "https://bit.ly/mirkopapadopoli-amazon",
                     style: "featured", // Opzioni: "featured", "support", "default"
-                    badge: "BLACK FRIDAY",
+                    //badge: "BLACK FRIDAY",
                 },
-                {
+                /*{
+                    title: "PlottyBot",
+                    description: "PlottyBot ti aiuta a trasformare le idee in realtà",
+                    icon: "img/Logo Plottybot Preview.png",
+                    url: "https://plottybot.com/?ref=6212",
+                    style: "featured"
+                },*/
+                /*{
                     title: "SetApp - Sconto 15%",
                     description: "Oltre 240 app Mac con un abbonamento",
                     icon: "fas fa-laptop-code",
@@ -79,7 +93,7 @@ const CONFIG = {
                     icon: "fas fa-tv",
                     url: "https://github.com/iptv-org/iptv",
                     style: "default"
-                },
+                },*/
                 {
                     title: "PLAUD NotePin",
                     description: "AI wearable per registrare e trascrivere",
@@ -88,7 +102,7 @@ const CONFIG = {
                     style: "default"
                 },
 
-                /* {
+                /*{
                     title: "Coursera",
                     description: "Corsi online certificati",
                     icon: "fas fa-graduation-cap",
@@ -101,7 +115,7 @@ const CONFIG = {
                     icon: "fas fa-bolt",
                     url: "https://track.adform.net/adfserve/?bn=85063815",
                     style: "default"
-                } */
+                },
                 {
                     title: "Sedia Ergonomica",
                     description: "Sedia ergonomica PaperLooos per lavoro, studio e gioco",
@@ -109,6 +123,22 @@ const CONFIG = {
                     icon: "img/sedia.jpg",
                     url: "https://paperloops.com?sca_ref=9860932.coptS7MXDKJTh",
                     style: "default"
+                },*/
+                {
+                    title: "INSTA360 X5",
+                    description: "Action Cam 360",
+                    icon: "img/insta360x5.jpg",
+                    url: "https://bit.ly/insta360-x5-mirkopapadopoli",
+                    style: "default",
+                    badge: "-5%" // Badge opzionale
+                },
+                {
+                    title: "INSTA360 Ace Pro 2",
+                    description: "Action Cam",
+                    icon: "img/insta360_acepro2.jpg",
+                    url: "https://bit.ly/insta360-acepro2-mirkopapadopoli",
+                    style: "default",
+                    badge: "-5%" // Badge opzionale
                 }
 
                 // ============================================================
@@ -121,45 +151,49 @@ const CONFIG = {
                     icon: "fas fa-video",
                     url: "https://youtube.com/live",
                     style: "featured",
-                    // Schedule: il link sarà cliccabile solo nei giorni/orari specificati
                     schedule: {
-                        days: ["lunedì", "mercoledì"],  // Giorni della settimana
-                        hours: "20:00-22:00",             // Fascia oraria (formato 24h)
-                        liveBadge: true                   // Mostra badge "LIVE" quando attivo
-                    }
-                }
-                // Altri esempi:
-
-                // Solo in un giorno specifico
-                ,{
-                    title: "Black Friday Deals",
-                    description: "Offerte speciali solo oggi!",
-                    icon: "fas fa-tag",
-                    url: "https://example.com/black-friday",
-                    badge: "OGGI",
-                    schedule: {
-                        date: "2024-11-29"  // Solo in questa data (formato YYYY-MM-DD)
-                    }
-                }
-
-                // Solo in certi giorni (senza orario)
-                ,{
-                    title: "Weekend Special",
-                    description: "Contenuti esclusivi del weekend",
-                    icon: "fas fa-star",
-                    url: "https://example.com/weekend",
-                    schedule: {
-                        days: ["sabato", "domenica"]
+                        days: ["lunedì", "mercoledì"],
+                        hours: "20:00-22:00",
+                        liveBadge: true
                     }
                 }
                 */
             ]
         },
         {
+            id: "deals",
+            title: "🔥 Migliori Offerte Selezionate",
+            links: [
+                {
+                    title: "Offerta Demo 1",
+                    description: "Questo è un link affiliato di esempio",
+                    icon: "fas fa-tag",
+                    url: "#",
+                    style: "deal",
+                    badge: "-20%"
+                },
+                {
+                    title: "Offerta Demo 2",
+                    description: "Un altro link affiliato di esempio",
+                    icon: "fas fa-gift",
+                    url: "#",
+                    style: "deal",
+                    badge: "PROMO"
+                },
+                {
+                    title: "Offerta Demo 3",
+                    description: "Terzo link affiliato di prova",
+                    icon: "fas fa-percent",
+                    url: "#",
+                    style: "deal"
+                }
+            ]
+        },
+        {
             id: "support",
             title: "Supporta il mio lavoro",
             links: [
-            
+
                 {
                     title: "Media Kit",
                     description: "Per collaborazioni",
