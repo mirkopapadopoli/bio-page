@@ -5,8 +5,9 @@
   "main": "index.html",
   "scripts": {
     "dev": "python3 -m http.server 8000",
-    "deploy": "vercel --prod",
-    "preview": "vercel"
+    "admin": "open http://localhost:8000/admin.html && python3 -m http.server 8000",
+    "deploy": "netlify deploy --prod",
+    "preview": "netlify deploy"
   },
   "keywords": [
     "bio",
