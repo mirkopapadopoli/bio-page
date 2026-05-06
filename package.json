@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "node server.js",
     "admin": "open http://localhost:8000/admin.html && node server.js",
-    "deploy": "netlify deploy --prod",
-    "preview": "netlify deploy"
+    "deploy": "npx netlify deploy --prod",
+    "preview": "npx netlify deploy"
   },
   "keywords": [
     "bio",
