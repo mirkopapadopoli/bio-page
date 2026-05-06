@@ -4,8 +4,8 @@
   "description": "Pagina bio personale di Mirko Papadopoli",
   "main": "index.html",
   "scripts": {
-    "dev": "python3 -m http.server 8000",
-    "admin": "open http://localhost:8000/admin.html && python3 -m http.server 8000",
+    "dev": "node server.js",
+    "admin": "open http://localhost:8000/admin.html && node server.js",
     "deploy": "netlify deploy --prod",
     "preview": "netlify deploy"
   },
