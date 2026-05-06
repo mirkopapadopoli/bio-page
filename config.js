@@ -121,6 +121,83 @@ const CONFIG = {
                     icon: "fas fa-link",
                     url: "https://michael-kors-it.mtpc.se/6123673",
                     style: "default"
+                },
+                {
+                    title: "Acquista Galaxy S26 Ultra | Prezzi e offerte | Samsung IT",
+                    description: "Acquista Galaxy S26 Ultra | Prezzi e offerte | Samsung IT",
+                    icon: "fas fa-link",
+                    url: "https://samsung-it.mtpc.se/6165130",
+                    style: "default"
+                },
+                {
+                    title: "JD Sports Italia - Shop online di scarpe e abbigliamento",
+                    description: "JD Sports Italia - Shop online di scarpe e abbigliamento",
+                    icon: "fas fa-link",
+                    url: "https://jd-sports-it.mtpc.se/6162304",
+                    style: "default"
+                },
+                {
+                    title: "Mango Italia | Moda online",
+                    description: "Mango Italia | Moda online",
+                    icon: "fas fa-link",
+                    url: "https://mango-it.mtpc.se/6161172",
+                    style: "default"
+                },
+                {
+                    title: "Solo da Foot Locker | Collezione | Foot Locker Italy",
+                    description: "Solo da Foot Locker | Collezione | Foot Locker Italy",
+                    icon: "fas fa-link",
+                    url: "https://footlocker.mtpc.se/6161153",
+                    style: "default"
+                },
+                {
+                    title: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
+                    description: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
+                    icon: "fas fa-link",
+                    url: "https://thebs.mtpc.se/6155009",
+                    style: "default"
+                },
+                {
+                    title: "ACQUA di MARZAMEMI® - fragranze di nicchia ispirate alla Sicilia - Acquadimarzamemi",
+                    description: "ACQUA di MARZAMEMI® - fragranze di nicchia ispirate alla Sicilia - Acquadimarzamemi",
+                    icon: "fas fa-link",
+                    url: "https://acqua-di-marzamemi.mtpc.se/6147237",
+                    style: "default"
+                },
+                {
+                    title: "LeLang® | Advanced Skin Care - LeLang Skin Care",
+                    description: "LeLang® | Advanced Skin Care - LeLang Skin Care",
+                    icon: "fas fa-link",
+                    url: "https://lelang-skincare.mtpc.se/6147235",
+                    style: "default"
+                },
+                {
+                    title: "Make up occhi, viso e labbra e cura della pelle | KIKO",
+                    description: "Make up occhi, viso e labbra e cura della pelle | KIKO",
+                    icon: "fas fa-link",
+                    url: "https://kiko-milano-it.mtpc.se/6141650",
+                    style: "default"
+                },
+                {
+                    title: "adidas IT NEW",
+                    description: "adidas IT NEW",
+                    icon: "fas fa-link",
+                    url: "https://adidas-it-new.mtpc.se/6141152",
+                    style: "default"
+                },
+                {
+                    title: "Promozione | Michael Kors [IT]",
+                    description: "Promozione | Michael Kors [IT]",
+                    icon: "fas fa-link",
+                    url: "https://michael-kors-it.mtpc.se/6141124",
+                    style: "default"
+                },
+                {
+                    title: "Make up occhi, viso e labbra e cura della pelle | KIKO",
+                    description: "Make up occhi, viso e labbra e cura della pelle | KIKO",
+                    icon: "fas fa-link",
+                    url: "https://kiko-milano-it.mtpc.se/6125968",
+                    style: "default"
                 }
             ]
         },
