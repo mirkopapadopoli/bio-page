@@ -81,10 +81,17 @@ const CONFIG = {
             title: "🔥 Migliori Offerte Selezionate",
             links: [
                 {
-                    title: "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
-                    description: "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
+                    title: "AliExpress IT",
+                    description: "Offerte selezionate su AliExpress",
+                    icon: "fas fa-shopping-cart",
+                    url: "https://aliexpress-it.mtpc.se/6203629",
+                    style: "default"
+                },
+                {
+                    title: "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
+                    description: "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
                     icon: "fas fa-tag",
-                    url: "https://new-balance-it.mtpc.se/6141119",
+                    url: "https://marionnaud.mtpc.se/6171483",
                     style: "default"
                 },
                 {
@@ -95,31 +102,10 @@ const CONFIG = {
                     style: "default"
                 },
                 {
-                    title: "Brands Sale | notino.it",
-                    description: "Brands Sale | notino.it",
-                    icon: "fas fa-percent",
-                    url: "https://notino-it.mtpc.se/6141159",
-                    style: "default"
-                },
-                {
-                    title: "Levis IT",
-                    description: "Levis IT",
-                    icon: "fas fa-link",
-                    url: "https://levis-it.mtpc.se/6125961",
-                    style: "default"
-                },
-                {
                     title: "QVC Italia – Acquista online prodotti di Bellezza, Moda, Casa ed Elettronica",
                     description: "QVC Italia – Acquista online prodotti di Bellezza, Moda, Casa ed Elettronica",
                     icon: "fas fa-link",
                     url: "https://qvc.mtpc.se/6123714",
-                    style: "default"
-                },
-                {
-                    title: "Promozione | Michael Kors [IT]",
-                    description: "Promozione | Michael Kors [IT]",
-                    icon: "fas fa-link",
-                    url: "https://michael-kors-it.mtpc.se/6123673",
                     style: "default"
                 },
                 {
@@ -151,13 +137,6 @@ const CONFIG = {
                     style: "default"
                 },
                 {
-                    title: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
-                    description: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
-                    icon: "fas fa-link",
-                    url: "https://thebs.mtpc.se/6155009",
-                    style: "default"
-                },
-                {
                     title: "ACQUA di MARZAMEMI® - fragranze di nicchia ispirate alla Sicilia - Acquadimarzamemi",
                     description: "ACQUA di MARZAMEMI® - fragranze di nicchia ispirate alla Sicilia - Acquadimarzamemi",
                     icon: "fas fa-link",
@@ -169,13 +148,6 @@ const CONFIG = {
                     description: "LeLang® | Advanced Skin Care - LeLang Skin Care",
                     icon: "fas fa-link",
                     url: "https://lelang-skincare.mtpc.se/6147235",
-                    style: "default"
-                },
-                {
-                    title: "Make up occhi, viso e labbra e cura della pelle | KIKO",
-                    description: "Make up occhi, viso e labbra e cura della pelle | KIKO",
-                    icon: "fas fa-link",
-                    url: "https://kiko-milano-it.mtpc.se/6141650",
                     style: "default"
                 },
                 {
@@ -197,6 +169,55 @@ const CONFIG = {
                     description: "Make up occhi, viso e labbra e cura della pelle | KIKO",
                     icon: "fas fa-link",
                     url: "https://kiko-milano-it.mtpc.se/6125968",
+                    style: "default"
+                },
+                {
+                    title: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
+                    description: "Moda donna - Abbigliamento e accessori di lusso 2026 | thebs.com",
+                    icon: "fas fa-link",
+                    url: "https://thebs.mtpc.se/6124875",
+                    style: "default"
+                },
+                {
+                    title: "Levis IT",
+                    description: "Levis IT",
+                    icon: "fas fa-link",
+                    url: "https://levis-it.mtpc.se/6123691",
+                    style: "default"
+                },
+                {
+                    title: "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
+                    description: "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
+                    icon: "fas fa-link",
+                    url: "https://new-balance-it.mtpc.se/6123685",
+                    style: "default"
+                },
+                {
+                    title: "Brands Sale | notino.it",
+                    description: "Brands Sale | notino.it",
+                    icon: "fas fa-link",
+                    url: "https://notino-it.mtpc.se/6125311",
+                    style: "default"
+                },
+                {
+                    title: "Sconti e offerte su mobili, decorazioni e tessili | Outlet Westwing",
+                    description: "Sconti e offerte su mobili, decorazioni e tessili | Outlet Westwing",
+                    icon: "fas fa-link",
+                    url: "https://westwing-it.mtpc.se/6121136",
+                    style: "default"
+                },
+                {
+                    title: "Sconti e offerte su mobili, decorazioni e tessili | Outlet Westwing",
+                    description: "Sconti e offerte su mobili, decorazioni e tessili | Outlet Westwing",
+                    icon: "fas fa-link",
+                    url: "https://westwing-it.mtpc.se/6188613",
+                    style: "default"
+                },
+                {
+                    title: "Charlotte Tilbury IT",
+                    description: "Charlotte Tilbury IT",
+                    icon: "fas fa-link",
+                    url: "https://charlotte-tilbury-it.mtpc.se/6207589",
                     style: "default"
                 }
             ]
