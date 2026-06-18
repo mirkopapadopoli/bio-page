@@ -215,10 +215,26 @@ const CONFIG = {
                 },
                 {
                     title: "Charlotte Tilbury IT",
-                    description: "Charlotte Tilbury IT",
+                    description: "Usa il codice DARLING15 per il -15% extra e spedizione gratuita!",
                     icon: "fas fa-link",
                     url: "https://charlotte-tilbury-it.mtpc.se/6207589",
+                    style: "default",
+                    badge: "CODICE SCONTO: DARLING15"
+                },
+                {
+                    title: "Dorelan IT",
+                    description: "Materassi, cuscini e sistemi letto Dorelan",
+                    icon: "fas fa-link",
+                    url: "https://dorelan.mtpc.se/6208895",
                     style: "default"
+                },
+                {
+                    title: "Prenatal IT",
+                    description: "Abbigliamento, accessori e prodotti per neonati e bambini",
+                    icon: "fas fa-link",
+                    url: "https://prenatal-it.mtpc.se/6271619",
+                    style: "default",
+                    badge: "CODICE SAVETEN"
                 }
             ]
         },
