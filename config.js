@@ -235,6 +235,13 @@ const CONFIG = {
                     url: "https://prenatal-it.mtpc.se/6271619",
                     style: "default",
                     badge: "CODICE SAVETEN"
+                },
+                {
+                    title: "Privé by Zalando IT",
+                    description: "Moda e accessori di brand premium a prezzi scontati",
+                    icon: "fas fa-link",
+                    url: "https://prive-by-zalando-it.mtpc.se/6273752",
+                    style: "default"
                 }
             ]
         },
