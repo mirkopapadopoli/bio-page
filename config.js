@@ -242,6 +242,13 @@ const CONFIG = {
                     icon: "fas fa-link",
                     url: "https://prive-by-zalando-it.mtpc.se/6273752",
                     style: "default"
+                },
+                {
+                    title: "Etrusca Gioielli",
+                    description: "Gioielli artigianali italiani in oro e argento",
+                    icon: "fas fa-gem",
+                    url: "https://etrusca-gioielli.mtpc.se/6282922",
+                    style: "default"
                 }
             ]
         },
