@@ -73,6 +73,13 @@ const CONFIG = {
                     url: "https://bit.ly/insta360-acepro2-mirkopapadopoli",
                     style: "default",
                     badge: "-5%"
+                },
+                {
+                    title: "TPLINK Tapo RV50 Omni PRO",
+                    description: "Robot Aspirapolvere",
+                    icon: "img/tplinkrv50omni.jpg",
+                    url: "https://pboost.me/G2a8ytOv",
+                    style: "default"
                 }
             ]
         },
