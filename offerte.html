@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Le migliori offerte selezionate da Mirko Papadopoli: moda, beauty, tech, casa e molto altro. Sconti verificati, aggiornati ogni settimana.">
+    <meta name="author" content="Mirko Papadopoli">
+
+    <meta property="og:title" content="Le migliori offerte selezionate | Mirko Papadopoli">
+    <meta property="og:description" content="Sconti e offerte verificate su moda, beauty, tech, casa e altro. Aggiornate ogni settimana.">
+    <meta property="og:type" content="website">
+
+    <title>Le migliori offerte selezionate | Mirko Papadopoli</title>
+
+    <link rel="icon" type="image/png" sizes="192x192" href="img/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="offerte.css">
+</head>
+<body>
+    <div id="offerte-hero"></div>
+
+    <div class="offerte-container">
+        <nav id="category-filters" class="category-filters"></nav>
+
+        <div class="offerte-search-wrapper">
+            <i class="fas fa-search offerte-search-icon"></i>
+            <input
+                type="text"
+                id="offerte-search-input"
+                class="offerte-search-input"
+                placeholder="Cerca tra le offerte..."
+                autocomplete="off"
+            >
+            <button id="offerte-search-clear" class="offerte-search-clear" style="display: none;">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div id="offerte-grid" class="offerte-grid"></div>
+    </div>
+
+    <footer id="offerte-footer" class="offerte-footer"></footer>
+
+    <script src="config.js"></script>
+    <script src="offerte.js"></script>
+</body>
+</html>
