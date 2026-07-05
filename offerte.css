@@ -1,0 +1,297 @@
+/* =============================================================================
+   OFFERTE.CSS — Identità visiva dedicata per landing ADS
+   Palette chiara, alto contrasto, CTA-focused (diversa dal tema dark della bio page)
+   ============================================================================= */
+
+:root {
+    --offerte-bg: #f7f7fb;
+    --offerte-surface: #ffffff;
+    --offerte-text: #1a1a2e;
+    --offerte-text-muted: #6b6b80;
+    --offerte-primary: #ff5252;
+    --offerte-primary-dark: #d63d3d;
+    --offerte-accent: #2d2d6e;
+    --offerte-border: #e6e6ef;
+    --offerte-badge-bg: #ffe8e8;
+    --offerte-badge-text: #d63d3d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--offerte-bg);
+    color: var(--offerte-text);
+    line-height: 1.5;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    background: linear-gradient(135deg, var(--offerte-accent), #4a4a9e);
+    color: #fff;
+    padding: 56px 20px 72px;
+    text-align: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.hero-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 560px;
+    margin: 0 auto 24px;
+}
+
+.hero-cta {
+    display: inline-block;
+    background: var(--offerte-primary);
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.hero-cta:hover {
+    background: var(--offerte-primary-dark);
+    transform: translateY(-2px);
+}
+
+/* ---------- CONTAINER ---------- */
+
+.offerte-container {
+    max-width: 1100px;
+    margin: -40px auto 0;
+    padding: 0 20px 60px;
+    position: relative;
+}
+
+/* ---------- FILTRI CATEGORIA ---------- */
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    background: var(--offerte-surface);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.category-pill {
+    border: 1px solid var(--offerte-border);
+    background: var(--offerte-surface);
+    color: var(--offerte-text-muted);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.category-pill:hover {
+    border-color: var(--offerte-primary);
+    color: var(--offerte-primary);
+}
+
+.category-pill.active {
+    background: var(--offerte-primary);
+    border-color: var(--offerte-primary);
+    color: #fff;
+}
+
+/* ---------- SEARCH ---------- */
+
+.offerte-search-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.offerte-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--offerte-text-muted);
+}
+
+.offerte-search-input {
+    width: 100%;
+    padding: 14px 44px;
+    border-radius: 12px;
+    border: 1px solid var(--offerte-border);
+    background: var(--offerte-surface);
+    font-size: 15px;
+    color: var(--offerte-text);
+}
+
+.offerte-search-input:focus {
+    outline: none;
+    border-color: var(--offerte-primary);
+}
+
+.offerte-search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--offerte-text-muted);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* ---------- GRIGLIA OFFERTE ---------- */
+
+.offerte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.offer-card {
+    background: var(--offerte-surface);
+    border: 1px solid var(--offerte-border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card.hidden {
+    display: none;
+}
+
+.offer-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--offerte-bg);
+}
+
+.offer-card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer-card-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.offer-card-description {
+    font-size: 14px;
+    color: var(--offerte-text-muted);
+    flex-grow: 1;
+}
+
+.offer-card-badge {
+    display: inline-block;
+    background: var(--offerte-badge-bg);
+    color: var(--offerte-badge-text);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.offer-card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--offerte-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.offer-card-cta:hover {
+    background: var(--offerte-primary-dark);
+}
+
+/* ---------- FOOTER ---------- */
+
+.offerte-footer {
+    background: var(--offerte-surface);
+    border-top: 1px solid var(--offerte-border);
+    padding: 32px 20px;
+    text-align: center;
+}
+
+.offerte-disclaimer {
+    font-size: 13px;
+    color: var(--offerte-text-muted);
+    max-width: 560px;
+    margin: 0 auto 16px;
+}
+
+.offerte-footer-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.offerte-footer-links a {
+    color: var(--offerte-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 16px 60px;
+    }
+
+    .offerte-grid {
+        grid-template-columns: 1fr;
+    }
+}
