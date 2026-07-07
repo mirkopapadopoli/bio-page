@@ -110,18 +110,12 @@ function setupTelegramTracking() {
 // ---------- RENDERING ----------
 
 function renderHero() {
-    const offers = activeOffers();
-    const trust = (DATA.trustBrands || []).map(domain =>
-        `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="${domain}" loading="lazy">`
-    ).join('');
-
     document.getElementById('offerte-hero').innerHTML = `
         <div class="hero">
             <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
             <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
-            <p class="hero-subtitle">${offers.length} offerte attive · Aggiornato il ${formatDate(DATA.updated)}</p>
+            <p class="hero-subtitle">Aggiornato il ${formatDate(DATA.updated)}</p>
             <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
-            <div class="hero-trust">${trust}</div>
         </div>
     `;
 }
