@@ -101,6 +101,17 @@ Campi `code`, `discount`, `expiry`, `featured` opzionali. `badge` attuale sostit
 - Test su viewport mobile (il traffico ADV sarà ~90% mobile)
 - Lighthouse: la pagina deve restare leggera (niente framework, niente immagini pesanti nel hero)
 
+## Campagna Meta (progetto 2 — dopo landing live)
+
+Strategia era-Andromeda: targeting broad (solo Italia, no interest-stacking), la segmentazione la fanno le creative con keyword identitarie per categoria ("sconti sneakers", "codici beauty", …) puntate su `?cat=` corrispondente. Struttura: 1 campagna CBO, 1 adset broad, 5-10 creative statiche. Budget ingresso 10-20€/giorno, scaling +20% ogni 3-5 giorni. Headline mirroring: la headline vincente delle ads diventa l'H1 della landing.
+
+**Misurazione iscrizioni Telegram** (Meta non vede i join in-app):
+- Livello base: evento `join_telegram` al click verso t.me (proxy)
+- Livello target: **invite link Telegram dedicati per campagna/adset**; il bot (già admin del canale, repo BotTelegram) legge gli eventi join per invite link → CPA reale per iscritto. Opzionale: rimando dei join a Meta via Conversions API per ottimizzare sull'iscrizione vera
+- Implicazione per la landing: l'URL del canale in pagina deve essere configurabile (per usare invite link tracciati al posto del link pubblico)
+
+Dettagli operativi (creative brief, copy, setup Ads Manager, regole kill/scale) → piano implementativo separato.
+
 ## Fuori scope (progetti successivi)
 
 1. **Agente Metapic giornaliero**: estrazione campagne/codici da Metapic (verificare prima API/feed vs scraping dashboard), matching con offers.json, validazione (nessun codice inventato), commit+push → deploy Netlify, anteprima su Telegram per approvazione umana nel primo periodo. Sinergia: stesso JSON alimenta i post del canale.
