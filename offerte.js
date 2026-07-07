@@ -1,5 +1,6 @@
 // =============================================================================
-// 🛍️ OFFERTE.JS — Landing page dedicata per traffico ADS
+// 🛍️ OFFERTE.JS — Landing "Affari al Volo" per traffico ADV
+// Dati: offers.json (fonte di verità). Conversione primaria: join Telegram.
 // =============================================================================
 
 const CATEGORY_LABELS = {
@@ -11,130 +12,42 @@ const CATEGORY_LABELS = {
     marketplace: 'Marketplace'
 };
 
+const STICKY_DISMISS_KEY = 'aav-sticky-dismissed';
+const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
+
+let DATA = null;
 let currentCategory = 'all';
 let currentSearchTerm = '';
 
-function getDeals() {
-    const section = window.CONFIG.sections.find(s => s.id === 'deals');
-    return section ? section.links : [];
+// ---------- HELPERS ----------
+
+function isExpired(offer) {
+    if (!offer.expiry) return false;
+    return new Date(offer.expiry + 'T23:59:59') < new Date();
 }
 
-function isImageIcon(icon) {
-    return icon && (
-        icon.startsWith('http') ||
-        icon.includes('.png') ||
-        icon.includes('.jpg') ||
-        icon.includes('.jpeg') ||
-        icon.includes('.gif') ||
-        icon.includes('.svg') ||
-        icon.includes('.webp')
-    );
+function activeOffers() {
+    return DATA.offers.filter(o => !isExpired(o));
 }
 
-function renderHero() {
-    const deals = getDeals();
-    const hero = document.getElementById('offerte-hero');
-    hero.innerHTML = `
-        <div class="hero">
-            <span class="hero-badge">🔥 ${deals.length}+ offerte verificate</span>
-            <h1 class="hero-title">Le migliori offerte, selezionate per te</h1>
-            <p class="hero-subtitle">Sconti su moda, beauty, tech, casa e altro. Aggiornate ogni settimana da Mirko Papadopoli.</p>
-            <a href="#offerte-grid" class="hero-cta">Scopri le offerte ↓</a>
-        </div>
-    `;
+function telegramUrl() {
+    return (DATA && DATA.telegram) || FALLBACK_TELEGRAM;
 }
 
-function renderCategoryFilters() {
-    const deals = getDeals();
-    const categoriesPresent = [...new Set(deals.map(l => l.category))];
-    const nav = document.getElementById('category-filters');
-
-    const allPill = `<button class="category-pill active" data-category="all">Tutte</button>`;
-    const pills = categoriesPresent.map(cat =>
-        `<button class="category-pill" data-category="${cat}">${CATEGORY_LABELS[cat] || cat}</button>`
-    ).join('');
-
-    nav.innerHTML = allPill + pills;
-
-    nav.querySelectorAll('.category-pill').forEach(pill => {
-        pill.addEventListener('click', () => {
-            nav.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            currentCategory = pill.dataset.category;
-            applyFilters();
-        });
-    });
+function formatDate(iso) {
+    return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-function createOfferCard(link) {
-    const iconContent = isImageIcon(link.icon)
-        ? `<img src="${link.icon}" alt="${link.title}" loading="lazy">`
-        : `<i class="${link.icon}"></i>`;
-    const badge = link.badge ? `<span class="offer-card-badge">${link.badge}</span>` : '';
-
-    return `
-        <div class="offer-card" data-category="${link.category}" data-title="${link.title.toLowerCase()}" data-description="${link.description.toLowerCase()}">
-            <div class="offer-card-icon">${iconContent}</div>
-            <h3 class="offer-card-title">${link.title}</h3>
-            <p class="offer-card-description">${link.description}</p>
-            ${badge}
-            <button class="offer-card-cta" onclick="trackOfferClick('${link.title.replace(/'/g, "\\'")}', '${link.category}', '${link.url}')">
-                Vedi offerta <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    `;
-}
-
-function renderGrid() {
-    const deals = getDeals();
-    const grid = document.getElementById('offerte-grid');
-    grid.innerHTML = deals.map(createOfferCard).join('');
-}
-
-function applyFilters() {
-    const cards = document.querySelectorAll('.offer-card');
-    cards.forEach(card => {
-        const matchesCategory = currentCategory === 'all' || card.dataset.category === currentCategory;
-        const matchesSearch = !currentSearchTerm ||
-            card.dataset.title.includes(currentSearchTerm) ||
-            card.dataset.description.includes(currentSearchTerm);
-        card.classList.toggle('hidden', !(matchesCategory && matchesSearch));
-    });
-}
-
-function setupSearch() {
-    const input = document.getElementById('offerte-search-input');
-    const clearBtn = document.getElementById('offerte-search-clear');
-
-    input.addEventListener('input', () => {
-        currentSearchTerm = input.value.trim().toLowerCase();
-        clearBtn.style.display = currentSearchTerm ? 'block' : 'none';
-        applyFilters();
-    });
-
-    clearBtn.addEventListener('click', () => {
-        input.value = '';
-        currentSearchTerm = '';
-        clearBtn.style.display = 'none';
-        applyFilters();
-    });
-}
-
-function renderFooter() {
-    const footer = document.getElementById('offerte-footer');
-    footer.innerHTML = `
-        <p class="offerte-disclaimer">Questa pagina contiene link di affiliazione. Se acquisti tramite questi link potrei ricevere una piccola commissione, senza costi aggiuntivi per te.</p>
-        <div class="offerte-footer-links">
-            <a href="index.html">← Torna alla bio page</a>
-            <a href="https://beacons.ai/mirkopapadopoli/mediakit" target="_blank" rel="noopener noreferrer">Media Kit</a>
-        </div>
-    `;
+function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
 }
 
 // ---------- TRACKING ----------
 
 function loadTrackingScripts() {
-    const tracking = window.CONFIG.tracking || {};
+    const tracking = (window.CONFIG && window.CONFIG.tracking) || {};
 
     if (tracking.metaPixelId) {
         const fbScript = document.createElement('script');
@@ -167,29 +80,271 @@ function loadTrackingScripts() {
     }
 }
 
-function trackOfferClick(brand, category, url) {
-    const tracking = window.CONFIG.tracking || {};
+function track(eventName, params = {}) {
+    const tracking = (window.CONFIG && window.CONFIG.tracking) || {};
+    console.log('[track]', eventName, params);
 
     if (tracking.metaPixelId && typeof fbq === 'function') {
-        fbq('track', 'Lead', { content_name: brand });
+        if (eventName === 'join_telegram') {
+            fbq('track', 'Lead', params);
+        } else if (eventName === 'click_offer') {
+            fbq('trackCustom', 'ClickOffer', params);
+        } else if (eventName === 'copy_code') {
+            fbq('trackCustom', 'CopyCode', params);
+        }
     }
 
     if (tracking.googleAdsId && typeof gtag === 'function') {
-        gtag('event', 'click_offer', { brand: brand, category: category });
+        gtag('event', eventName, params);
     }
-
-    window.open(url, '_blank', 'noopener,noreferrer');
 }
 
-window.trackOfferClick = trackOfferClick;
+// Delegation: ogni elemento con data-tg="<placement>" è una CTA Telegram
+function setupTelegramTracking() {
+    document.addEventListener('click', e => {
+        const cta = e.target.closest('[data-tg]');
+        if (cta) track('join_telegram', { placement: cta.dataset.tg });
+    });
+}
+
+// ---------- RENDERING ----------
+
+function renderHero() {
+    const offers = activeOffers();
+    const trust = (DATA.trustBrands || []).map(domain =>
+        `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" alt="${domain}" loading="lazy">`
+    ).join('');
+
+    document.getElementById('offerte-hero').innerHTML = `
+        <div class="hero">
+            <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
+            <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
+            <p class="hero-subtitle">${offers.length} offerte attive · Aggiornato il ${formatDate(DATA.updated)}</p>
+            <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
+            <div class="hero-trust">${trust}</div>
+        </div>
+    `;
+}
+
+function createFeaturedCard(offer) {
+    const discount = offer.discount ? `<span class="offer-card-badge">${escapeHtml(offer.discount)}</span>` : '';
+    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatDate(offer.expiry)}</span>` : '';
+
+    return `
+        <div class="featured-card">
+            <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
+            <div class="featured-card-body">
+                <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
+                <p class="offer-card-description">${escapeHtml(offer.description)}</p>
+                ${discount}${expiry}
+            </div>
+            <button class="featured-code-btn"
+                data-code="${escapeHtml(offer.code)}"
+                data-title="${escapeHtml(offer.title)}"
+                data-category="${offer.category}"
+                data-url="${offer.url}">
+                <span class="featured-code">${escapeHtml(offer.code)}</span>
+                <span class="featured-code-label">Copia codice</span>
+            </button>
+        </div>
+    `;
+}
+
+function renderFeatured() {
+    const featured = activeOffers().filter(o => o.featured && o.code);
+    const section = document.getElementById('offerte-featured');
+
+    if (!featured.length) {
+        section.innerHTML = '';
+        return;
+    }
+
+    section.innerHTML = `
+        <h2 class="featured-heading">⚡ Top con codice sconto</h2>
+        <div class="featured-grid">${featured.map(createFeaturedCard).join('')}</div>
+    `;
+
+    section.querySelectorAll('.featured-code-btn').forEach(btn => {
+        btn.addEventListener('click', () => copyCode(btn));
+    });
+}
+
+async function copyCode(btn) {
+    const { code, title, category, url } = btn.dataset;
+
+    try {
+        await navigator.clipboard.writeText(code);
+    } catch {
+        // Fallback: seleziona il testo del codice per copia manuale
+        const range = document.createRange();
+        range.selectNodeContents(btn.querySelector('.featured-code'));
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
+    btn.querySelector('.featured-code-label').textContent = 'Copiato ✓';
+    track('copy_code', { brand: title, category: category });
+    setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 600);
+}
+
+function initialCategory() {
+    const cat = new URLSearchParams(window.location.search).get('cat');
+    const present = new Set(activeOffers().map(o => o.category));
+    return cat && present.has(cat) ? cat : 'all';
+}
+
+function renderCategoryFilters() {
+    const categoriesPresent = [...new Set(activeOffers().map(o => o.category))];
+    const nav = document.getElementById('category-filters');
+
+    const pill = (cat, label) => {
+        const active = cat === currentCategory ? ' active' : '';
+        return `<button class="category-pill${active}" data-category="${cat}">${label}</button>`;
+    };
+
+    nav.innerHTML = pill('all', 'Tutte') + categoriesPresent.map(cat =>
+        pill(cat, CATEGORY_LABELS[cat] || cat)
+    ).join('');
+
+    nav.querySelectorAll('.category-pill').forEach(p => {
+        p.addEventListener('click', () => {
+            nav.querySelectorAll('.category-pill').forEach(x => x.classList.remove('active'));
+            p.classList.add('active');
+            currentCategory = p.dataset.category;
+            applyFilters();
+        });
+    });
+}
+
+function createOfferCard(offer) {
+    const badgeText = offer.code ? `CODICE: ${offer.code}` : offer.discount;
+    const badge = badgeText ? `<span class="offer-card-badge">${escapeHtml(badgeText)}</span>` : '';
+
+    return `
+        <div class="offer-card" data-category="${offer.category}"
+            data-title="${escapeHtml(offer.title.toLowerCase())}"
+            data-description="${escapeHtml(offer.description.toLowerCase())}">
+            <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
+            <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
+            <p class="offer-card-description">${escapeHtml(offer.description)}</p>
+            ${badge}
+            <button class="offer-card-cta" data-brand="${escapeHtml(offer.title)}" data-cat="${offer.category}" data-url="${offer.url}">
+                Vedi offerta <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    `;
+}
+
+function renderGrid() {
+    const grid = document.getElementById('offerte-grid');
+    grid.innerHTML = activeOffers().map(createOfferCard).join('');
+
+    grid.querySelectorAll('.offer-card-cta').forEach(btn => {
+        btn.addEventListener('click', () => {
+            track('click_offer', { brand: btn.dataset.brand, category: btn.dataset.cat });
+            window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+        });
+    });
+}
+
+function applyFilters() {
+    document.querySelectorAll('.offer-card').forEach(card => {
+        const matchesCategory = currentCategory === 'all' || card.dataset.category === currentCategory;
+        const matchesSearch = !currentSearchTerm ||
+            card.dataset.title.includes(currentSearchTerm) ||
+            card.dataset.description.includes(currentSearchTerm);
+        card.classList.toggle('hidden', !(matchesCategory && matchesSearch));
+    });
+}
+
+function setupSearch() {
+    const input = document.getElementById('offerte-search-input');
+    const clearBtn = document.getElementById('offerte-search-clear');
+
+    input.addEventListener('input', () => {
+        currentSearchTerm = input.value.trim().toLowerCase();
+        clearBtn.style.display = currentSearchTerm ? 'block' : 'none';
+        applyFilters();
+    });
+
+    clearBtn.addEventListener('click', () => {
+        input.value = '';
+        currentSearchTerm = '';
+        clearBtn.style.display = 'none';
+        applyFilters();
+    });
+}
+
+function renderTelegramInline() {
+    document.getElementById('telegram-inline').innerHTML = `
+        <div class="telegram-inline-box">
+            <p>Le offerte migliori le pubblichiamo prima sul canale 👀</p>
+            <a href="${telegramUrl()}" class="telegram-cta" data-tg="inline" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
+        </div>
+    `;
+}
+
+function renderStickyBar() {
+    if (localStorage.getItem(STICKY_DISMISS_KEY)) return;
+
+    const bar = document.getElementById('telegram-sticky');
+    bar.innerHTML = `
+        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 Offerte ogni giorno su Telegram — Entra gratis</a>
+        <button class="sticky-close" aria-label="Chiudi">✕</button>
+    `;
+    bar.classList.add('visible');
+
+    bar.querySelector('.sticky-close').addEventListener('click', () => {
+        localStorage.setItem(STICKY_DISMISS_KEY, '1');
+        bar.classList.remove('visible');
+    });
+}
+
+function renderFooter() {
+    document.getElementById('offerte-footer').innerHTML = `
+        <p class="offerte-disclaimer">Questa pagina contiene link di affiliazione. Se acquisti tramite questi link potremmo ricevere una piccola commissione, senza costi aggiuntivi per te.</p>
+        <div class="offerte-footer-links">
+            <span class="offerte-disclaimer">Un progetto di Mirko Papadopoli</span>
+            <a href="https://beacons.ai/mirkopapadopoli/mediakit" target="_blank" rel="noopener noreferrer">Media Kit</a>
+        </div>
+    `;
+}
+
+function renderFallback() {
+    document.querySelector('.offerte-container').innerHTML = `
+        <div class="offerte-fallback">
+            <h2>Ops, le offerte non si caricano 😅</h2>
+            <p>Nessun problema: le trovi tutte sul nostro canale Telegram, aggiornate ogni giorno.</p>
+            <a href="${FALLBACK_TELEGRAM}" class="hero-cta" data-tg="fallback" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
+        </div>
+    `;
+}
 
 // ---------- INIT ----------
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     loadTrackingScripts();
+    setupTelegramTracking();
+
+    try {
+        const res = await fetch('offers.json', { cache: 'no-cache' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        DATA = await res.json();
+    } catch (err) {
+        console.error('offers.json non raggiungibile:', err);
+        renderFallback();
+        return;
+    }
+
+    currentCategory = initialCategory();
     renderHero();
+    renderFeatured();
     renderCategoryFilters();
     renderGrid();
+    applyFilters();
     setupSearch();
+    renderTelegramInline();
+    renderStickyBar();
     renderFooter();
 });
