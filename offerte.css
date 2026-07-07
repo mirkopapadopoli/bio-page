@@ -332,6 +332,8 @@ body {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 14px;
+    /* la sezione sale sopra il gradiente del hero (margin negativo del container) */
+    color: #fff;
 }
 
 .featured-grid {
