@@ -43,10 +43,10 @@ body {
 }
 
 .hero-logo {
-    width: 150px;
+    width: 88px;
     height: auto;
     border-radius: 14px;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
 }
 
 .hero-social-proof {
@@ -386,6 +386,20 @@ body {
     flex-direction: column;
     gap: 12px;
     box-shadow: 0 4px 16px rgba(214, 61, 61, 0.12);
+}
+
+.featured-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.featured-card-header .offer-card-icon {
+    flex-shrink: 0;
+}
+
+.featured-card-header .offer-card-title {
+    margin: 0;
 }
 
 .featured-card-body {

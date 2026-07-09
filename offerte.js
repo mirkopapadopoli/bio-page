@@ -141,9 +141,11 @@ function createFeaturedCard(offer) {
 
     return `
         <div class="featured-card">
-            <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
-            <div class="featured-card-body">
+            <div class="featured-card-header">
+                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
                 <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
+            </div>
+            <div class="featured-card-body">
                 <p class="offer-card-description">${escapeHtml(offer.description)}</p>
                 <div class="featured-meta-row">${discount}${expiry}</div>
             </div>
