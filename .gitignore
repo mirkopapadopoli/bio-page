@@ -21,3 +21,7 @@ package-lock.json
 
 # Local Netlify folder
 .netlify
+
+# Claude Code local tool config
+.agents/
+.claude/

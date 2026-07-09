@@ -45,6 +45,13 @@ const CONFIG = {
             title: "Link in Evidenza",
             links: [
                 {
+                    title: "🔥 Tutte le Offerte",
+                    description: "Le migliori offerte selezionate in un'unica pagina",
+                    icon: "fas fa-tags",
+                    url: "offerte.html",
+                    style: "featured"
+                },
+                {
                     title: "Vetrina Amazon",
                     description: "Scopri i miei prodotti consigliati",
                     icon: "fab fa-amazon",
