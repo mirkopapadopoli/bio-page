@@ -14,6 +14,10 @@
     --offerte-border: #e6e6ef;
     --offerte-badge-bg: #ffe8e8;
     --offerte-badge-text: #d63d3d;
+
+    /* CTA Telegram: colore dedicato, separato dal rosso (riservato a sconti/urgenza) */
+    --offerte-telegram: #229ed9;
+    --offerte-telegram-dark: #1b7fb0;
 }
 
 * {
@@ -38,7 +42,14 @@ body {
     text-align: center;
 }
 
-.hero-badge {
+.hero-logo {
+    width: 150px;
+    height: auto;
+    border-radius: 14px;
+    margin-bottom: 14px;
+}
+
+.hero-social-proof {
     display: inline-block;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 999px;
@@ -61,9 +72,17 @@ body {
     margin: 0 auto 24px;
 }
 
+.hero-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 22px;
+}
+
 .hero-cta {
     display: inline-block;
-    background: var(--offerte-primary);
+    background: var(--offerte-telegram);
     color: #fff;
     font-weight: 700;
     padding: 14px 32px;
@@ -71,11 +90,45 @@ body {
     text-decoration: none;
     font-size: 16px;
     transition: transform 0.15s ease, background 0.15s ease;
+    animation: aav-pulse 2.4s infinite;
 }
 
 .hero-cta:hover {
-    background: var(--offerte-primary-dark);
+    background: var(--offerte-telegram-dark);
     transform: translateY(-2px);
+}
+
+.hero-cta-secondary {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.15s ease;
+}
+
+.hero-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+}
+
+@keyframes aav-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.45); }
+    70% { box-shadow: 0 0 0 12px rgba(34, 158, 217, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); }
 }
 
 /* ---------- CONTAINER ---------- */
@@ -114,13 +167,13 @@ body {
 }
 
 .category-pill:hover {
-    border-color: var(--offerte-primary);
-    color: var(--offerte-primary);
+    border-color: var(--offerte-telegram);
+    color: var(--offerte-telegram);
 }
 
 .category-pill.active {
-    background: var(--offerte-primary);
-    border-color: var(--offerte-primary);
+    background: var(--offerte-telegram);
+    border-color: var(--offerte-telegram);
     color: #fff;
 }
 
@@ -151,7 +204,7 @@ body {
 
 .offerte-search-input:focus {
     outline: none;
-    border-color: var(--offerte-primary);
+    border-color: var(--offerte-telegram);
 }
 
 .offerte-search-clear {
@@ -296,15 +349,6 @@ body {
     }
 }
 
-/* ---------- HERO: LOGO + TRUST STRIP ---------- */
-
-.hero-logo {
-    width: 150px;
-    height: auto;
-    border-radius: 14px;
-    margin-bottom: 14px;
-}
-
 /* ---------- TOP CON CODICE SCONTO ---------- */
 
 .offerte-featured {
@@ -315,8 +359,9 @@ body {
     font-size: 20px;
     font-weight: 800;
     margin-bottom: 14px;
-    /* la sezione sale sopra il gradiente del hero (margin negativo del container) */
-    color: #fff;
+    /* la sezione sale sopra il gradiente del hero (margin negativo del container):
+       resta bianca perché quella zona è ancora sullo sfondo scuro dell'hero */
+    color: #ffffff;
 }
 
 .featured-grid {
@@ -343,9 +388,17 @@ body {
     flex-grow: 1;
 }
 
+.featured-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
 .featured-expiry {
     font-size: 12px;
     font-weight: 600;
+    line-height: 1;
     color: var(--offerte-badge-text);
 }
 
@@ -389,23 +442,30 @@ body {
 }
 
 .telegram-inline-box {
-    background: linear-gradient(135deg, #229ed9, #1b7fb0);
+    background: linear-gradient(135deg, var(--offerte-telegram), var(--offerte-telegram-dark));
     color: #fff;
     border-radius: 16px;
-    padding: 24px 20px;
+    padding: 26px 20px;
     text-align: center;
 }
 
 .telegram-inline-box p {
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 14px;
+    margin-bottom: 6px;
+}
+
+.telegram-inline-subtext {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 16px !important;
 }
 
 .telegram-cta {
     display: inline-block;
     background: #fff;
-    color: #1b7fb0;
+    color: var(--offerte-telegram-dark);
     font-weight: 800;
     padding: 12px 26px;
     border-radius: 999px;
@@ -427,7 +487,7 @@ body {
     right: 0;
     bottom: 0;
     z-index: 100;
-    background: #229ed9;
+    background: var(--offerte-telegram);
     color: #fff;
     padding: 10px 44px 10px 14px;
     align-items: center;

@@ -4,16 +4,20 @@
 // =============================================================================
 
 const CATEGORY_LABELS = {
-    moda: 'Moda & Accessori',
-    beauty: 'Beauty & Skincare',
-    tech: 'Tech & Elettronica',
-    casa: 'Casa & Arredamento',
+    moda: 'Moda &amp; Accessori',
+    beauty: 'Beauty &amp; Skincare',
+    tech: 'Tech &amp; Elettronica',
+    casa: 'Casa &amp; Arredamento',
     famiglia: 'Famiglia',
     marketplace: 'Marketplace'
 };
 
 const STICKY_DISMISS_KEY = 'aav-sticky-dismissed';
 const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
+
+// Aggiorna questo numero manualmente (o collegalo a un endpoint reale) per
+// mostrare la prova sociale in hero, blocco inline e sticky bar.
+const MEMBER_COUNT_LABEL = '15.200+';
 
 let DATA = null;
 let currentCategory = 'all';
@@ -36,6 +40,10 @@ function telegramUrl() {
 
 function formatDate(iso) {
     return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function formatShortDate(iso) {
+    return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
 }
 
 function escapeHtml(str) {
@@ -110,19 +118,30 @@ function setupTelegramTracking() {
 // ---------- RENDERING ----------
 
 function renderHero() {
+    const offerCount = activeOffers().length;
+
     document.getElementById('offerte-hero').innerHTML = `
         <div class="hero">
             <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
+            <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
             <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
-            <p class="hero-subtitle">Aggiornato il ${formatDate(DATA.updated)}</p>
-            <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
+            <p class="hero-subtitle">Aggiornato il ${formatDate(DATA.updated)} — ${offerCount} offerte live</p>
+            <div class="hero-cta-row">
+                <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra gratis nel canale</a>
+                <a href="#offerte-grid" class="hero-cta-secondary">Vedi le offerte di oggi ↓</a>
+            </div>
+            <div class="hero-trust-strip">
+                <span>✅ Codici verificati ogni giorno</span>
+                <span>🆓 100% gratis, sempre</span>
+                <span>🚫 Niente spam</span>
+            </div>
         </div>
     `;
 }
 
 function createFeaturedCard(offer) {
     const discount = offer.discount ? `<span class="offer-card-badge">${escapeHtml(offer.discount)}</span>` : '';
-    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatDate(offer.expiry)}</span>` : '';
+    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatShortDate(offer.expiry)}</span>` : '';
 
     return `
         <div class="featured-card">
@@ -130,7 +149,7 @@ function createFeaturedCard(offer) {
             <div class="featured-card-body">
                 <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
                 <p class="offer-card-description">${escapeHtml(offer.description)}</p>
-                ${discount}${expiry}
+                <div class="featured-meta-row">${discount}${expiry}</div>
             </div>
             <button class="featured-code-btn"
                 data-code="${escapeHtml(offer.code)}"
@@ -273,7 +292,8 @@ function setupSearch() {
 function renderTelegramInline() {
     document.getElementById('telegram-inline').innerHTML = `
         <div class="telegram-inline-box">
-            <p>Le offerte migliori le pubblichiamo prima sul canale 👀</p>
+            <p>👀 Le offerte migliori le pubblichiamo prima sul canale</p>
+            <p class="telegram-inline-subtext">Unisciti a ${MEMBER_COUNT_LABEL} persone che risparmiano ogni giorno</p>
             <a href="${telegramUrl()}" class="telegram-cta" data-tg="inline" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
         </div>
     `;
@@ -284,7 +304,7 @@ function renderStickyBar() {
 
     const bar = document.getElementById('telegram-sticky');
     bar.innerHTML = `
-        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 Offerte ogni giorno su Telegram — Entra gratis</a>
+        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 ${MEMBER_COUNT_LABEL} iscritti su Telegram — Entra gratis</a>
         <button class="sticky-close" aria-label="Chiudi">✕</button>
     `;
     bar.classList.add('visible');
