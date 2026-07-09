@@ -75,6 +75,7 @@ function createLinkCard(link, viewMode = 'list') {
 
     // Determina se l'icona è un'immagine o una font icon
     const isImage = link.icon && (
+        link.icon.startsWith('http') ||
         link.icon.includes('.png') ||
         link.icon.includes('.jpg') ||
         link.icon.includes('.jpeg') ||

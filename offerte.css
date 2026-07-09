@@ -1,0 +1,580 @@
+/* =============================================================================
+   OFFERTE.CSS — Identità visiva dedicata per landing ADS
+   Palette chiara, alto contrasto, CTA-focused (diversa dal tema dark della bio page)
+   ============================================================================= */
+
+:root {
+    --offerte-bg: #f7f7fb;
+    --offerte-surface: #ffffff;
+    --offerte-text: #1a1a2e;
+    --offerte-text-muted: #6b6b80;
+    --offerte-primary: #ff5252;
+    --offerte-primary-dark: #d63d3d;
+    --offerte-accent: #2d2d6e;
+    --offerte-border: #e6e6ef;
+    --offerte-badge-bg: #ffe8e8;
+    --offerte-badge-text: #d63d3d;
+
+    /* CTA Telegram: colore dedicato, separato dal rosso (riservato a sconti/urgenza) */
+    --offerte-telegram: #229ed9;
+    --offerte-telegram-dark: #1b7fb0;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--offerte-bg);
+    color: var(--offerte-text);
+    line-height: 1.5;
+}
+
+/* ---------- HERO ---------- */
+
+.hero {
+    background: linear-gradient(135deg, var(--offerte-accent), #4a4a9e);
+    color: #fff;
+    padding: 56px 20px 72px;
+    text-align: center;
+}
+
+.hero-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.hero-logo {
+    display: block;
+    width: 120px;
+    height: auto;
+    border-radius: 14px;
+    margin: 0 auto 12px;
+}
+
+.hero-social-proof {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.hero-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 560px;
+    margin: 0 auto 24px;
+}
+
+.hero-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 22px;
+}
+
+.hero-cta {
+    display: inline-block;
+    background: var(--offerte-telegram);
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: transform 0.15s ease, background 0.15s ease;
+    animation: aav-pulse 2.4s infinite;
+}
+
+.hero-cta:hover {
+    background: var(--offerte-telegram-dark);
+    transform: translateY(-2px);
+}
+
+.hero-cta-secondary {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-weight: 700;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.15s ease;
+}
+
+.hero-cta-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.hero-trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    justify-content: center;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+}
+
+@keyframes aav-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0.45); }
+    70% { box-shadow: 0 0 0 12px rgba(34, 158, 217, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 158, 217, 0); }
+}
+
+/* ---------- CONTAINER ---------- */
+
+.offerte-container {
+    max-width: 1100px;
+    margin: -40px auto 0;
+    padding: 0 20px 60px;
+    position: relative;
+}
+
+/* ---------- FILTRI CATEGORIA ---------- */
+
+.category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    background: var(--offerte-surface);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+}
+
+.category-pill {
+    border: 1px solid var(--offerte-border);
+    background: var(--offerte-surface);
+    color: var(--offerte-text-muted);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.category-pill:hover {
+    border-color: var(--offerte-telegram);
+    color: var(--offerte-telegram);
+}
+
+.category-pill.active {
+    background: var(--offerte-telegram);
+    border-color: var(--offerte-telegram);
+    color: #fff;
+}
+
+/* ---------- SEARCH ---------- */
+
+.offerte-search-wrapper {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.offerte-search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--offerte-text-muted);
+}
+
+.offerte-search-input {
+    width: 100%;
+    padding: 14px 44px;
+    border-radius: 12px;
+    border: 1px solid var(--offerte-border);
+    background: var(--offerte-surface);
+    font-size: 15px;
+    color: var(--offerte-text);
+}
+
+.offerte-search-input:focus {
+    outline: none;
+    border-color: var(--offerte-telegram);
+}
+
+.offerte-search-clear {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--offerte-text-muted);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* ---------- GRIGLIA OFFERTE ---------- */
+
+.offerte-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.offer-card {
+    background: var(--offerte-surface);
+    border: 1px solid var(--offerte-border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.offer-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.offer-card.hidden {
+    display: none;
+}
+
+.offer-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--offerte-bg);
+}
+
+.offer-card-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer-card-title {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.offer-card-description {
+    font-size: 14px;
+    color: var(--offerte-text-muted);
+    flex-grow: 1;
+}
+
+.offer-card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.offer-card-badge {
+    display: inline-block;
+    background: var(--offerte-badge-bg);
+    color: var(--offerte-badge-text);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    width: fit-content;
+}
+
+.offer-card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--offerte-primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.offer-card-cta:hover {
+    background: var(--offerte-primary-dark);
+}
+
+/* ---------- FOOTER ---------- */
+
+.offerte-footer {
+    background: var(--offerte-surface);
+    border-top: 1px solid var(--offerte-border);
+    padding: 32px 20px;
+    text-align: center;
+}
+
+.offerte-disclaimer {
+    font-size: 13px;
+    color: var(--offerte-text-muted);
+    max-width: 560px;
+    margin: 0 auto 16px;
+}
+
+.offerte-footer-links {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.offerte-footer-links a {
+    color: var(--offerte-primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 40px 16px 60px;
+    }
+
+    .offerte-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- TOP CON CODICE SCONTO ---------- */
+
+.offerte-featured {
+    margin-bottom: 28px;
+}
+
+.featured-heading {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    /* la sezione sale sopra il gradiente del hero (margin negativo del container):
+       resta bianca perché quella zona è ancora sullo sfondo scuro dell'hero */
+    color: #ffffff;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.featured-card {
+    background: var(--offerte-surface);
+    border: 2px solid var(--offerte-primary);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 4px 16px rgba(214, 61, 61, 0.12);
+}
+
+.featured-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.featured-card-header .offer-card-icon {
+    flex-shrink: 0;
+}
+
+.featured-card-header .offer-card-title {
+    margin: 0;
+}
+
+.featured-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.featured-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.featured-expiry {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--offerte-badge-text);
+}
+
+.featured-code-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    border: 2px dashed var(--offerte-primary);
+    background: var(--offerte-badge-bg);
+    border-radius: 10px;
+    padding: 12px 16px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.featured-code-btn:hover {
+    background: #ffd9d9;
+}
+
+.featured-code {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--offerte-text);
+}
+
+.featured-code-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--offerte-primary-dark);
+    white-space: nowrap;
+}
+
+/* ---------- BLOCCO TELEGRAM INLINE ---------- */
+
+.telegram-inline {
+    margin-bottom: 28px;
+}
+
+.telegram-inline-box {
+    background: linear-gradient(135deg, var(--offerte-telegram), var(--offerte-telegram-dark));
+    color: #fff;
+    border-radius: 16px;
+    padding: 26px 20px;
+    text-align: center;
+}
+
+.telegram-inline-box p {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.telegram-inline-subtext {
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 16px !important;
+}
+
+.telegram-cta {
+    display: inline-block;
+    background: #fff;
+    color: var(--offerte-telegram-dark);
+    font-weight: 800;
+    padding: 12px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: transform 0.15s ease;
+}
+
+.telegram-cta:hover {
+    transform: translateY(-2px);
+}
+
+/* ---------- STICKY BOTTOM BAR (mobile) ---------- */
+
+.telegram-sticky {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background: var(--offerte-telegram);
+    color: #fff;
+    padding: 10px 44px 10px 14px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.telegram-sticky.visible {
+    display: flex;
+}
+
+.telegram-sticky a {
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.sticky-close {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 6px;
+}
+
+/* ---------- FALLBACK ---------- */
+
+.offerte-fallback {
+    background: var(--offerte-surface);
+    border-radius: 16px;
+    padding: 48px 24px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+/* ---------- RESPONSIVE: SEARCH NASCOSTA + STICKY SOLO MOBILE ---------- */
+
+@media (min-width: 769px) {
+    .telegram-sticky.visible {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .offerte-search-wrapper {
+        display: none;
+    }
+
+    body {
+        padding-bottom: 56px;
+    }
+}
