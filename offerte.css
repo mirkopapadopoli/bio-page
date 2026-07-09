@@ -276,6 +276,13 @@ body {
     flex-grow: 1;
 }
 
+.offer-card-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
 .offer-card-badge {
     display: inline-block;
     background: var(--offerte-badge-bg);

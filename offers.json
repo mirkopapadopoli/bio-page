@@ -57,7 +57,8 @@
       "description": "Negozio online di computer e tecnologia",
       "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
       "url": "https://pc-componentes-it.mtpc.se/6141649",
-      "category": "tech"
+      "category": "tech",
+      "expiry": "2026-07-16"
     },
     {
       "title": "QVC Italia",
@@ -183,14 +184,16 @@
       "description": "Moda e accessori di brand premium a prezzi scontati",
       "icon": "https://www.google.com/s2/favicons?domain=prive.zalando.it&sz=128",
       "url": "https://prive-by-zalando-it.mtpc.se/6273752",
-      "category": "moda"
+      "category": "moda",
+      "expiry": "2026-07-10"
     },
     {
       "title": "Etrusca Gioielli",
       "description": "Gioielli artigianali italiani in oro e argento",
       "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.it&sz=128",
       "url": "https://etrusca-gioielli.mtpc.se/6282922",
-      "category": "moda"
+      "category": "moda",
+      "expiry": "2026-07-17"
     },
     {
       "title": "Lenovo Italia – Laptop e Notebook",

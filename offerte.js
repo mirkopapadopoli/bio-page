@@ -118,21 +118,17 @@ function setupTelegramTracking() {
 // ---------- RENDERING ----------
 
 function renderHero() {
-    const offerCount = activeOffers().length;
-
     document.getElementById('offerte-hero').innerHTML = `
         <div class="hero">
             <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
             <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
             <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
-            <p class="hero-subtitle">Aggiornato il ${formatDate(DATA.updated)} — ${offerCount} offerte live</p>
             <div class="hero-cta-row">
                 <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra gratis nel canale</a>
                 <a href="#offerte-grid" class="hero-cta-secondary">Vedi le offerte di oggi ↓</a>
             </div>
             <div class="hero-trust-strip">
                 <span>✅ Codici verificati ogni giorno</span>
-                <span>🆓 100% gratis, sempre</span>
                 <span>🚫 Niente spam</span>
             </div>
         </div>
@@ -233,6 +229,7 @@ function renderCategoryFilters() {
 function createOfferCard(offer) {
     const badgeText = offer.code ? `CODICE: ${offer.code}` : offer.discount;
     const badge = badgeText ? `<span class="offer-card-badge">${escapeHtml(badgeText)}</span>` : '';
+    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatShortDate(offer.expiry)}</span>` : '';
 
     return `
         <div class="offer-card" data-category="${offer.category}"
@@ -241,7 +238,7 @@ function createOfferCard(offer) {
             <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
             <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
             <p class="offer-card-description">${escapeHtml(offer.description)}</p>
-            ${badge}
+            <div class="offer-card-meta-row">${badge}${expiry}</div>
             <button class="offer-card-cta" data-brand="${escapeHtml(offer.title)}" data-cat="${offer.category}" data-url="${offer.url}">
                 Vedi offerta <i class="fas fa-arrow-right"></i>
             </button>
