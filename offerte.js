@@ -120,16 +120,18 @@ function setupTelegramTracking() {
 function renderHero() {
     document.getElementById('offerte-hero').innerHTML = `
         <div class="hero">
-            <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
-            <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
-            <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
-            <div class="hero-cta-row">
-                <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra gratis nel canale</a>
-                <a href="#offerte-grid" class="hero-cta-secondary">Vedi le offerte di oggi ↓</a>
-            </div>
-            <div class="hero-trust-strip">
-                <span>✅ Codici verificati ogni giorno</span>
-                <span>🚫 Niente spam</span>
+            <div class="hero-inner">
+                <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
+                <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
+                <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
+                <div class="hero-cta-row">
+                    <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra gratis nel canale</a>
+                    <a href="#offerte-grid" class="hero-cta-secondary">Vedi le offerte di oggi ↓</a>
+                </div>
+                <div class="hero-trust-strip">
+                    <span>✅ Codici verificati ogni giorno</span>
+                    <span>🚫 Niente spam</span>
+                </div>
             </div>
         </div>
     `;

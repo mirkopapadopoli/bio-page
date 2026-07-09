@@ -11,7 +11,8 @@
       "category": "beauty",
       "code": "DARLING15",
       "discount": "-15% extra",
-      "featured": true
+      "featured": true,
+      "expiry": "2026-07-16"
     },
     {
       "title": "Prenatal IT",
