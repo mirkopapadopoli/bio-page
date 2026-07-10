@@ -13,6 +13,7 @@ const CATEGORY_LABELS = {
 };
 
 const STICKY_DISMISS_KEY = 'aav-sticky-dismissed';
+const COOKIE_CONSENT_KEY = 'aav-cookie-consent';
 const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
 
 // Aggiorna questo numero manualmente (o collegalo a un endpoint reale) per
@@ -50,6 +51,45 @@ function escapeHtml(str) {
     return String(str).replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
+}
+
+// ---------- COOKIE CONSENT ----------
+
+function getCookieConsent() {
+    return localStorage.getItem(COOKIE_CONSENT_KEY);
+}
+
+function setCookieConsent(value) {
+    localStorage.setItem(COOKIE_CONSENT_KEY, value);
+}
+
+function renderCookieBanner() {
+    if (getCookieConsent()) {
+        if (getCookieConsent() === 'accepted') loadTrackingScripts();
+        return;
+    }
+
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.className = 'cookie-banner';
+    banner.innerHTML = `
+        <p>Usiamo cookie tecnici e, previo tuo consenso, cookie di misurazione (Meta Pixel, Google Ads) per capire quali offerte funzionano meglio. Leggi la <a href="privacy.html">Privacy & Cookie Policy</a>.</p>
+        <div class="cookie-banner-actions">
+            <button id="cookie-reject" class="cookie-btn cookie-btn-reject">Rifiuta</button>
+            <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Accetta</button>
+        </div>
+    `;
+    document.body.appendChild(banner);
+
+    document.getElementById('cookie-accept').addEventListener('click', () => {
+        setCookieConsent('accepted');
+        banner.remove();
+        loadTrackingScripts();
+    });
+    document.getElementById('cookie-reject').addEventListener('click', () => {
+        setCookieConsent('rejected');
+        banner.remove();
+    });
 }
 
 // ---------- TRACKING ----------
@@ -178,27 +218,40 @@ function renderFeatured() {
     `;
 
     section.querySelectorAll('.featured-code-btn').forEach(btn => {
-        btn.addEventListener('click', () => copyCode(btn));
+        btn.addEventListener('click', () => {
+            const { url } = btn.dataset;
+            copyCode(
+                btn,
+                btn.querySelector('.featured-code'),
+                btn.querySelector('.featured-code-label'),
+                () => setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 600)
+            );
+        });
     });
 }
 
-async function copyCode(btn) {
-    const { code, title, category, url } = btn.dataset;
+async function copyCode(btn, codeEl, labelEl, onCopied) {
+    const { code, title, category } = btn.dataset;
 
     try {
         await navigator.clipboard.writeText(code);
     } catch {
         // Fallback: seleziona il testo del codice per copia manuale
         const range = document.createRange();
-        range.selectNodeContents(btn.querySelector('.featured-code'));
+        range.selectNodeContents(codeEl);
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
     }
 
-    btn.querySelector('.featured-code-label').textContent = 'Copiato ✓';
+    const originalLabel = labelEl.textContent;
+    labelEl.textContent = 'Copiato ✓';
     track('copy_code', { brand: title, category: category });
-    setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 600);
+    if (onCopied) {
+        onCopied();
+    } else {
+        setTimeout(() => { labelEl.textContent = originalLabel; }, 1500);
+    }
 }
 
 function initialCategory() {
@@ -230,20 +283,44 @@ function renderCategoryFilters() {
     });
 }
 
+function extractBrand(title) {
+    const separator = title.includes('|') ? '|' : (title.includes(':') ? ':' : null);
+    let brand = title;
+    if (separator) {
+        const parts = title.split(separator).map(p => p.trim());
+        brand = parts.reduce((a, b) => b.length < a.length ? b : a);
+    }
+    return brand.replace(/\.(it|com|net|org|eu)$/i, '');
+}
+
 function createOfferCard(offer) {
-    const badgeText = offer.code ? `CODICE: ${offer.code}` : offer.discount;
-    const badge = badgeText ? `<span class="offer-card-badge">${escapeHtml(badgeText)}</span>` : '';
+    const brand = offer.brand || extractBrand(offer.title);
+    let badge;
+    if (offer.code) {
+        badge = `
+            <button class="offer-card-badge offer-card-code-btn"
+                data-code="${escapeHtml(offer.code)}" data-brand="${escapeHtml(brand)}" data-category="${offer.category}">
+                <span class="offer-card-code-text">CODICE: ${escapeHtml(offer.code)}</span>
+                <span class="offer-card-code-label">Copia</span>
+            </button>
+        `;
+    } else {
+        badge = offer.discount ? `<span class="offer-card-badge">${escapeHtml(offer.discount)}</span>` : '';
+    }
     const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatShortDate(offer.expiry)}</span>` : '';
 
     return `
         <div class="offer-card" data-category="${offer.category}"
             data-title="${escapeHtml(offer.title.toLowerCase())}"
             data-description="${escapeHtml(offer.description.toLowerCase())}">
-            <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
+            <div class="offer-card-header">
+                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(brand)}" loading="lazy"></div>
+                <span class="offer-card-brand">${escapeHtml(brand)}</span>
+            </div>
             <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
             <p class="offer-card-description">${escapeHtml(offer.description)}</p>
             <div class="offer-card-meta-row">${badge}${expiry}</div>
-            <button class="offer-card-cta" data-brand="${escapeHtml(offer.title)}" data-cat="${offer.category}" data-url="${offer.url}">
+            <button class="offer-card-cta" data-brand="${escapeHtml(brand)}" data-cat="${offer.category}" data-url="${offer.url}">
                 Vedi offerta <i class="fas fa-arrow-right"></i>
             </button>
         </div>
@@ -258,6 +335,16 @@ function renderGrid() {
         btn.addEventListener('click', () => {
             track('click_offer', { brand: btn.dataset.brand, category: btn.dataset.cat });
             window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
+        });
+    });
+
+    grid.querySelectorAll('.offer-card-code-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            copyCode(
+                btn,
+                btn.querySelector('.offer-card-code-text'),
+                btn.querySelector('.offer-card-code-label')
+            );
         });
     });
 }
@@ -322,6 +409,7 @@ function renderFooter() {
         <div class="offerte-footer-links">
             <span class="offerte-disclaimer">Un progetto di Mirko Papadopoli</span>
             <a href="https://beacons.ai/mirkopapadopoli/mediakit" target="_blank" rel="noopener noreferrer">Media Kit</a>
+            <a href="privacy.html">Privacy & Cookie</a>
         </div>
     `;
 }
@@ -339,7 +427,7 @@ function renderFallback() {
 // ---------- INIT ----------
 
 document.addEventListener('DOMContentLoaded', async () => {
-    loadTrackingScripts();
+    renderCookieBanner();
     setupTelegramTracking();
 
     try {

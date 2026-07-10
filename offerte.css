@@ -254,6 +254,12 @@ body {
     display: none;
 }
 
+.offer-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .offer-card-icon {
     width: 44px;
     height: 44px;
@@ -263,12 +269,18 @@ body {
     align-items: center;
     justify-content: center;
     background: var(--offerte-bg);
+    flex-shrink: 0;
 }
 
 .offer-card-icon img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.offer-card-brand {
+    font-size: 15px;
+    font-weight: 700;
 }
 
 .offer-card-title {
@@ -298,6 +310,27 @@ body {
     padding: 4px 10px;
     border-radius: 999px;
     width: fit-content;
+}
+
+.offer-card-code-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px dashed var(--offerte-primary);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s ease;
+}
+
+.offer-card-code-btn:hover {
+    background: #ffd9d9;
+}
+
+.offer-card-code-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--offerte-primary-dark);
+    white-space: nowrap;
 }
 
 .offer-card-cta {
@@ -577,4 +610,61 @@ body {
     body {
         padding-bottom: 56px;
     }
+}
+
+/* ---------- COOKIE BANNER ---------- */
+
+.cookie-banner {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    background: var(--offerte-accent);
+    color: #fff;
+    padding: 16px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cookie-banner p {
+    margin: 0;
+    font-size: 0.85rem;
+    max-width: 640px;
+    line-height: 1.5;
+}
+
+.cookie-banner a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.cookie-banner-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.cookie-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.cookie-btn-accept {
+    background: var(--offerte-primary);
+    color: #fff;
+}
+
+.cookie-btn-reject {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.4);
 }

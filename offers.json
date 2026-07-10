@@ -7,7 +7,7 @@
       "description": "Offerte giornaliere e campagne speciali | Westwing",
       "icon": "https://www.google.com/s2/favicons?domain=westwing.it&sz=128",
       "url": "https://westwing-it.mtpc.se/6321608",
-      "category": "altro",
+      "category": "casa",
       "code": "METAPIC10"
     },
     {
@@ -15,14 +15,14 @@
       "description": "Make up occhi, viso e labbra e cura della pelle | KIKO",
       "icon": "https://www.google.com/s2/favicons?domain=kikocosmetics.com&sz=128",
       "url": "https://kiko-milano-it.mtpc.se/6321606",
-      "category": "altro"
+      "category": "beauty"
     },
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
       "description": "Privé by Zalando: outlet online per la moda e la casa",
       "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
       "url": "https://prive-by-zalando-it.mtpc.se/6318976",
-      "category": "altro",
+      "category": "moda",
       "expiry": "2026-07-10"
     },
     {
@@ -30,7 +30,7 @@
       "description": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
       "icon": "https://www.google.com/s2/favicons?domain=shein.com&sz=128",
       "url": "https://shein-it.mtpc.se/6317251",
-      "category": "altro",
+      "category": "moda",
       "code": "ITAFNEW26"
     },
     {
@@ -38,7 +38,7 @@
       "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
       "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
       "url": "https://etrusca-gioielli.mtpc.se/6317249",
-      "category": "altro",
+      "category": "moda",
       "code": "PIC15",
       "expiry": "2026-07-17"
     },
@@ -47,7 +47,7 @@
       "description": "PcComponentes.it | Negozio online di computer e tecnologia",
       "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
       "url": "https://pc-componentes-it.mtpc.se/6317246",
-      "category": "altro",
+      "category": "tech",
       "expiry": "2026-07-16"
     }
   ]
