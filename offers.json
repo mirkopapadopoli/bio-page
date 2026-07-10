@@ -1,13 +1,23 @@
 {
-  "updated": "2026-07-09",
+  "updated": "2026-07-10",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
+    {
+      "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
+      "description": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
+      "icon": "https://www.google.com/s2/favicons?domain=marionnaud.it&sz=128",
+      "url": "https://marionnaud.mtpc.se/6323648",
+      "category": "beauty",
+      "brand": "Marionnaud",
+      "expiry": "2026-07-31"
+    },
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
       "description": "Offerte giornaliere e campagne speciali | Westwing",
       "icon": "https://www.google.com/s2/favicons?domain=westwing.it&sz=128",
       "url": "https://westwing-it.mtpc.se/6321608",
       "category": "casa",
+      "brand": "Westwing IT",
       "code": "METAPIC10"
     },
     {
@@ -15,7 +25,8 @@
       "description": "Make up occhi, viso e labbra e cura della pelle | KIKO",
       "icon": "https://www.google.com/s2/favicons?domain=kikocosmetics.com&sz=128",
       "url": "https://kiko-milano-it.mtpc.se/6321606",
-      "category": "beauty"
+      "category": "beauty",
+      "brand": "KIKO MILANO IT"
     },
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
@@ -23,6 +34,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
       "url": "https://prive-by-zalando-it.mtpc.se/6318976",
       "category": "moda",
+      "brand": "Privé by Zalando IT",
       "expiry": "2026-07-10"
     },
     {
@@ -31,6 +43,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=shein.com&sz=128",
       "url": "https://shein-it.mtpc.se/6317251",
       "category": "moda",
+      "brand": "Shein IT",
       "code": "ITAFNEW26"
     },
     {
@@ -39,6 +52,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
       "url": "https://etrusca-gioielli.mtpc.se/6317249",
       "category": "moda",
+      "brand": "Etrusca Gioielli",
       "code": "PIC15",
       "expiry": "2026-07-17"
     },
@@ -48,6 +62,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
       "url": "https://pc-componentes-it.mtpc.se/6317246",
       "category": "tech",
+      "brand": "Pc Componentes IT",
       "expiry": "2026-07-16"
     }
   ]
