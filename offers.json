@@ -1,15 +1,23 @@
 {
-  "updated": "2026-07-10",
+  "updated": "2026-07-16",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
+    {
+      "title": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
+      "description": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
+      "icon": "https://www.google.com/s2/favicons?domain=canon.it&sz=128",
+      "url": "https://canon-it.mtpc.se/6334245",
+      "category": "altro",
+      "brand": "Canon IT",
+      "expiry": "2026-07-31"
+    },
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "description": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "icon": "https://www.google.com/s2/favicons?domain=marionnaud.it&sz=128",
       "url": "https://marionnaud.mtpc.se/6323648",
       "category": "beauty",
-      "brand": "Marionnaud",
-      "expiry": "2026-07-31"
+      "brand": "Marionnaud"
     },
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
@@ -34,8 +42,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
       "url": "https://prive-by-zalando-it.mtpc.se/6318976",
       "category": "moda",
-      "brand": "Privé by Zalando IT",
-      "expiry": "2026-07-10"
+      "brand": "Privé by Zalando IT"
     },
     {
       "title": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
@@ -54,7 +61,7 @@
       "category": "moda",
       "brand": "Etrusca Gioielli",
       "code": "PIC15",
-      "expiry": "2026-07-17"
+      "expiry": "2026-08-28"
     },
     {
       "title": "PcComponentes.it | Negozio online di computer e tecnologia",
