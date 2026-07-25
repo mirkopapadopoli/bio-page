@@ -1,7 +1,15 @@
 {
-  "updated": "2026-07-16",
+  "updated": "2026-07-25",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
+    {
+      "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
+      "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
+      "icon": "https://www.google.com/s2/favicons?domain=thenorthface.com&sz=128",
+      "url": "https://the-north-face-it.mtpc.se/6353926",
+      "category": "moda",
+      "brand": "The North Face IT"
+    },
     {
       "title": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
       "description": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
@@ -9,7 +17,7 @@
       "url": "https://canon-it.mtpc.se/6334245",
       "category": "altro",
       "brand": "Canon IT",
-      "expiry": "2026-07-31"
+      "expiry": "2026-07-24"
     },
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
@@ -17,7 +25,8 @@
       "icon": "https://www.google.com/s2/favicons?domain=marionnaud.it&sz=128",
       "url": "https://marionnaud.mtpc.se/6323648",
       "category": "beauty",
-      "brand": "Marionnaud"
+      "brand": "Marionnaud",
+      "expiry": "2026-07-31"
     },
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
@@ -70,7 +79,7 @@
       "url": "https://pc-componentes-it.mtpc.se/6317246",
       "category": "tech",
       "brand": "Pc Componentes IT",
-      "expiry": "2026-07-16"
+      "expiry": "2026-07-31"
     }
   ]
 }
