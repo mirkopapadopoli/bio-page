@@ -95,21 +95,8 @@ function renderCookieBanner() {
 // ---------- TRACKING ----------
 
 function loadTrackingScripts() {
+    // Meta Pixel: caricato subito nell'<head> di offerte.html (non gated dal consenso cookie)
     const tracking = (window.CONFIG && window.CONFIG.tracking) || {};
-
-    if (tracking.metaPixelId) {
-        const fbScript = document.createElement('script');
-        fbScript.textContent = `
-            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-            n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-            document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${tracking.metaPixelId}');
-            fbq('track', 'PageView');
-        `;
-        document.head.appendChild(fbScript);
-    }
 
     if (tracking.googleAdsId) {
         const gtagSrc = document.createElement('script');
