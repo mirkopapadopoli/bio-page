@@ -15,18 +15,31 @@
     <link rel="icon" type="image/png" href="img/affarialvolo-logo.png">
     <link rel="apple-touch-icon" href="img/affarialvolo-logo.png">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="offers.json" as="fetch">
 
     <link rel="stylesheet" href="offerte.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </noscript>
+
+    <style>
+        /* Evita layout shift: ogni sezione viene renderizzata via JS e resta invisibile finché il layout finale non è pronto */
+        #offerte-hero, .offerte-container, #telegram-sticky, #offerte-footer {
+            opacity: 0;
+            transition: opacity .15s ease;
+        }
+    </style>
 </head>
 <body>
     <div id="offerte-hero"></div>
 
-    <div class="offerte-container">
+    <main class="offerte-container">
         <section id="offerte-featured" class="offerte-featured"></section>
 
         <section id="telegram-inline" class="telegram-inline"></section>
@@ -47,14 +60,15 @@
             </button>
         </div>
 
+        <h2 class="sr-only">Tutte le offerte di oggi</h2>
         <div id="offerte-grid" class="offerte-grid"></div>
-    </div>
+    </main>
 
     <div id="telegram-sticky" class="telegram-sticky"></div>
 
     <footer id="offerte-footer" class="offerte-footer"></footer>
 
-    <script src="config.js"></script>
-    <script src="offerte.js"></script>
+    <script src="config.js" defer></script>
+    <script src="offerte.js" defer></script>
 </body>
 </html>

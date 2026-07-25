@@ -161,7 +161,7 @@ function renderHero() {
     document.getElementById('offerte-hero').innerHTML = `
         <div class="hero">
             <div class="hero-inner">
-                <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo">
+                <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo" width="736" height="593">
                 <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
                 <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
                 <div class="hero-cta-row">
@@ -184,7 +184,7 @@ function createFeaturedCard(offer) {
     return `
         <div class="featured-card">
             <div class="featured-card-header">
-                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" loading="lazy"></div>
+                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" width="128" height="128" loading="lazy"></div>
                 <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
             </div>
             <div class="featured-card-body">
@@ -314,7 +314,7 @@ function createOfferCard(offer) {
             data-title="${escapeHtml(offer.title.toLowerCase())}"
             data-description="${escapeHtml(offer.description.toLowerCase())}">
             <div class="offer-card-header">
-                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(brand)}" loading="lazy"></div>
+                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(brand)}" width="128" height="128" loading="lazy"></div>
                 <span class="offer-card-brand">${escapeHtml(brand)}</span>
             </div>
             <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
@@ -426,9 +426,18 @@ function renderFallback() {
 
 // ---------- INIT ----------
 
+function revealRest() {
+    document.querySelectorAll('.offerte-container, #telegram-sticky, #offerte-footer')
+        .forEach(el => { el.style.opacity = '1'; });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
     renderCookieBanner();
     setupTelegramTracking();
+
+    // Hero non dipende da offers.json: si può mostrare subito, senza attendere il fetch
+    renderHero();
+    document.getElementById('offerte-hero').style.opacity = '1';
 
     try {
         const res = await fetch('offers.json', { cache: 'no-cache' });
@@ -437,11 +446,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error('offers.json non raggiungibile:', err);
         renderFallback();
+        revealRest();
         return;
     }
 
     currentCategory = initialCategory();
-    renderHero();
     renderFeatured();
     renderCategoryFilters();
     renderGrid();
@@ -450,4 +459,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderTelegramInline();
     renderStickyBar();
     renderFooter();
+    revealRest();
 });
