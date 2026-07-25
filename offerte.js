@@ -206,7 +206,8 @@ function renderFeatured() {
 
     section.querySelectorAll('.featured-code-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const { url } = btn.dataset;
+            const { url, title, category } = btn.dataset;
+            track('click_offer', { brand: title, category: category });
             copyCode(
                 btn,
                 btn.querySelector('.featured-code'),
