@@ -373,7 +373,7 @@ const CONFIG = {
     },
 
     tracking: {
-        metaPixelId: "",
+        metaPixelId: "1363279862594624",
         googleAdsId: ""
     }
 };
