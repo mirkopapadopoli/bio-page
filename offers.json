@@ -3,6 +3,63 @@
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
+      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "icon": "https://www.google.com/s2/favicons?domain=thefork-it.mtpc.se&sz=128",
+      "url": "https://thefork-it.mtpc.se/6358027",
+      "category": "altro",
+      "brand": "TheFork IT"
+    },
+    {
+      "title": "Abbigliamento neonato, bambino e premaman | Prénatal",
+      "description": "Abbigliamento neonato, bambino e premaman | Prénatal",
+      "icon": "https://www.google.com/s2/favicons?domain=prenatal-it.mtpc.se&sz=128",
+      "url": "https://prenatal-it.mtpc.se/6358025",
+      "category": "moda",
+      "brand": "Prenatal IT"
+    },
+    {
+      "title": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
+      "description": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
+      "icon": "https://www.google.com/s2/favicons?domain=4s-esim.mtpc.se&sz=128",
+      "url": "https://4s-esim.mtpc.se/6358023",
+      "category": "altro",
+      "brand": "4s eSIM"
+    },
+    {
+      "title": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
+      "description": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
+      "icon": "https://www.google.com/s2/favicons?domain=lelang-skincare.mtpc.se&sz=128",
+      "url": "https://lelang-skincare.mtpc.se/6358020",
+      "category": "altro",
+      "brand": "Lelang Skincare"
+    },
+    {
+      "title": "JD Sports Italia - Shop online di scarpe e abbigliamento",
+      "description": "JD Sports Italia - Shop online di scarpe e abbigliamento",
+      "icon": "https://www.google.com/s2/favicons?domain=jdsports.it&sz=128",
+      "url": "https://jd-sports-it.mtpc.se/6358017",
+      "category": "moda",
+      "brand": "JD Sports IT"
+    },
+    {
+      "title": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
+      "description": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
+      "icon": "https://www.google.com/s2/favicons?domain=bonprix.it&sz=128",
+      "url": "https://bonprix-it.mtpc.se/6358016",
+      "category": "moda",
+      "brand": "Bonprix IT",
+      "expiry": "2026-07-31"
+    },
+    {
+      "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
+      "description": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
+      "icon": "https://www.google.com/s2/favicons?domain=bravekid.com&sz=128",
+      "url": "https://brave-kid.mtpc.se/6358012",
+      "category": "altro",
+      "brand": "Brave KID"
+    },
+    {
       "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "icon": "https://www.google.com/s2/favicons?domain=thenorthface.com&sz=128",
@@ -17,7 +74,7 @@
       "url": "https://canon-it.mtpc.se/6334245",
       "category": "altro",
       "brand": "Canon IT",
-      "expiry": "2026-07-24"
+      "expiry": "2026-07-31"
     },
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
@@ -26,59 +83,6 @@
       "url": "https://marionnaud.mtpc.se/6323648",
       "category": "beauty",
       "brand": "Marionnaud",
-      "expiry": "2026-07-31"
-    },
-    {
-      "title": "Offerte giornaliere e campagne speciali | Westwing",
-      "description": "Offerte giornaliere e campagne speciali | Westwing",
-      "icon": "https://www.google.com/s2/favicons?domain=westwing.it&sz=128",
-      "url": "https://westwing-it.mtpc.se/6321608",
-      "category": "casa",
-      "brand": "Westwing IT",
-      "code": "METAPIC10"
-    },
-    {
-      "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
-      "description": "Make up occhi, viso e labbra e cura della pelle | KIKO",
-      "icon": "https://www.google.com/s2/favicons?domain=kikocosmetics.com&sz=128",
-      "url": "https://kiko-milano-it.mtpc.se/6321606",
-      "category": "beauty",
-      "brand": "KIKO MILANO IT"
-    },
-    {
-      "title": "Privé by Zalando: outlet online per la moda e la casa",
-      "description": "Privé by Zalando: outlet online per la moda e la casa",
-      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
-      "url": "https://prive-by-zalando-it.mtpc.se/6318976",
-      "category": "moda",
-      "brand": "Privé by Zalando IT"
-    },
-    {
-      "title": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
-      "description": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
-      "icon": "https://www.google.com/s2/favicons?domain=shein.com&sz=128",
-      "url": "https://shein-it.mtpc.se/6317251",
-      "category": "moda",
-      "brand": "Shein IT",
-      "code": "ITAFNEW26"
-    },
-    {
-      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
-      "url": "https://etrusca-gioielli.mtpc.se/6317249",
-      "category": "moda",
-      "brand": "Etrusca Gioielli",
-      "code": "PIC15",
-      "expiry": "2026-08-28"
-    },
-    {
-      "title": "PcComponentes.it | Negozio online di computer e tecnologia",
-      "description": "PcComponentes.it | Negozio online di computer e tecnologia",
-      "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
-      "url": "https://pc-componentes-it.mtpc.se/6317246",
-      "category": "tech",
-      "brand": "Pc Componentes IT",
       "expiry": "2026-07-31"
     }
   ]
