@@ -1,11 +1,20 @@
 {
-  "updated": "2026-07-25",
+  "updated": "2026-08-13",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
+      "title": "HONOR Italia",
+      "description": "HONOR Italia",
+      "icon": "https://www.google.com/s2/favicons?domain=honor.com&sz=128",
+      "url": "https://honor-it.mtpc.se/6402211",
+      "category": "altro",
+      "brand": "Honor IT",
+      "expiry": "2026-08-14"
+    },
+    {
       "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
       "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=thefork-it.mtpc.se&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=thefork.it&sz=128",
       "url": "https://thefork-it.mtpc.se/6358027",
       "category": "altro",
       "brand": "TheFork IT"
@@ -13,7 +22,7 @@
     {
       "title": "Abbigliamento neonato, bambino e premaman | Prénatal",
       "description": "Abbigliamento neonato, bambino e premaman | Prénatal",
-      "icon": "https://www.google.com/s2/favicons?domain=prenatal-it.mtpc.se&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=prenatal.com&sz=128",
       "url": "https://prenatal-it.mtpc.se/6358025",
       "category": "moda",
       "brand": "Prenatal IT"
@@ -21,7 +30,7 @@
     {
       "title": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
       "description": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
-      "icon": "https://www.google.com/s2/favicons?domain=4s-esim.mtpc.se&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=4s.net&sz=128",
       "url": "https://4s-esim.mtpc.se/6358023",
       "category": "altro",
       "brand": "4s eSIM"
@@ -29,7 +38,7 @@
     {
       "title": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
       "description": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
-      "icon": "https://www.google.com/s2/favicons?domain=lelang-skincare.mtpc.se&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=lelangskincare.com&sz=128",
       "url": "https://lelang-skincare.mtpc.se/6358020",
       "category": "altro",
       "brand": "Lelang Skincare"
@@ -48,8 +57,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=bonprix.it&sz=128",
       "url": "https://bonprix-it.mtpc.se/6358016",
       "category": "moda",
-      "brand": "Bonprix IT",
-      "expiry": "2026-07-31"
+      "brand": "Bonprix IT"
     },
     {
       "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
@@ -73,8 +81,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=canon.it&sz=128",
       "url": "https://canon-it.mtpc.se/6334245",
       "category": "altro",
-      "brand": "Canon IT",
-      "expiry": "2026-07-31"
+      "brand": "Canon IT"
     },
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
@@ -83,7 +90,7 @@
       "url": "https://marionnaud.mtpc.se/6323648",
       "category": "beauty",
       "brand": "Marionnaud",
-      "expiry": "2026-07-31"
+      "expiry": "2026-08-31"
     }
   ]
 }
