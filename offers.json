@@ -1,28 +1,28 @@
 {
-  "updated": "2026-08-23",
+  "updated": "2026-09-03",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
       "title": "HONOR Italia",
       "description": "HONOR Italia",
       "icon": "https://www.google.com/s2/favicons?domain=www.honor.com&sz=128",
-      "url": "https://honor-it.mtpc.se/6402211",
+      "url": "https://honor-it.mpic.link/6402211",
       "category": "altro",
       "brand": "Honor IT"
     },
     {
       "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
       "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=thefork.it&sz=128",
-      "url": "https://thefork-it.mtpc.se/6358027",
+      "icon": "https://www.google.com/s2/favicons?domain=thefork-it.mpic.link&sz=128",
+      "url": "https://thefork-it.mpic.link/6358027",
       "category": "altro",
       "brand": "TheFork IT"
     },
     {
       "title": "Abbigliamento neonato, bambino e premaman | Prénatal",
       "description": "Abbigliamento neonato, bambino e premaman | Prénatal",
-      "icon": "https://www.google.com/s2/favicons?domain=prenatal.com&sz=128",
-      "url": "https://prenatal-it.mtpc.se/6358025",
+      "icon": "https://www.google.com/s2/favicons?domain=prenatal-it.mpic.link&sz=128",
+      "url": "https://prenatal-it.mpic.link/6358025",
       "category": "moda",
       "brand": "Prenatal IT"
     },
@@ -30,7 +30,7 @@
       "title": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
       "description": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
       "icon": "https://www.google.com/s2/favicons?domain=4s.net&sz=128",
-      "url": "https://4s-esim.mtpc.se/6358023",
+      "url": "https://4s-esim.mpic.link/6358023",
       "category": "altro",
       "brand": "4s eSIM"
     },
@@ -38,47 +38,48 @@
       "title": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
       "description": "LeLang® | Advanced Skin Care\n      \n      \n       – LeLang Skin Care",
       "icon": "https://www.google.com/s2/favicons?domain=lelangskincare.com&sz=128",
-      "url": "https://lelang-skincare.mtpc.se/6358020",
+      "url": "https://lelang-skincare.mpic.link/6358020",
       "category": "altro",
       "brand": "Lelang Skincare"
     },
     {
       "title": "JBL",
       "description": "JBL",
-      "icon": "https://www.google.com/s2/favicons?domain=jblstore.it&sz=128",
-      "url": "https://jbl.mtpc.se/6358018",
+      "icon": "https://www.google.com/s2/favicons?domain=jbl.mpic.link&sz=128",
+      "url": "https://jbl.mpic.link/6358018",
       "category": "altro",
       "brand": "JBL"
     },
     {
       "title": "JD Sports Italia - Shop online di scarpe e abbigliamento",
       "description": "JD Sports Italia - Shop online di scarpe e abbigliamento",
-      "icon": "https://www.google.com/s2/favicons?domain=metapic.com&sz=128",
-      "url": "https://jd-sports-it.mtpc.se/6358017",
+      "icon": "https://www.google.com/s2/favicons?domain=www.jdsports.it&sz=128",
+      "url": "https://jd-sports-it.mpic.link/6358017",
       "category": "moda",
-      "brand": "JD Sports IT"
+      "brand": "JD Sports IT",
+      "expiry": "2026-09-16"
     },
     {
       "title": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
       "description": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
-      "icon": "https://www.google.com/s2/favicons?domain=bonprix.it&sz=128",
-      "url": "https://bonprix-it.mtpc.se/6358016",
+      "icon": "https://www.google.com/s2/favicons?domain=bonprix-it.mpic.link&sz=128",
+      "url": "https://bonprix-it.mpic.link/6358016",
       "category": "moda",
       "brand": "Bonprix IT"
     },
     {
       "title": "Levis IT",
       "description": "Levis IT",
-      "icon": "https://www.google.com/s2/favicons?domain=levi.com&sz=128",
-      "url": "https://levis-it.mtpc.se/6358015",
+      "icon": "https://www.google.com/s2/favicons?domain=levis-it.mpic.link&sz=128",
+      "url": "https://levis-it.mpic.link/6358015",
       "category": "altro",
       "brand": "Levis IT"
     },
     {
       "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
       "description": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
-      "icon": "https://www.google.com/s2/favicons?domain=bravekid.com&sz=128",
-      "url": "https://brave-kid.mtpc.se/6358012",
+      "icon": "https://www.google.com/s2/favicons?domain=brave-kid.mpic.link&sz=128",
+      "url": "https://brave-kid.mpic.link/6358012",
       "category": "altro",
       "brand": "Brave KID"
     },
@@ -86,32 +87,32 @@
       "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "icon": "https://www.google.com/s2/favicons?domain=www.thenorthface.com&sz=128",
-      "url": "https://the-north-face-it.mtpc.se/6353926",
+      "url": "https://the-north-face-it.mpic.link/6353926",
       "category": "moda",
       "brand": "The North Face IT",
-      "expiry": "2026-08-28"
+      "expiry": "2026-09-07"
     },
     {
       "title": "Aliexpress_IT",
       "description": "Aliexpress_IT",
-      "icon": "https://www.google.com/s2/favicons?domain=aliexpress.com&sz=128",
-      "url": "https://aliexpress-it.mtpc.se/6350610",
+      "icon": "https://www.google.com/s2/favicons?domain=aliexpress-it.mpic.link&sz=128",
+      "url": "https://aliexpress-it.mpic.link/6350610",
       "category": "altro",
       "brand": "Aliexpress_IT"
     },
     {
       "title": "Aliexpress_IT",
       "description": "Aliexpress_IT",
-      "icon": "https://www.google.com/s2/favicons?domain=aliexpress.com&sz=128",
-      "url": "https://aliexpress-it.mtpc.se/6350587",
+      "icon": "https://www.google.com/s2/favicons?domain=aliexpress-it.mpic.link&sz=128",
+      "url": "https://aliexpress-it.mpic.link/6350587",
       "category": "altro",
       "brand": "Aliexpress_IT"
     },
     {
       "title": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
       "description": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
-      "icon": "https://www.google.com/s2/favicons?domain=canon.it&sz=128",
-      "url": "https://canon-it.mtpc.se/6334245",
+      "icon": "https://www.google.com/s2/favicons?domain=canon-it.mpic.link&sz=128",
+      "url": "https://canon-it.mpic.link/6334245",
       "category": "altro",
       "brand": "Canon IT"
     },
@@ -119,63 +120,65 @@
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "description": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "icon": "https://www.google.com/s2/favicons?domain=marionnaud.it&sz=128",
-      "url": "https://marionnaud.mtpc.se/6323648",
+      "url": "https://marionnaud.mpic.link/6323648",
       "category": "beauty",
-      "brand": "Marionnaud"
+      "brand": "Marionnaud",
+      "expiry": "2026-09-20"
     },
     {
       "title": "Stradivarius IT",
       "description": "Stradivarius IT",
       "icon": "https://www.google.com/s2/favicons?domain=stradivarius.com&sz=128",
-      "url": "https://stradivarius-it.mtpc.se/6321609",
+      "url": "https://stradivarius-it.mpic.link/6321609",
       "category": "altro",
       "brand": "Stradivarius IT"
     },
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
       "description": "Offerte giornaliere e campagne speciali | Westwing",
-      "icon": "https://www.google.com/s2/favicons?domain=westwing.it&sz=128",
-      "url": "https://westwing-it.mtpc.se/6321608",
+      "icon": "https://www.google.com/s2/favicons?domain=www.westwing.it&sz=128",
+      "url": "https://westwing-it.mpic.link/6321608",
       "category": "casa",
-      "brand": "Westwing IT"
+      "brand": "Westwing IT",
+      "expiry": "2026-09-10"
     },
     {
       "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
       "description": "Make up occhi, viso e labbra e cura della pelle | KIKO",
-      "icon": "https://www.google.com/s2/favicons?domain=kikocosmetics.com&sz=128",
-      "url": "https://kiko-milano-it.mtpc.se/6321606",
+      "icon": "https://www.google.com/s2/favicons?domain=kiko-milano-it.mpic.link&sz=128",
+      "url": "https://kiko-milano-it.mpic.link/6321606",
       "category": "beauty",
       "brand": "KIKO MILANO IT"
     },
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
       "description": "Privé by Zalando: outlet online per la moda e la casa",
-      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
-      "url": "https://prive-by-zalando-it.mtpc.se/6318976",
+      "icon": "https://www.google.com/s2/favicons?domain=prive-by-zalando-it.mpic.link&sz=128",
+      "url": "https://prive-by-zalando-it.mpic.link/6318976",
       "category": "moda",
       "brand": "Privé by Zalando IT"
     },
     {
       "title": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
       "description": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
-      "icon": "https://www.google.com/s2/favicons?domain=it.shein.com&sz=128",
-      "url": "https://shein-it.mtpc.se/6317251",
+      "icon": "https://www.google.com/s2/favicons?domain=shein-it.mpic.link&sz=128",
+      "url": "https://shein-it.mpic.link/6317251",
       "category": "moda",
       "brand": "Shein IT"
     },
     {
       "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
       "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=metapic.com&sz=128",
-      "url": "https://etrusca-gioielli.mtpc.se/6317249",
+      "icon": "https://www.google.com/s2/favicons?domain=etrusca-gioielli.mpic.link&sz=128",
+      "url": "https://etrusca-gioielli.mpic.link/6317249",
       "category": "moda",
       "brand": "Etrusca Gioielli"
     },
     {
       "title": "PcComponentes.it | Negozio online di computer e tecnologia",
       "description": "PcComponentes.it | Negozio online di computer e tecnologia",
-      "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
-      "url": "https://pc-componentes-it.mtpc.se/6317246",
+      "icon": "https://www.google.com/s2/favicons?domain=pc-componentes-it.mpic.link&sz=128",
+      "url": "https://pc-componentes-it.mpic.link/6317246",
       "category": "tech",
       "brand": "Pc Componentes IT"
     }
