@@ -1,11 +1,28 @@
 {
-  "updated": "2026-09-03",
+  "updated": "2026-09-23",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
+      "title": "Petit Bateau IT",
+      "description": "Petit Bateau IT",
+      "icon": "https://www.google.com/s2/favicons?domain=www.petit-bateau.it&sz=128",
+      "url": "https://petit-bateau-it.mpic.link/6500766",
+      "category": "altro",
+      "brand": "Petit Bateau IT",
+      "expiry": "2026-09-30"
+    },
+    {
+      "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "description": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "icon": "https://www.google.com/s2/favicons?domain=panini-shop.mpic.link&sz=128",
+      "url": "https://panini-shop.mpic.link/6500761",
+      "category": "altro",
+      "brand": "Panini Shop"
+    },
+    {
       "title": "HONOR Italia",
       "description": "HONOR Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=www.honor.com&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=honor-it.mpic.link&sz=128",
       "url": "https://honor-it.mpic.link/6402211",
       "category": "altro",
       "brand": "Honor IT"
@@ -53,11 +70,10 @@
     {
       "title": "JD Sports Italia - Shop online di scarpe e abbigliamento",
       "description": "JD Sports Italia - Shop online di scarpe e abbigliamento",
-      "icon": "https://www.google.com/s2/favicons?domain=www.jdsports.it&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=jd-sports-it.mpic.link&sz=128",
       "url": "https://jd-sports-it.mpic.link/6358017",
       "category": "moda",
-      "brand": "JD Sports IT",
-      "expiry": "2026-09-16"
+      "brand": "JD Sports IT"
     },
     {
       "title": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
@@ -70,10 +86,11 @@
     {
       "title": "Levis IT",
       "description": "Levis IT",
-      "icon": "https://www.google.com/s2/favicons?domain=levis-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=levi.com&sz=128",
       "url": "https://levis-it.mpic.link/6358015",
       "category": "altro",
-      "brand": "Levis IT"
+      "brand": "Levis IT",
+      "expiry": "2026-09-30"
     },
     {
       "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
@@ -86,11 +103,10 @@
     {
       "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thenorthface.com&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=the-north-face-it.mpic.link&sz=128",
       "url": "https://the-north-face-it.mpic.link/6353926",
       "category": "moda",
-      "brand": "The North Face IT",
-      "expiry": "2026-09-07"
+      "brand": "The North Face IT"
     },
     {
       "title": "Aliexpress_IT",
@@ -123,7 +139,7 @@
       "url": "https://marionnaud.mpic.link/6323648",
       "category": "beauty",
       "brand": "Marionnaud",
-      "expiry": "2026-09-20"
+      "expiry": "2026-09-26"
     },
     {
       "title": "Stradivarius IT",
@@ -136,11 +152,10 @@
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
       "description": "Offerte giornaliere e campagne speciali | Westwing",
-      "icon": "https://www.google.com/s2/favicons?domain=www.westwing.it&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=westwing-it.mpic.link&sz=128",
       "url": "https://westwing-it.mpic.link/6321608",
       "category": "casa",
-      "brand": "Westwing IT",
-      "expiry": "2026-09-10"
+      "brand": "Westwing IT"
     },
     {
       "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
