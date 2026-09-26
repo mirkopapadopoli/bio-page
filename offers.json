@@ -1,7 +1,23 @@
 {
-  "updated": "2026-09-23",
+  "updated": "2026-09-26",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
+    {
+      "title": "Michael Kors IT",
+      "description": "Michael Kors IT",
+      "icon": "https://www.google.com/s2/favicons?domain=michael-kors-it.mpic.link&sz=128",
+      "url": "https://michael-kors-it.mpic.link/6510749",
+      "category": "altro",
+      "brand": "Michael Kors IT"
+    },
+    {
+      "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "description": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "icon": "https://www.google.com/s2/favicons?domain=panini-shop.mpic.link&sz=128",
+      "url": "https://panini-shop.mpic.link/6510743",
+      "category": "altro",
+      "brand": "Panini Shop"
+    },
     {
       "title": "Petit Bateau IT",
       "description": "Petit Bateau IT",
@@ -86,7 +102,7 @@
     {
       "title": "Levis IT",
       "description": "Levis IT",
-      "icon": "https://www.google.com/s2/favicons?domain=levi.com&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.levi.com&sz=128",
       "url": "https://levis-it.mpic.link/6358015",
       "category": "altro",
       "brand": "Levis IT",
@@ -135,11 +151,10 @@
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "description": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
-      "icon": "https://www.google.com/s2/favicons?domain=marionnaud.it&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=marionnaud.mpic.link&sz=128",
       "url": "https://marionnaud.mpic.link/6323648",
       "category": "beauty",
-      "brand": "Marionnaud",
-      "expiry": "2026-09-26"
+      "brand": "Marionnaud"
     },
     {
       "title": "Stradivarius IT",
@@ -152,10 +167,11 @@
     {
       "title": "Offerte giornaliere e campagne speciali | Westwing",
       "description": "Offerte giornaliere e campagne speciali | Westwing",
-      "icon": "https://www.google.com/s2/favicons?domain=westwing-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.westwing.it&sz=128",
       "url": "https://westwing-it.mpic.link/6321608",
       "category": "casa",
-      "brand": "Westwing IT"
+      "brand": "Westwing IT",
+      "expiry": "2026-09-30"
     },
     {
       "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
