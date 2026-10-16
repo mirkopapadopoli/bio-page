@@ -179,10 +179,14 @@ body.ready .page, body.ready .offerte-footer { opacity: 1; }
 
 .logo::before { content: attr(data-initial); }
 
+/* Il logo copre l'iniziale solo quando è caricato: prima (lazy) o se fallisce
+   resta visibile l'iniziale, non un riquadro bianco vuoto */
 .logo img {
     position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: contain; background: #fff; padding: 4px;
+    object-fit: contain; background: #fff; padding: 4px; opacity: 0;
 }
+
+.logo img.loaded { opacity: 1; }
 
 .logo-md { width: 40px; height: 40px; font-size: 1.1rem; border: 1px solid var(--border); }
 .logo-sm { width: 32px; height: 32px; font-size: .9rem; border: 1px solid var(--border); border-radius: 8px; }
@@ -240,9 +244,17 @@ body.ready .page, body.ready .offerte-footer { opacity: 1; }
     padding: 10px; text-decoration: none; font-size: .88rem; font-weight: 600;
 }
 
-.store-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Nomi lunghi ("Parmigiano Reggiano") su due righe invece di troncarli */
+.store-name {
+    min-width: 0; line-height: 1.2; overflow-wrap: anywhere; hyphens: auto;
+    display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
 
 .store-arrow { margin-left: auto; color: var(--muted); }
+
+@media (max-width: 400px) {
+    .store { gap: 8px; padding: 10px 8px; font-size: .8rem; }
+}
 
 .stores-empty { margin-top: 12px; color: var(--muted); font-size: .9rem; }
 

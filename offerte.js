@@ -97,7 +97,8 @@ function brandOf(offer) {
         brand = title.split(separator).map(p => p.trim()).reduce((a, b) => b.length < a.length ? b : a);
     }
     return brand.replace(/_/g, ' ').replace(/\.(it|com|net|org|eu)$/i, '')
-        .replace(/\s+(IT|Italia|Italy)$/i, '').trim();
+        // Suffissi di mercato dei nomi Metapic: "adidas IT NEW", "MANGO ( IT)", "Shein IT"
+        .replace(/\s*\(\s*IT\s*\)$/i, '').replace(/\s+(IT|Italia|Italy)(\s+NEW)?$/i, '').trim();
 }
 
 // "Verificata oggi alle 9:00" / "Verificata il 14 ott"
@@ -126,7 +127,7 @@ function logoHtml(offer, brand, size) {
     // Senza logo vero (o se non carica) resta l'iniziale del brand
     return `
         <span class="logo logo-${size}" data-initial="${initial}">
-            ${icon ? `<img src="${icon}" alt="" width="64" height="64" loading="lazy" onerror="this.remove()">` : ''}
+            ${icon ? `<img src="${icon}" alt="" width="64" height="64" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()">` : ''}
         </span>`;
 }
 
