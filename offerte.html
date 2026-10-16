@@ -3,83 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Affari al Volo: offerte e codici sconto verificati ogni giorno su moda, beauty, tech, casa e altro. Entra gratis nel canale Telegram.">
+    <meta name="description" content="Le promo attive oggi nei negozi online: sconti presi dai siti dei negozi e controllati ogni mattina. Moda, beauty, famiglia, tech e casa.">
 
-    <meta property="og:title" content="Affari al Volo | Offerte e codici sconto verificati, ogni giorno">
-    <meta property="og:description" content="Sconti e codici verificati su moda, beauty, tech, casa e altro. Le migliori offerte le pubblichiamo prima sul canale Telegram.">
+    <meta property="og:title" content="Affari al Volo | Le promo attive oggi">
+    <meta property="og:description" content="Sconti veri presi dai siti dei negozi e controllati ogni mattina.">
     <meta property="og:type" content="website">
     <meta property="og:image" content="img/affarialvolo-logo.png">
 
-    <title>Affari al Volo | Offerte e codici sconto verificati, ogni giorno</title>
+    <title>Affari al Volo | Le promo attive oggi</title>
 
     <link rel="icon" type="image/png" href="img/affarialvolo-logo.png">
     <link rel="apple-touch-icon" href="img/affarialvolo-logo.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="offers.json" as="fetch">
+    <link rel="preload" href="offers.json" as="fetch" crossorigin>
 
     <link rel="stylesheet" href="offerte.css">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional" media="print" onload="this.media='all'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=optional">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     </noscript>
-
-    <style>
-        /* Evita layout shift: ogni sezione viene renderizzata via JS e resta invisibile finché il layout finale non è pronto */
-        #offerte-hero, .offerte-container, #telegram-sticky, #offerte-footer {
-            opacity: 0;
-            transition: opacity .15s ease;
-        }
-    </style>
-
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1363279862594624');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1363279862594624&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+    <!-- Meta Pixel: caricato da offerte.js solo dopo il consenso cookie (GDPR) -->
 </head>
 <body>
-    <div id="offerte-hero"></div>
+    <header id="topbar" class="topbar"></header>
 
-    <main class="offerte-container">
-        <section id="offerte-featured" class="offerte-featured"></section>
+    <main class="page">
+        <section id="tg-top"></section>
 
-        <section id="telegram-inline" class="telegram-inline"></section>
-
-        <nav id="category-filters" class="category-filters"></nav>
-
-        <div class="offerte-search-wrapper">
-            <i class="fas fa-search offerte-search-icon"></i>
-            <input
-                type="text"
-                id="offerte-search-input"
-                class="offerte-search-input"
-                placeholder="Cerca tra le offerte..."
-                autocomplete="off"
-            >
-            <button id="offerte-search-clear" class="offerte-search-clear" style="display: none;">
-                <i class="fas fa-times"></i>
-            </button>
+        <div class="intro">
+            <h1 class="intro-title">Le promo attive oggi</h1>
+            <p id="intro-sub" class="intro-sub">Sconti veri presi dai siti dei negozi, controllati ogni mattina.</p>
         </div>
 
-        <h2 class="sr-only">Tutte le offerte di oggi</h2>
-        <div id="offerte-grid" class="offerte-grid"></div>
+        <nav id="category-filters" class="chips" aria-label="Categorie"></nav>
+
+        <section id="promo-list" class="promo-list" aria-label="Promo di oggi"></section>
+
+        <section id="stores" class="stores" aria-labelledby="stores-title"></section>
     </main>
 
     <div id="telegram-sticky" class="telegram-sticky"></div>
