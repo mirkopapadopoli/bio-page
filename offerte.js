@@ -1,24 +1,38 @@
 // =============================================================================
-// 🛍️ OFFERTE.JS — Landing "Affari al Volo" per traffico ADV
-// Dati: offers.json (fonte di verità). Conversione primaria: join Telegram.
+// 🛍️ OFFERTE.JS — Landing "Affari al Volo"
+// Dati: offers.json. Conversione primaria: click sull'offerta (link affiliato).
+// La CTA Telegram si adatta alla fonte del traffico (?src=):
+//   ads → Telegram in alto + sticky bar (l'iscritto vale più di un click singolo)
+//   tg  → nessuna CTA Telegram (sono già iscritti)
+//   altro/assente (bio Instagram) → offerte prima, Telegram dopo la 3ª promo
+//
+// offer.promo (opzionale, compilato dallo store scout):
+//   { title: "-30% sopra 79€ a carrello", detail: "...", until: "2026-10-20",
+//     verified_at: "2026-10-16T09:00:00+02:00" }
+// Le offerte con promo attiva diventano card grandi; le altre vanno nella
+// lista compatta "Altri negozi partner".
 // =============================================================================
 
 const CATEGORY_LABELS = {
-    moda: 'Moda &amp; Accessori',
-    beauty: 'Beauty &amp; Skincare',
-    tech: 'Tech &amp; Elettronica',
-    casa: 'Casa &amp; Arredamento',
+    moda: 'Moda',
+    beauty: 'Beauty',
+    tech: 'Tech',
+    casa: 'Casa',
     famiglia: 'Famiglia',
-    marketplace: 'Marketplace'
+    marketplace: 'Marketplace',
+    altro: 'Altro'
 };
 
 const STICKY_DISMISS_KEY = 'aav-sticky-dismissed';
 const COOKIE_CONSENT_KEY = 'aav-cookie-consent';
 const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
+const TELEGRAM_AFTER_PROMO = 3;
+const SEARCH_MIN_STORES = 12;
 
-// Aggiorna questo numero manualmente (o collegalo a un endpoint reale) per
-// mostrare la prova sociale in hero, blocco inline e sticky bar.
+// Aggiorna questo numero manualmente (o collegalo a un endpoint reale).
 const MEMBER_COUNT_LABEL = '15.200+';
+
+const SRC = (new URLSearchParams(window.location.search).get('src') || 'organic').toLowerCase();
 
 let DATA = null;
 let currentCategory = 'all';
@@ -26,9 +40,30 @@ let currentSearchTerm = '';
 
 // ---------- HELPERS ----------
 
+function endOfDay(iso) {
+    return new Date(iso + 'T23:59:59');
+}
+
 function isExpired(offer) {
-    if (!offer.expiry) return false;
-    return new Date(offer.expiry + 'T23:59:59') < new Date();
+    return Boolean(offer.expiry) && endOfDay(offer.expiry) < new Date();
+}
+
+// Promo da mostrare in card: quella dello store scout, oppure il codice
+// sconto Metapic (offer.code) se non c'è una promo.
+function promoOf(offer) {
+    const p = offer.promo;
+    if (p && p.title && !(p.until && endOfDay(p.until) < new Date())) return p;
+    if (offer.code) {
+        return {
+            title: offer.discount ? `${offer.discount} con codice` : 'Codice sconto riservato',
+            until: offer.expiry || null
+        };
+    }
+    return null;
+}
+
+function hasActivePromo(offer) {
+    return promoOf(offer) !== null;
 }
 
 function activeOffers() {
@@ -39,33 +74,76 @@ function telegramUrl() {
     return (DATA && DATA.telegram) || FALLBACK_TELEGRAM;
 }
 
-function formatDate(iso) {
-    return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+function showTelegram() {
+    return SRC !== 'tg';
 }
 
 function formatShortDate(iso) {
-    return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'long' });
+    return new Date(iso).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' });
 }
 
 function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, c => ({
+    return String(str ?? '').replace(/[&<>"']/g, c => ({
         '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[c]));
 }
 
-// ---------- COOKIE CONSENT ----------
+// "Michael Kors IT" → "Michael Kors"; "Abbigliamento ... | Prénatal" → "Prénatal"
+function brandOf(offer) {
+    const title = offer.brand || offer.title;
+    const separator = title.includes('|') ? '|' : (title.includes(' - ') ? ' - ' : null);
+    let brand = title;
+    if (separator) {
+        brand = title.split(separator).map(p => p.trim()).reduce((a, b) => b.length < a.length ? b : a);
+    }
+    return brand.replace(/_/g, ' ').replace(/\.(it|com|net|org|eu)$/i, '')
+        .replace(/\s+(IT|Italia|Italy)$/i, '').trim();
+}
+
+// "Verificata oggi alle 9:00" / "Verificata il 14 ott"
+function verifiedLabel(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const today = new Date().toDateString() === d.toDateString();
+    const time = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    return today ? `Verificata oggi alle ${time}` : `Verificata il ${formatShortDate(iso)}`;
+}
+
+function untilLabel(iso) {
+    const days = Math.round((endOfDay(iso) - new Date()) / 86400000);
+    if (days <= 0) return 'Scade oggi';
+    if (days === 1) return 'Scade domani';
+    if (days <= 6) return `Ancora ${days} giorni`;
+    return `Fino al ${formatShortDate(iso)}`;
+}
+
+// Favicon di Google su uno shortlink (mpic.link, mtpc.se) = sempre il globo generico
+const GENERIC_ICON = /domain=[^&]*\.(mpic\.link|mtpc\.se)/;
+
+function logoHtml(offer, brand, size) {
+    const initial = escapeHtml(brand.charAt(0).toUpperCase());
+    const icon = offer.icon && !GENERIC_ICON.test(offer.icon) ? offer.icon : '';
+    // Senza logo vero (o se non carica) resta l'iniziale del brand
+    return `
+        <span class="logo logo-${size}" data-initial="${initial}">
+            ${icon ? `<img src="${icon}" alt="" width="64" height="64" loading="lazy" onerror="this.remove()">` : ''}
+        </span>`;
+}
+
+// ---------- COOKIE CONSENT + TRACKING ----------
 
 function getCookieConsent() {
-    return localStorage.getItem(COOKIE_CONSENT_KEY);
+    try { return localStorage.getItem(COOKIE_CONSENT_KEY); } catch { return null; }
 }
 
 function setCookieConsent(value) {
-    localStorage.setItem(COOKIE_CONSENT_KEY, value);
+    try { localStorage.setItem(COOKIE_CONSENT_KEY, value); } catch { /* storage bloccato */ }
 }
 
 function renderCookieBanner() {
-    if (getCookieConsent()) {
-        if (getCookieConsent() === 'accepted') loadTrackingScripts();
+    const consent = getCookieConsent();
+    if (consent) {
+        if (consent === 'accepted') loadTrackingScripts();
         return;
     }
 
@@ -73,7 +151,7 @@ function renderCookieBanner() {
     banner.id = 'cookie-banner';
     banner.className = 'cookie-banner';
     banner.innerHTML = `
-        <p>Usiamo cookie tecnici e, previo tuo consenso, cookie di misurazione (Meta Pixel, Google Ads) per capire quali offerte funzionano meglio. Leggi la <a href="privacy.html">Privacy & Cookie Policy</a>.</p>
+        <p>Usiamo cookie tecnici e, con il tuo consenso, cookie di misurazione (Meta Pixel, Google Ads) per capire quali offerte funzionano meglio. <a href="privacy.html">Privacy & Cookie Policy</a>.</p>
         <div class="cookie-banner-actions">
             <button id="cookie-reject" class="cookie-btn cookie-btn-reject">Rifiuta</button>
             <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Accetta</button>
@@ -92,154 +170,247 @@ function renderCookieBanner() {
     });
 }
 
-// ---------- TRACKING ----------
-
 function loadTrackingScripts() {
-    // Meta Pixel: caricato subito nell'<head> di offerte.html (non gated dal consenso cookie)
     const tracking = (window.CONFIG && window.CONFIG.tracking) || {};
 
-    if (tracking.googleAdsId) {
+    if (tracking.metaPixelId && typeof fbq !== 'function') {
+        !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+        n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+        document,'script','https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', tracking.metaPixelId);
+        fbq('track', 'PageView');
+    }
+
+    if (tracking.googleAdsId && typeof gtag !== 'function') {
         const gtagSrc = document.createElement('script');
         gtagSrc.async = true;
         gtagSrc.src = `https://www.googletagmanager.com/gtag/js?id=${tracking.googleAdsId}`;
         document.head.appendChild(gtagSrc);
-
-        const gtagInit = document.createElement('script');
-        gtagInit.textContent = `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${tracking.googleAdsId}');
-        `;
-        document.head.appendChild(gtagInit);
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', tracking.googleAdsId);
     }
 }
 
 function track(eventName, params = {}) {
-    const tracking = (window.CONFIG && window.CONFIG.tracking) || {};
+    params = { src: SRC, ...params };
     console.log('[track]', eventName, params);
 
-    if (tracking.metaPixelId && typeof fbq === 'function') {
-        if (eventName === 'join_telegram') {
-            fbq('track', 'Lead', params);
-        } else if (eventName === 'click_offer') {
-            fbq('trackCustom', 'ClickOffer', params);
-        } else if (eventName === 'copy_code') {
-            fbq('trackCustom', 'CopyCode', params);
-        }
+    if (typeof fbq === 'function') {
+        if (eventName === 'join_telegram') fbq('track', 'Lead', params);
+        else if (eventName === 'click_offer') fbq('trackCustom', 'ClickOffer', params);
+        else if (eventName === 'copy_code') fbq('trackCustom', 'CopyCode', params);
     }
-
-    if (tracking.googleAdsId && typeof gtag === 'function') {
-        gtag('event', eventName, params);
-    }
+    if (typeof gtag === 'function') gtag('event', eventName, params);
 }
 
-// Delegation: ogni elemento con data-tg="<placement>" è una CTA Telegram
-function setupTelegramTracking() {
+// Delegation: [data-tg] = CTA Telegram, [data-offer] = click su offerta.
+// I link affiliati sono <a> veri: funzionano anche con JS lento o bloccato.
+function setupClickTracking() {
     document.addEventListener('click', e => {
-        const cta = e.target.closest('[data-tg]');
-        if (cta) track('join_telegram', { placement: cta.dataset.tg });
-    });
-}
-
-// ---------- RENDERING ----------
-
-function renderHero() {
-    document.getElementById('offerte-hero').innerHTML = `
-        <div class="hero">
-            <div class="hero-inner">
-                <img src="img/affarialvolo-logo.png" alt="Affari al Volo" class="hero-logo" width="736" height="593">
-                <div class="hero-social-proof">🔥 ${MEMBER_COUNT_LABEL} persone già iscritte</div>
-                <h1 class="hero-title">Offerte e codici sconto verificati, ogni giorno</h1>
-                <div class="hero-cta-row">
-                    <a href="${telegramUrl()}" class="hero-cta" data-tg="hero" target="_blank" rel="noopener noreferrer">🔔 Entra gratis nel canale</a>
-                    <a href="#offerte-grid" class="hero-cta-secondary">Vedi le offerte di oggi ↓</a>
-                </div>
-                <div class="hero-trust-strip">
-                    <span>✅ Codici verificati ogni giorno</span>
-                    <span>🚫 Niente spam</span>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-function createFeaturedCard(offer) {
-    const discount = offer.discount ? `<span class="offer-card-badge">${escapeHtml(offer.discount)}</span>` : '';
-    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatShortDate(offer.expiry)}</span>` : '';
-
-    return `
-        <div class="featured-card">
-            <div class="featured-card-header">
-                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(offer.title)}" width="128" height="128" loading="lazy"></div>
-                <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
-            </div>
-            <div class="featured-card-body">
-                <p class="offer-card-description">${escapeHtml(offer.description)}</p>
-                <div class="featured-meta-row">${discount}${expiry}</div>
-            </div>
-            <button class="featured-code-btn"
-                data-code="${escapeHtml(offer.code)}"
-                data-title="${escapeHtml(offer.title)}"
-                data-category="${offer.category}"
-                data-url="${offer.url}">
-                <span class="featured-code">${escapeHtml(offer.code)}</span>
-                <span class="featured-code-label">Copia codice</span>
-            </button>
-        </div>
-    `;
-}
-
-function renderFeatured() {
-    const featured = activeOffers().filter(o => o.featured && o.code);
-    const section = document.getElementById('offerte-featured');
-
-    if (!featured.length) {
-        section.innerHTML = '';
-        return;
-    }
-
-    section.innerHTML = `
-        <h2 class="featured-heading">⚡ Top con codice sconto</h2>
-        <div class="featured-grid">${featured.map(createFeaturedCard).join('')}</div>
-    `;
-
-    section.querySelectorAll('.featured-code-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const { url, title, category } = btn.dataset;
-            track('click_offer', { brand: title, category: category });
-            copyCode(
-                btn,
-                btn.querySelector('.featured-code'),
-                btn.querySelector('.featured-code-label'),
-                () => setTimeout(() => window.open(url, '_blank', 'noopener,noreferrer'), 600)
-            );
+        const tg = e.target.closest('[data-tg]');
+        if (tg) return track('join_telegram', { placement: tg.dataset.tg });
+        const code = e.target.closest('.promo-code');
+        if (code) return copyCode(code);
+        const offer = e.target.closest('[data-offer]');
+        if (offer) track('click_offer', {
+            brand: offer.dataset.offer, category: offer.dataset.cat, placement: offer.dataset.place
         });
     });
 }
 
-async function copyCode(btn, codeEl, labelEl, onCopied) {
-    const { code, title, category } = btn.dataset;
-
+async function copyCode(btn) {
+    const valueEl = btn.querySelector('.promo-code-value');
+    const labelEl = btn.querySelector('.promo-code-label');
     try {
-        await navigator.clipboard.writeText(code);
+        await navigator.clipboard.writeText(btn.dataset.code);
+        labelEl.textContent = 'Copiato ✓';
     } catch {
-        // Fallback: seleziona il testo del codice per copia manuale
+        // Clipboard non disponibile: seleziona il codice per la copia manuale
         const range = document.createRange();
-        range.selectNodeContents(codeEl);
+        range.selectNodeContents(valueEl);
         const sel = window.getSelection();
         sel.removeAllRanges();
         sel.addRange(range);
+        labelEl.textContent = 'Tieni premuto per copiare';
+    }
+    track('copy_code', { brand: btn.dataset.brand });
+    setTimeout(() => { labelEl.textContent = 'Copia codice'; }, 2000);
+}
+
+// ---------- RENDERING ----------
+
+function renderTopbar() {
+    const updated = DATA && DATA.updated
+        ? `<span class="topbar-updated"><span class="dot" aria-hidden="true"></span>Aggiornato ${formatShortDate(DATA.updated)}</span>`
+        : '';
+    document.getElementById('topbar').innerHTML = `
+        <div class="topbar-inner">
+            <span class="topbar-brand">
+                <img src="img/affarialvolo-logo.png" alt="" width="36" height="29">
+                Affari al Volo
+            </span>
+            ${updated}
+        </div>`;
+}
+
+function telegramCard(placement, title, sub) {
+    return `
+        <aside class="tg-card">
+            <div class="tg-card-text">
+                <strong>${title}</strong>
+                <span>${sub}</span>
+            </div>
+            <a href="${telegramUrl()}" class="tg-btn" data-tg="${placement}" target="_blank" rel="noopener noreferrer">Entra gratis</a>
+        </aside>`;
+}
+
+function renderTelegramTop() {
+    if (SRC !== 'ads') return;
+    document.getElementById('tg-top').innerHTML = telegramCard(
+        'top',
+        '🔔 Ricevi le promo ogni mattina su Telegram',
+        `${MEMBER_COUNT_LABEL} iscritti · gratis · esci quando vuoi`
+    );
+}
+
+function promoCard(offer) {
+    const brand = brandOf(offer);
+    const p = promoOf(offer);
+    const until = p.until ? `<span class="chip-until">⏱ ${untilLabel(p.until)}</span>` : '';
+    const detail = p.detail ? `<p class="promo-detail">${escapeHtml(p.detail)}</p>` : '';
+    const code = offer.code ? `
+            <button class="promo-code" data-code="${escapeHtml(offer.code)}" data-brand="${escapeHtml(brand)}">
+                <span class="promo-code-value">${escapeHtml(offer.code)}</span>
+                <span class="promo-code-label">Copia codice</span>
+            </button>` : '';
+    const verified = p.verified_at ? `<p class="promo-verified">✓ ${verifiedLabel(p.verified_at)} sul sito di ${escapeHtml(brand)}</p>` : '';
+
+    return `
+        <article class="promo-card" data-category="${escapeHtml(offer.category)}" data-search="${escapeHtml((brand + ' ' + p.title).toLowerCase())}">
+            <header class="promo-head">
+                ${logoHtml(offer, brand, 'md')}
+                <span class="promo-brand">${escapeHtml(brand)}</span>
+                ${until}
+            </header>
+            <h2 class="promo-title">${escapeHtml(p.title)}</h2>
+            ${detail}
+            ${code}
+            <a class="promo-cta" href="${offer.url}" target="_blank" rel="sponsored noopener"
+               data-offer="${escapeHtml(brand)}" data-cat="${escapeHtml(offer.category)}" data-place="promo">
+                Vai alla promo su ${escapeHtml(brand)} <span aria-hidden="true">→</span>
+            </a>
+            ${verified}
+        </article>`;
+}
+
+function renderPromos() {
+    const promos = activeOffers().filter(hasActivePromo);
+    const list = document.getElementById('promo-list');
+    const sub = document.getElementById('intro-sub');
+
+    if (!promos.length) {
+        list.innerHTML = '';
+        sub.textContent = 'Le promo del giorno arrivano a breve: intanto ecco i negozi partner.';
+        return;
     }
 
-    const originalLabel = labelEl.textContent;
-    labelEl.textContent = 'Copiato ✓';
-    track('copy_code', { brand: title, category: category });
-    if (onCopied) {
-        onCopied();
-    } else {
-        setTimeout(() => { labelEl.textContent = originalLabel; }, 1500);
+    sub.textContent = `${promos.length} ${promos.length === 1 ? 'promo attiva' : 'promo attive'} oggi, prese dai siti dei negozi e controllate ogni mattina.`;
+
+    const cards = promos.map(promoCard);
+    if (showTelegram() && SRC !== 'ads') {
+        const at = Math.min(TELEGRAM_AFTER_PROMO, cards.length);
+        cards.splice(at, 0, telegramCard(
+            'inline',
+            '🔔 Vuoi queste promo ogni mattina?',
+            `Le mandiamo su Telegram a ${MEMBER_COUNT_LABEL} iscritti. Gratis.`
+        ));
     }
+    list.innerHTML = cards.join('');
+}
+
+function storeRow(offer) {
+    const brand = brandOf(offer);
+    return `
+        <a class="store" href="${offer.url}" target="_blank" rel="sponsored noopener"
+           data-category="${escapeHtml(offer.category)}" data-search="${escapeHtml((brand + ' ' + offer.title).toLowerCase())}"
+           data-offer="${escapeHtml(brand)}" data-cat="${escapeHtml(offer.category)}" data-place="list">
+            ${logoHtml(offer, brand, 'sm')}
+            <span class="store-name">${escapeHtml(brand)}</span>
+            <span class="store-arrow" aria-hidden="true">→</span>
+        </a>`;
+}
+
+function renderStores() {
+    // Un negozio per brand: offers.json può contenere più link allo stesso negozio
+    const seen = new Set();
+    const stores = activeOffers().filter(o => !hasActivePromo(o)).filter(o => {
+        const key = brandOf(o).toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+    const section = document.getElementById('stores');
+    if (!stores.length) return;
+
+    const search = stores.length >= SEARCH_MIN_STORES ? `
+        <label class="search">
+            <span class="sr-only">Cerca un negozio</span>
+            <input type="search" id="store-search" placeholder="Cerca un negozio…" autocomplete="off">
+        </label>` : '';
+
+    section.innerHTML = `
+        <h2 id="stores-title" class="stores-title">Altri negozi partner</h2>
+        <p class="stores-sub">Nessuna promo attiva oggi, ma il link ci aiuta a tenere gratis questa pagina.</p>
+        ${search}
+        <div class="store-grid">${stores.map(storeRow).join('')}</div>
+        <p id="stores-empty" class="stores-empty" hidden>Nessun negozio trovato.</p>`;
+
+    const input = document.getElementById('store-search');
+    if (input) input.addEventListener('input', () => {
+        currentSearchTerm = input.value.trim().toLowerCase();
+        applyFilters();
+    });
+}
+
+function renderCategoryFilters() {
+    const offers = activeOffers();
+    const cats = [...new Set(offers.map(o => o.category))]
+        .sort((a, b) => (a === 'altro') - (b === 'altro'));
+    const nav = document.getElementById('category-filters');
+    if (cats.length < 2) return;
+
+    const chip = (cat, label) =>
+        `<button class="chip${cat === currentCategory ? ' active' : ''}" data-category="${cat}" aria-pressed="${cat === currentCategory}">${label}</button>`;
+
+    nav.innerHTML = chip('all', 'Tutte') + cats.map(c => chip(c, CATEGORY_LABELS[c] || c)).join('');
+    nav.addEventListener('click', e => {
+        const btn = e.target.closest('.chip');
+        if (!btn) return;
+        nav.querySelectorAll('.chip').forEach(x => {
+            x.classList.toggle('active', x === btn);
+            x.setAttribute('aria-pressed', x === btn);
+        });
+        currentCategory = btn.dataset.category;
+        applyFilters();
+    });
+}
+
+function applyFilters() {
+    const items = document.querySelectorAll('.promo-card, .store');
+    let visibleStores = 0;
+    items.forEach(el => {
+        const okCat = currentCategory === 'all' || el.dataset.category === currentCategory;
+        const okSearch = !currentSearchTerm || el.dataset.search.includes(currentSearchTerm);
+        const visible = okCat && okSearch;
+        el.hidden = !visible;
+        if (visible && el.classList.contains('store')) visibleStores++;
+    });
+    const empty = document.getElementById('stores-empty');
+    if (empty) empty.hidden = visibleStores > 0;
 }
 
 function initialCategory() {
@@ -248,184 +419,50 @@ function initialCategory() {
     return cat && present.has(cat) ? cat : 'all';
 }
 
-function renderCategoryFilters() {
-    const categoriesPresent = [...new Set(activeOffers().map(o => o.category))];
-    const nav = document.getElementById('category-filters');
-
-    const pill = (cat, label) => {
-        const active = cat === currentCategory ? ' active' : '';
-        return `<button class="category-pill${active}" data-category="${cat}">${label}</button>`;
-    };
-
-    nav.innerHTML = pill('all', 'Tutte') + categoriesPresent.map(cat =>
-        pill(cat, CATEGORY_LABELS[cat] || cat)
-    ).join('');
-
-    nav.querySelectorAll('.category-pill').forEach(p => {
-        p.addEventListener('click', () => {
-            nav.querySelectorAll('.category-pill').forEach(x => x.classList.remove('active'));
-            p.classList.add('active');
-            currentCategory = p.dataset.category;
-            applyFilters();
-        });
-    });
-}
-
-function extractBrand(title) {
-    const separator = title.includes('|') ? '|' : (title.includes(':') ? ':' : null);
-    let brand = title;
-    if (separator) {
-        const parts = title.split(separator).map(p => p.trim());
-        brand = parts.reduce((a, b) => b.length < a.length ? b : a);
-    }
-    return brand.replace(/\.(it|com|net|org|eu)$/i, '');
-}
-
-function createOfferCard(offer) {
-    const brand = offer.brand || extractBrand(offer.title);
-    let badge;
-    if (offer.code) {
-        badge = `
-            <button class="offer-card-badge offer-card-code-btn"
-                data-code="${escapeHtml(offer.code)}" data-brand="${escapeHtml(brand)}" data-category="${offer.category}">
-                <span class="offer-card-code-text">CODICE: ${escapeHtml(offer.code)}</span>
-                <span class="offer-card-code-label">Copia</span>
-            </button>
-        `;
-    } else {
-        badge = offer.discount ? `<span class="offer-card-badge">${escapeHtml(offer.discount)}</span>` : '';
-    }
-    const expiry = offer.expiry ? `<span class="featured-expiry">Scade il ${formatShortDate(offer.expiry)}</span>` : '';
-
-    return `
-        <div class="offer-card" data-category="${offer.category}"
-            data-title="${escapeHtml(offer.title.toLowerCase())}"
-            data-description="${escapeHtml(offer.description.toLowerCase())}">
-            <div class="offer-card-header">
-                <div class="offer-card-icon"><img src="${offer.icon}" alt="${escapeHtml(brand)}" width="128" height="128" loading="lazy"></div>
-                <span class="offer-card-brand">${escapeHtml(brand)}</span>
-            </div>
-            <h3 class="offer-card-title">${escapeHtml(offer.title)}</h3>
-            <p class="offer-card-description">${escapeHtml(offer.description)}</p>
-            <div class="offer-card-meta-row">${badge}${expiry}</div>
-            <button class="offer-card-cta" data-brand="${escapeHtml(brand)}" data-cat="${offer.category}" data-url="${offer.url}">
-                Vedi offerta <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    `;
-}
-
-function renderGrid() {
-    const grid = document.getElementById('offerte-grid');
-    grid.innerHTML = activeOffers().map(createOfferCard).join('');
-
-    grid.querySelectorAll('.offer-card-cta').forEach(btn => {
-        btn.addEventListener('click', () => {
-            track('click_offer', { brand: btn.dataset.brand, category: btn.dataset.cat });
-            window.open(btn.dataset.url, '_blank', 'noopener,noreferrer');
-        });
-    });
-
-    grid.querySelectorAll('.offer-card-code-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            copyCode(
-                btn,
-                btn.querySelector('.offer-card-code-text'),
-                btn.querySelector('.offer-card-code-label')
-            );
-        });
-    });
-}
-
-function applyFilters() {
-    document.querySelectorAll('.offer-card').forEach(card => {
-        const matchesCategory = currentCategory === 'all' || card.dataset.category === currentCategory;
-        const matchesSearch = !currentSearchTerm ||
-            card.dataset.title.includes(currentSearchTerm) ||
-            card.dataset.description.includes(currentSearchTerm);
-        card.classList.toggle('hidden', !(matchesCategory && matchesSearch));
-    });
-}
-
-function setupSearch() {
-    const input = document.getElementById('offerte-search-input');
-    const clearBtn = document.getElementById('offerte-search-clear');
-
-    input.addEventListener('input', () => {
-        currentSearchTerm = input.value.trim().toLowerCase();
-        clearBtn.style.display = currentSearchTerm ? 'block' : 'none';
-        applyFilters();
-    });
-
-    clearBtn.addEventListener('click', () => {
-        input.value = '';
-        currentSearchTerm = '';
-        clearBtn.style.display = 'none';
-        applyFilters();
-    });
-}
-
-function renderTelegramInline() {
-    document.getElementById('telegram-inline').innerHTML = `
-        <div class="telegram-inline-box">
-            <p>👀 Le offerte migliori le pubblichiamo prima sul canale</p>
-            <p class="telegram-inline-subtext">Unisciti a ${MEMBER_COUNT_LABEL} persone che risparmiano ogni giorno</p>
-            <a href="${telegramUrl()}" class="telegram-cta" data-tg="inline" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
-        </div>
-    `;
-}
-
 function renderStickyBar() {
-    if (localStorage.getItem(STICKY_DISMISS_KEY)) return;
+    if (SRC !== 'ads') return;
+    try { if (localStorage.getItem(STICKY_DISMISS_KEY)) return; } catch { /* ignora */ }
 
     const bar = document.getElementById('telegram-sticky');
     bar.innerHTML = `
-        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 ${MEMBER_COUNT_LABEL} iscritti su Telegram — Entra gratis</a>
+        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 Promo ogni mattina su Telegram · Entra gratis</a>
         <button class="sticky-close" aria-label="Chiudi">✕</button>
     `;
     bar.classList.add('visible');
-
     bar.querySelector('.sticky-close').addEventListener('click', () => {
-        localStorage.setItem(STICKY_DISMISS_KEY, '1');
+        try { localStorage.setItem(STICKY_DISMISS_KEY, '1'); } catch { /* ignora */ }
         bar.classList.remove('visible');
     });
 }
 
 function renderFooter() {
+    const tg = showTelegram()
+        ? `<a href="${telegramUrl()}" data-tg="footer" target="_blank" rel="noopener noreferrer">Canale Telegram</a>` : '';
     document.getElementById('offerte-footer').innerHTML = `
-        <p class="offerte-disclaimer">Questa pagina contiene link di affiliazione. Se acquisti tramite questi link potremmo ricevere una piccola commissione, senza costi aggiuntivi per te.</p>
-        <div class="offerte-footer-links">
-            <span class="offerte-disclaimer">Un progetto di Mirko Papadopoli</span>
-            <a href="https://beacons.ai/mirkopapadopoli/mediakit" target="_blank" rel="noopener noreferrer">Media Kit</a>
+        <p>Questa pagina contiene link di affiliazione: se acquisti tramite questi link potremmo ricevere una commissione, senza costi aggiuntivi per te. Le promo sono riportate dai siti dei negozi: condizioni e scadenze valgono come indicate dal negozio.</p>
+        <nav class="footer-links">
+            ${tg}
             <a href="privacy.html">Privacy & Cookie</a>
-        </div>
-    `;
+            <a href="https://beacons.ai/mirkopapadopoli/mediakit" target="_blank" rel="noopener noreferrer">Media Kit</a>
+        </nav>
+        <p class="footer-sign">Un progetto di Mirko Papadopoli</p>`;
 }
 
 function renderFallback() {
-    document.querySelector('.offerte-container').innerHTML = `
-        <div class="offerte-fallback">
-            <h2>Ops, le offerte non si caricano 😅</h2>
-            <p>Nessun problema: le trovi tutte sul nostro canale Telegram, aggiornate ogni giorno.</p>
-            <a href="${FALLBACK_TELEGRAM}" class="hero-cta" data-tg="fallback" target="_blank" rel="noopener noreferrer">🔔 Entra nel canale gratis</a>
-        </div>
-    `;
+    document.querySelector('.page').innerHTML = `
+        <div class="fallback">
+            <h1>Ops, le offerte non si caricano 😅</h1>
+            <p>Le trovi tutte sul canale Telegram, aggiornate ogni giorno.</p>
+            <a href="${FALLBACK_TELEGRAM}" class="tg-btn" data-tg="fallback" target="_blank" rel="noopener noreferrer">Apri il canale</a>
+        </div>`;
 }
 
 // ---------- INIT ----------
 
-function revealRest() {
-    document.querySelectorAll('.offerte-container, #telegram-sticky, #offerte-footer')
-        .forEach(el => { el.style.opacity = '1'; });
-}
-
 document.addEventListener('DOMContentLoaded', async () => {
     renderCookieBanner();
-    setupTelegramTracking();
-
-    // Hero non dipende da offers.json: si può mostrare subito, senza attendere il fetch
-    renderHero();
-    document.getElementById('offerte-hero').style.opacity = '1';
+    setupClickTracking();
+    renderTopbar();
 
     try {
         const res = await fetch('offers.json', { cache: 'no-cache' });
@@ -434,18 +471,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     } catch (err) {
         console.error('offers.json non raggiungibile:', err);
         renderFallback();
-        revealRest();
+        renderFooter();
         return;
     }
 
     currentCategory = initialCategory();
-    renderFeatured();
+    renderTopbar();
+    renderTelegramTop();
     renderCategoryFilters();
-    renderGrid();
+    renderPromos();
+    renderStores();
     applyFilters();
-    setupSearch();
-    renderTelegramInline();
     renderStickyBar();
     renderFooter();
-    revealRest();
+    document.body.classList.add('ready');
 });
