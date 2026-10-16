@@ -29,8 +29,6 @@ const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
 const TELEGRAM_AFTER_PROMO = 3;
 const SEARCH_MIN_STORES = 12;
 
-// Aggiorna questo numero manualmente (o collegalo a un endpoint reale).
-const MEMBER_COUNT_LABEL = '15.200+';
 
 const SRC = (new URLSearchParams(window.location.search).get('src') || 'organic').toLowerCase();
 
@@ -274,7 +272,7 @@ function renderTelegramTop() {
     document.getElementById('tg-top').innerHTML = telegramCard(
         'top',
         '🔔 Ricevi le promo ogni mattina su Telegram',
-        `${MEMBER_COUNT_LABEL} iscritti · gratis · esci quando vuoi`
+        'Gratis · niente spam · esci quando vuoi'
     );
 }
 
@@ -327,7 +325,7 @@ function renderPromos() {
         cards.splice(at, 0, telegramCard(
             'inline',
             '🔔 Vuoi queste promo ogni mattina?',
-            `Le mandiamo su Telegram a ${MEMBER_COUNT_LABEL} iscritti. Gratis.`
+            'Te le mandiamo ogni mattina sul canale Telegram. Gratis.'
         ));
     }
     list.innerHTML = cards.join('');
