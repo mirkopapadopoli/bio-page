@@ -1,22 +1,52 @@
 {
-  "updated": "2026-09-26",
+  "updated": "2026-10-16",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
-      "title": "Michael Kors IT",
-      "description": "Michael Kors IT",
-      "icon": "https://www.google.com/s2/favicons?domain=michael-kors-it.mpic.link&sz=128",
-      "url": "https://michael-kors-it.mpic.link/6510749",
+      "title": "Camicissima - Sito Ufficiale  | Camicissima",
+      "description": "Camicissima - Sito Ufficiale  | Camicissima",
+      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
+      "url": "https://camicissima-it.mpic.link/6926453",
       "category": "altro",
-      "brand": "Michael Kors IT"
+      "brand": "Camicissima IT",
+      "promo": {
+        "title": "Promo: camicie no stiro",
+        "until": "2026-10-19"
+      }
     },
     {
-      "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
-      "description": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
-      "icon": "https://www.google.com/s2/favicons?domain=panini-shop.mpic.link&sz=128",
-      "url": "https://panini-shop.mpic.link/6510743",
+      "title": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
+      "description": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
+      "icon": "https://www.google.com/s2/favicons?domain=www.footlocker.it&sz=128",
+      "url": "https://footlocker.mpic.link/6926456",
+      "category": "moda",
+      "brand": "Footlocker",
+      "promo": {
+        "title": "Offerte!",
+        "until": "2026-10-23"
+      }
+    },
+    {
+      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
+      "url": "https://thebs.mpic.link/6926433",
+      "category": "moda",
+      "brand": "TheBS"
+    },
+    {
+      "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
+      "url": "https://sharkninja-it.mpic.link/6926402",
       "category": "altro",
-      "brand": "Panini Shop"
+      "brand": "SharkNinja IT",
+      "code": "METAPIC15",
+      "promo": {
+        "title": "-15% con codice",
+        "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
+        "until": "2026-10-31"
+      }
     },
     {
       "title": "Petit Bateau IT",
@@ -24,13 +54,179 @@
       "icon": "https://www.google.com/s2/favicons?domain=www.petit-bateau.it&sz=128",
       "url": "https://petit-bateau-it.mpic.link/6500766",
       "category": "altro",
-      "brand": "Petit Bateau IT",
-      "expiry": "2026-09-30"
+      "brand": "Petit Bateau IT"
+    },
+    {
+      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
+      "url": "https://etrusca-gioielli.mpic.link/6317249",
+      "category": "moda",
+      "brand": "Etrusca Gioielli",
+      "code": "PIC15",
+      "promo": {
+        "title": "-15% con codice",
+        "until": "2026-10-16"
+      }
+    },
+    {
+      "title": "PcComponentes.it | Negozio online di computer e tecnologia",
+      "description": "PcComponentes.it | Negozio online di computer e tecnologia",
+      "icon": "https://www.google.com/s2/favicons?domain=pccomponentes.it&sz=128",
+      "url": "https://pc-componentes-it.mpic.link/6317246",
+      "category": "tech",
+      "brand": "Pc Componentes IT"
+    },
+    {
+      "title": "Abbigliamento neonato, bambino e premaman | Prénatal",
+      "description": "Abbigliamento neonato, bambino e premaman | Prénatal",
+      "icon": "https://www.google.com/s2/favicons?domain=www.prenatal.com&sz=128",
+      "url": "https://prenatal-it.mpic.link/6358025",
+      "category": "moda",
+      "brand": "Prenatal IT",
+      "code": "SAVETEN",
+      "promo": {
+        "title": "-10% con codice"
+      }
+    },
+    {
+      "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
+      "description": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
+      "icon": "https://www.google.com/s2/favicons?domain=bravekid.com&sz=128",
+      "url": "https://brave-kid.mpic.link/6358012",
+      "category": "altro",
+      "brand": "Brave KID",
+      "promo": {
+        "title": "Sconti fino al -50%",
+        "detail": "Approfitta degli sconti estivi Brave Kid fino al -50%"
+      }
+    },
+    {
+      "title": "Offerte giornaliere e campagne speciali | Westwing",
+      "description": "Offerte giornaliere e campagne speciali | Westwing",
+      "icon": "https://www.google.com/s2/favicons?domain=www.westwing.it&sz=128",
+      "url": "https://westwing-it.mpic.link/6321608",
+      "category": "casa",
+      "brand": "Westwing IT",
+      "code": "METAPIC10",
+      "promo": {
+        "title": "-10% con codice",
+        "detail": "-10% sui prodotti Westwing Collection a prezzo pieno e -5% sui prodotti scontati della Westwing Collection\n\n ⚠️ NON promovibile nella bio/caption ⚠️"
+      }
+    },
+    {
+      "title": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
+      "description": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
+      "icon": "https://www.google.com/s2/favicons?domain=shein.com&sz=128",
+      "url": "https://shein-it.mpic.link/6317251",
+      "category": "moda",
+      "brand": "Shein IT",
+      "code": "ITAFNEW26",
+      "promo": {
+        "title": "-25% con codice",
+        "detail": "SOLO PER I NUOVI CLIENTI - 25% EXTRA su ordini superiori ai €39,00"
+      }
+    },
+    {
+      "title": "Vivaticket",
+      "description": "Vivaticket",
+      "icon": "https://www.google.com/s2/favicons?domain=vivaticket.com&sz=128",
+      "url": "https://viva-ticket.mpic.link/6926466",
+      "category": "altro",
+      "brand": "Viva Ticket"
+    },
+    {
+      "title": "Voghion Italia Sito | Shopping moda, scarpe, borse e accessori",
+      "description": "Voghion Italia Sito | Shopping moda, scarpe, borse e accessori",
+      "icon": "https://www.google.com/s2/favicons?domain=it.voghion.com&sz=128",
+      "url": "https://voghion.mpic.link/6926465",
+      "category": "moda",
+      "brand": "Voghion"
+    },
+    {
+      "title": "Alimenti e accessori per cani, gatti e animali domestici | zooplus",
+      "description": "Alimenti e accessori per cani, gatti e animali domestici | zooplus",
+      "icon": "https://www.google.com/s2/favicons?domain=www.zooplus.it&sz=128",
+      "url": "https://zooplus-it.mpic.link/6926464",
+      "category": "moda",
+      "brand": "Zooplus IT"
+    },
+    {
+      "title": "Mango Italia | Moda online",
+      "description": "Mango Italia | Moda online",
+      "icon": "https://www.google.com/s2/favicons?domain=shop.mango.com&sz=128",
+      "url": "https://mango-it.mpic.link/6926459",
+      "category": "moda",
+      "brand": "MANGO ( IT)"
+    },
+    {
+      "title": "Massimo Dutti IT",
+      "description": "Massimo Dutti IT",
+      "icon": "https://www.google.com/s2/favicons?domain=massimodutti.com&sz=128",
+      "url": "https://massimo-dutti-it.mpic.link/6926458",
+      "category": "altro",
+      "brand": "Massimo Dutti IT"
+    },
+    {
+      "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
+      "description": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
+      "icon": "https://www.google.com/s2/favicons?domain=suitsupply.com&sz=128",
+      "url": "https://suit-supply.mpic.link/6926424",
+      "category": "altro",
+      "brand": "Suit Supply"
+    },
+    {
+      "title": "Scrivania Regolabile in Altezza ＆ Arredi Ergonomici | FlexiSpot",
+      "description": "Scrivania Regolabile in Altezza ＆ Arredi Ergonomici | FlexiSpot",
+      "icon": "https://www.google.com/s2/favicons?domain=flexispot.it&sz=128",
+      "url": "https://flexispot.mpic.link/6926409",
+      "category": "casa",
+      "brand": "Flexispot"
+    },
+    {
+      "title": "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
+      "description": "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
+      "icon": "https://www.google.com/s2/favicons?domain=newbalance.it&sz=128",
+      "url": "https://new-balance-it.mpic.link/6926399",
+      "category": "moda",
+      "brand": "New Balance IT"
+    },
+    {
+      "title": "Home - Parmigiano Reggiano shop online\n – Shop Parmigiano Reggiano",
+      "description": "Home - Parmigiano Reggiano shop online\n – Shop Parmigiano Reggiano",
+      "icon": "https://www.google.com/s2/favicons?domain=shop.parmigianoreggiano.com&sz=128",
+      "url": "https://parmigiano-reggiano.mpic.link/6926392",
+      "category": "altro",
+      "brand": "Parmigiano Reggiano"
+    },
+    {
+      "title": "adidas IT NEW",
+      "description": "adidas IT NEW",
+      "icon": "https://www.google.com/s2/favicons?domain=adidas.it&sz=128",
+      "url": "https://adidas-it-new.mpic.link/6926386",
+      "category": "altro",
+      "brand": "adidas IT NEW"
+    },
+    {
+      "title": "Michael Kors IT",
+      "description": "Michael Kors IT",
+      "icon": "https://www.google.com/s2/favicons?domain=www.michaelkors.it&sz=128",
+      "url": "https://michael-kors-it.mpic.link/6510749",
+      "category": "altro",
+      "brand": "Michael Kors IT"
     },
     {
       "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
       "description": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
-      "icon": "https://www.google.com/s2/favicons?domain=panini-shop.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=scuola.francopanini.it&sz=128",
+      "url": "https://panini-shop.mpic.link/6510743",
+      "category": "altro",
+      "brand": "Panini Shop"
+    },
+    {
+      "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "description": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
+      "icon": "https://www.google.com/s2/favicons?domain=scuola.francopanini.it&sz=128",
       "url": "https://panini-shop.mpic.link/6500761",
       "category": "altro",
       "brand": "Panini Shop"
@@ -38,7 +234,7 @@
     {
       "title": "HONOR Italia",
       "description": "HONOR Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=honor-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.honor.com&sz=128",
       "url": "https://honor-it.mpic.link/6402211",
       "category": "altro",
       "brand": "Honor IT"
@@ -46,18 +242,10 @@
     {
       "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
       "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=thefork-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
       "url": "https://thefork-it.mpic.link/6358027",
       "category": "altro",
       "brand": "TheFork IT"
-    },
-    {
-      "title": "Abbigliamento neonato, bambino e premaman | Prénatal",
-      "description": "Abbigliamento neonato, bambino e premaman | Prénatal",
-      "icon": "https://www.google.com/s2/favicons?domain=prenatal-it.mpic.link&sz=128",
-      "url": "https://prenatal-it.mpic.link/6358025",
-      "category": "moda",
-      "brand": "Prenatal IT"
     },
     {
       "title": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
@@ -78,7 +266,7 @@
     {
       "title": "JBL",
       "description": "JBL",
-      "icon": "https://www.google.com/s2/favicons?domain=jbl.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=jblstore.it&sz=128",
       "url": "https://jbl.mpic.link/6358018",
       "category": "altro",
       "brand": "JBL"
@@ -86,7 +274,7 @@
     {
       "title": "JD Sports Italia - Shop online di scarpe e abbigliamento",
       "description": "JD Sports Italia - Shop online di scarpe e abbigliamento",
-      "icon": "https://www.google.com/s2/favicons?domain=jd-sports-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.jdsports.it&sz=128",
       "url": "https://jd-sports-it.mpic.link/6358017",
       "category": "moda",
       "brand": "JD Sports IT"
@@ -94,7 +282,7 @@
     {
       "title": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
       "description": "Abbigliamento, scarpe e mobili: acquistali online su bonprix.it",
-      "icon": "https://www.google.com/s2/favicons?domain=bonprix-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=bonprix.it&sz=128",
       "url": "https://bonprix-it.mpic.link/6358016",
       "category": "moda",
       "brand": "Bonprix IT"
@@ -105,21 +293,12 @@
       "icon": "https://www.google.com/s2/favicons?domain=www.levi.com&sz=128",
       "url": "https://levis-it.mpic.link/6358015",
       "category": "altro",
-      "brand": "Levis IT",
-      "expiry": "2026-09-30"
-    },
-    {
-      "title": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
-      "description": "Brave Kid: Fashion for Kids and Babies | Diesel, Marni, Margiela, N°21 – BRAVE KID",
-      "icon": "https://www.google.com/s2/favicons?domain=brave-kid.mpic.link&sz=128",
-      "url": "https://brave-kid.mpic.link/6358012",
-      "category": "altro",
-      "brand": "Brave KID"
+      "brand": "Levis IT"
     },
     {
       "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
-      "icon": "https://www.google.com/s2/favicons?domain=the-north-face-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thenorthface.com&sz=128",
       "url": "https://the-north-face-it.mpic.link/6353926",
       "category": "moda",
       "brand": "The North Face IT"
@@ -127,7 +306,7 @@
     {
       "title": "Aliexpress_IT",
       "description": "Aliexpress_IT",
-      "icon": "https://www.google.com/s2/favicons?domain=aliexpress-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=it.aliexpress.com&sz=128",
       "url": "https://aliexpress-it.mpic.link/6350610",
       "category": "altro",
       "brand": "Aliexpress_IT"
@@ -135,7 +314,7 @@
     {
       "title": "Aliexpress_IT",
       "description": "Aliexpress_IT",
-      "icon": "https://www.google.com/s2/favicons?domain=aliexpress-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=it.aliexpress.com&sz=128",
       "url": "https://aliexpress-it.mpic.link/6350587",
       "category": "altro",
       "brand": "Aliexpress_IT"
@@ -143,7 +322,7 @@
     {
       "title": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
       "description": "Fotocamere, stampanti, obiettivi, inchiostri e altro ancora — Canon Italia Store",
-      "icon": "https://www.google.com/s2/favicons?domain=canon-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.canon.it&sz=128",
       "url": "https://canon-it.mpic.link/6334245",
       "category": "altro",
       "brand": "Canon IT"
@@ -151,7 +330,7 @@
     {
       "title": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
       "description": "Profumi, Make up, Trattamenti Viso e Corpo | Marionnaud",
-      "icon": "https://www.google.com/s2/favicons?domain=marionnaud.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.marionnaud.it&sz=128",
       "url": "https://marionnaud.mpic.link/6323648",
       "category": "beauty",
       "brand": "Marionnaud"
@@ -165,18 +344,9 @@
       "brand": "Stradivarius IT"
     },
     {
-      "title": "Offerte giornaliere e campagne speciali | Westwing",
-      "description": "Offerte giornaliere e campagne speciali | Westwing",
-      "icon": "https://www.google.com/s2/favicons?domain=www.westwing.it&sz=128",
-      "url": "https://westwing-it.mpic.link/6321608",
-      "category": "casa",
-      "brand": "Westwing IT",
-      "expiry": "2026-09-30"
-    },
-    {
       "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
       "description": "Make up occhi, viso e labbra e cura della pelle | KIKO",
-      "icon": "https://www.google.com/s2/favicons?domain=kiko-milano-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=kikocosmetics.com&sz=128",
       "url": "https://kiko-milano-it.mpic.link/6321606",
       "category": "beauty",
       "brand": "KIKO MILANO IT"
@@ -184,34 +354,10 @@
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
       "description": "Privé by Zalando: outlet online per la moda e la casa",
-      "icon": "https://www.google.com/s2/favicons?domain=prive-by-zalando-it.mpic.link&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
       "url": "https://prive-by-zalando-it.mpic.link/6318976",
       "category": "moda",
       "brand": "Privé by Zalando IT"
-    },
-    {
-      "title": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
-      "description": "Moda donna, uomo e bambini, articoli per casa e tanto altro | SHEIN ITALIA",
-      "icon": "https://www.google.com/s2/favicons?domain=shein-it.mpic.link&sz=128",
-      "url": "https://shein-it.mpic.link/6317251",
-      "category": "moda",
-      "brand": "Shein IT"
-    },
-    {
-      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=etrusca-gioielli.mpic.link&sz=128",
-      "url": "https://etrusca-gioielli.mpic.link/6317249",
-      "category": "moda",
-      "brand": "Etrusca Gioielli"
-    },
-    {
-      "title": "PcComponentes.it | Negozio online di computer e tecnologia",
-      "description": "PcComponentes.it | Negozio online di computer e tecnologia",
-      "icon": "https://www.google.com/s2/favicons?domain=pc-componentes-it.mpic.link&sz=128",
-      "url": "https://pc-componentes-it.mpic.link/6317246",
-      "category": "tech",
-      "brand": "Pc Componentes IT"
     }
   ]
 }
