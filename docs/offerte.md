@@ -52,7 +52,7 @@ Formato e campo verificati sulla guida Meta "Specifiche per i parametri URL dina
 
 ## Tracking e consenso
 
-- Pixel: **`1607797131071875`** ("Affari al Volo - offerte", portfolio `mirko_papadopoli`, collegato all'account pubblicitario `1801138647736780`), in `config.js` → `tracking.metaPixelId`. Il vecchio `1363279862594624` apparteneva a un altro portfolio e non era usabile dalle campagne (sostituito il 17/10/2026).
+- Pixel: **`1363279862594624`** ("Offerte al Volo Pixel", portfolio "Offerte al volo Landing", account pubblicitario "offerte al volo" `1043631244729743`, Pagina "Offertealvoloo"), in `config.js` → `tracking.metaPixelId`. Il 17/10/2026 è stato sostituito per errore con `1607797131071875` (creato su un altro portfolio) e ripristinato lo stesso giorno: gli eventi di quel pomeriggio sono finiti sul Pixel sbagliato.
 
 - Meta Pixel e Google Ads si caricano **solo dopo "Accetta"** sul banner cookie (GDPR). Prima il Pixel partiva nell'`<head>` senza consenso.
 - Eventi: `click_offer` (`brand`, `category`, `placement` = `promo` | `list`, `src`) → Meta `ClickOffer`; `join_telegram` (`placement`, `src`) → Meta `Lead`.
