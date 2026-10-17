@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16",
+  "updated": "2026-10-17",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -46,27 +46,6 @@
         "title": "-15% con codice",
         "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
         "until": "2026-10-31"
-      }
-    },
-    {
-      "title": "Petit Bateau IT",
-      "description": "Petit Bateau IT",
-      "icon": "https://www.google.com/s2/favicons?domain=www.petit-bateau.it&sz=128",
-      "url": "https://petit-bateau-it.mpic.link/6500766",
-      "category": "altro",
-      "brand": "Petit Bateau IT"
-    },
-    {
-      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
-      "url": "https://etrusca-gioielli.mpic.link/6317249",
-      "category": "moda",
-      "brand": "Etrusca Gioielli",
-      "code": "PIC15",
-      "promo": {
-        "title": "-15% con codice",
-        "until": "2026-10-16"
       }
     },
     {
@@ -125,6 +104,19 @@
       "promo": {
         "title": "-25% con codice",
         "detail": "SOLO PER I NUOVI CLIENTI - 25% EXTRA su ordini superiori ai €39,00"
+      }
+    },
+    {
+      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
+      "url": "https://etrusca-gioielli.mpic.link/6317249",
+      "category": "moda",
+      "brand": "Etrusca Gioielli",
+      "code": "PIC15",
+      "promo": {
+        "title": "-15% con codice",
+        "detail": "15% di sconto sull'intero ordine Nessun requisito minimo per l'acquisto"
       }
     },
     {
@@ -222,6 +214,14 @@
       "url": "https://panini-shop.mpic.link/6510743",
       "category": "altro",
       "brand": "Panini Shop"
+    },
+    {
+      "title": "Petit Bateau IT",
+      "description": "Petit Bateau IT",
+      "icon": "https://www.google.com/s2/favicons?domain=www.petit-bateau.it&sz=128",
+      "url": "https://petit-bateau-it.mpic.link/6500766",
+      "category": "altro",
+      "brand": "Petit Bateau IT"
     },
     {
       "title": "Franco Panini Scuola - Prodotti per la scuola e il tempo libero",
