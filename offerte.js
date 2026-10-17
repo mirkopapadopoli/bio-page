@@ -30,7 +30,14 @@ const TELEGRAM_AFTER_PROMO = 3;
 const SEARCH_MIN_STORES = 12;
 
 
-const SRC = (new URLSearchParams(window.location.search).get('src') || 'organic').toLowerCase();
+const PARAMS = new URLSearchParams(window.location.search);
+const SRC = (PARAMS.get('src') || 'organic').toLowerCase();
+// Nelle ads Meta l'URL porta utm_campaign={{campaign.name}} e
+// utm_content={{ad.name}}: li inoltriamo in ogni evento per sapere quale
+// campagna e quale grafica portano i click sulle offerte.
+const AD_PARAMS = Object.fromEntries(['utm_campaign', 'utm_content']
+    .map(k => [k, (PARAMS.get(k) || '').slice(0, 100)])
+    .filter(([, v]) => v));
 
 let DATA = null;
 let currentCategory = 'all';
@@ -195,7 +202,7 @@ function loadTrackingScripts() {
 }
 
 function track(eventName, params = {}) {
-    params = { src: SRC, ...params };
+    params = { src: SRC, ...AD_PARAMS, ...params };
     console.log('[track]', eventName, params);
 
     if (typeof fbq === 'function') {
