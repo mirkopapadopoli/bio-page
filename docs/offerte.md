@@ -43,9 +43,16 @@ Campi esistenti invariati (`title`, `url`, `icon`, `category`, `code`, `discount
 | `tg` | Nessuna CTA | Sono già iscritti |
 | assente / altro (bio IG) | Una card dopo la 3ª promo + link nel footer | Prima le offerte |
 
-Usare `offerte.html?src=ads` negli annunci Meta, `?src=ig` in bio, `?src=tg` nei post del canale. `src` viene passato in ogni evento di tracking. `?cat=<categoria>` preseleziona un filtro.
+Usare `offerte.html?src=ads` negli annunci Meta, `?src=ig` in bio, `?src=tg` nei post del canale. `src` viene passato in ogni evento di tracking. Negli annunci Meta l'URL completo è:
+
+- **URL del sito web:** `https://profile.mirkopapadopoli.com/offerte.html?src=ads`
+- **Parametri URL** (sezione "Monitoraggio" dell'ad): `utm_campaign={{campaign.name}}&utm_content={{ad.name}}`
+
+Formato e campo verificati sulla guida Meta "Specifiche per i parametri URL dinamici" (business/help/2360940870872492). `utm_source`/`utm_medium` non servono: Meta li aggiunge da sé. I nomi valgono come al momento della pubblicazione: rinominare un'ad dopo non cambia il valore. Meta sostituisce i segnaposto con i nomi reali; la pagina passa `utm_campaign` e `utm_content` (se presenti, max 100 caratteri) in ogni evento, così in Gestione eventi si vede quale campagna e quale grafica hanno portato ogni `ClickOffer`, `CopyCode` e `Lead`. Per questo i nomi delle ad devono dire la grafica (es. `nota-feed`, `fondatore-story`). `?cat=<categoria>` preseleziona un filtro.
 
 ## Tracking e consenso
+
+- Pixel: **`1607797131071875`** ("Affari al Volo - offerte", portfolio `mirko_papadopoli`, collegato all'account pubblicitario `1801138647736780`), in `config.js` → `tracking.metaPixelId`. Il vecchio `1363279862594624` apparteneva a un altro portfolio e non era usabile dalle campagne (sostituito il 17/10/2026).
 
 - Meta Pixel e Google Ads si caricano **solo dopo "Accetta"** sul banner cookie (GDPR). Prima il Pixel partiva nell'`<head>` senza consenso.
 - Eventi: `click_offer` (`brand`, `category`, `placement` = `promo` | `list`, `src`) → Meta `ClickOffer`; `join_telegram` (`placement`, `src`) → Meta `Lead`.
