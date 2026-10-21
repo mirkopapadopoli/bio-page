@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-21",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -11,7 +11,7 @@
       "brand": "Camicissima IT",
       "promo": {
         "title": "Promo: camicie no stiro",
-        "until": "2026-10-20"
+        "until": "2026-10-23"
       }
     },
     {
@@ -37,6 +37,27 @@
       "promo": {
         "title": "-15% con codice",
         "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
+        "until": "2026-10-31"
+      }
+    },
+    {
+      "title": "Off Grid",
+      "description": "Off Grid",
+      "icon": "https://www.google.com/s2/favicons?domain=www.offgrid.bio&sz=128",
+      "url": "https://off-grid-it.mpic.link/6937598",
+      "category": "altro",
+      "brand": "Off Grid IT"
+    },
+    {
+      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
+      "url": "https://etrusca-gioielli.mpic.link/6317249",
+      "category": "moda",
+      "brand": "Etrusca Gioielli",
+      "code": "PIC15",
+      "promo": {
+        "title": "-15% con codice",
         "until": "2026-10-31"
       }
     },
@@ -96,19 +117,6 @@
       "promo": {
         "title": "-25% con codice",
         "detail": "SOLO PER I NUOVI CLIENTI - 25% EXTRA su ordini superiori ai €39,00"
-      }
-    },
-    {
-      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
-      "url": "https://etrusca-gioielli.mpic.link/6317249",
-      "category": "moda",
-      "brand": "Etrusca Gioielli",
-      "code": "PIC15",
-      "promo": {
-        "title": "-15% con codice",
-        "detail": "15% di sconto sull'intero ordine Nessun requisito minimo per l'acquisto"
       }
     },
     {
