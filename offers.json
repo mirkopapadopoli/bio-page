@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-22",
+  "updated": "2026-10-24",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -11,8 +11,24 @@
       "brand": "Camicissima IT",
       "promo": {
         "title": "Promo: camicie no stiro",
-        "until": "2026-10-23"
+        "until": "2026-10-30"
       }
+    },
+    {
+      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
+      "url": "https://thebs.mpic.link/6926433",
+      "category": "moda",
+      "brand": "TheBS"
+    },
+    {
+      "title": "Morellato",
+      "description": "Morellato",
+      "icon": "https://www.google.com/s2/favicons?domain=bluespirit.com&sz=128",
+      "url": "https://morellato.mpic.link/6938149",
+      "category": "altro",
+      "brand": "Morellato"
     },
     {
       "title": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
@@ -23,7 +39,7 @@
       "brand": "Footlocker",
       "promo": {
         "title": "Offerte!",
-        "until": "2026-10-23"
+        "until": "2026-10-30"
       }
     },
     {
@@ -39,14 +55,6 @@
         "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
         "until": "2026-10-31"
       }
-    },
-    {
-      "title": "Morellato",
-      "description": "Morellato",
-      "icon": "https://www.google.com/s2/favicons?domain=bluespirit.com&sz=128",
-      "url": "https://morellato.mpic.link/6938149",
-      "category": "altro",
-      "brand": "Morellato"
     },
     {
       "title": "Off Grid",
@@ -166,14 +174,6 @@
       "url": "https://massimo-dutti-it.mpic.link/6926458",
       "category": "altro",
       "brand": "Massimo Dutti IT"
-    },
-    {
-      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
-      "url": "https://thebs.mpic.link/6926433",
-      "category": "moda",
-      "brand": "TheBS"
     },
     {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
