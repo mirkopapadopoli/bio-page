@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-27",
+  "updated": "2026-10-28",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -47,6 +47,14 @@
         "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
         "until": "2026-10-31"
       }
+    },
+    {
+      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
+      "url": "https://thebs.mpic.link/6926433",
+      "category": "moda",
+      "brand": "TheBS"
     },
     {
       "title": "Off Grid",
@@ -128,6 +136,14 @@
       }
     },
     {
+      "title": "Audible | Höre Hörbücher, Hörspiele und Podcasts jederzeit",
+      "description": "Audible | Höre Hörbücher, Hörspiele und Podcasts jederzeit",
+      "icon": "https://www.google.com/s2/favicons?domain=audible.it&sz=128",
+      "url": "https://audible.mpic.link/6958070",
+      "category": "altro",
+      "brand": "Audible"
+    },
+    {
       "title": "Vivaticket",
       "description": "Vivaticket",
       "icon": "https://www.google.com/s2/favicons?domain=vivaticket.com&sz=128",
@@ -166,14 +182,6 @@
       "url": "https://massimo-dutti-it.mpic.link/6926458",
       "category": "altro",
       "brand": "Massimo Dutti IT"
-    },
-    {
-      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
-      "url": "https://thebs.mpic.link/6926433",
-      "category": "moda",
-      "brand": "TheBS"
     },
     {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
