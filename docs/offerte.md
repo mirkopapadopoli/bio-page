@@ -87,7 +87,7 @@ Lettura dei dati:
 https://profile.mirkopapadopoli.com/api/stats?key=<STATS_KEY>&from=2026-10-30&to=2026-11-08
 ```
 
-Risponde con `by_ad` (per fonte + campagna + ad: `page_view`, `click_offer`, `copy_code`, `join_telegram`) e `click_offer_by_brand`. Giorni in UTC, al massimo 92 per richiesta. `STATS_KEY` va impostata in Netlify → Site configuration → Environment variables; senza chiave (o con chiave sbagliata) l'endpoint risponde 404.
+Risponde con `by_ad` (per fonte + campagna + ad: `page_view`, `click_offer`, `copy_code`, `join_telegram`) e `click_offer_by_brand`. Giorni in UTC, al massimo 92 per richiesta. `STATS_KEY` va impostata in Netlify → Site configuration → Environment variables; senza chiave (o con chiave sbagliata) l'endpoint risponde 404. Il valore deve essere una stringa casuale (es. `openssl rand -hex 16`): Netlify blocca il deploy se il valore di una variabile segreta compare nei file del repo ("Secrets scanning found secrets in build"), ed è successo con una parola comune come `facebook`, presente in `offerte.js`. Dopo aver creato o cambiato la variabile serve un nuovo deploy (Deploys → Trigger deploy).
 
 Prova in locale: `STATS_KEY=prova npx netlify-cli dev --offline`, poi aprire `offerte.html?src=ads&utm_content=test` e leggere `/api/stats?key=prova`.
 
