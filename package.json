@@ -7,7 +7,11 @@
     "dev": "node server.js",
     "admin": "open http://localhost:8000/admin.html && node server.js",
     "deploy": "npx netlify deploy --prod",
-    "preview": "npx netlify deploy"
+    "preview": "npx netlify deploy",
+    "test": "node --test netlify/lib/events.test.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "11.1.4"
   },
   "keywords": [
     "bio",
