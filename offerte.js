@@ -201,9 +201,20 @@ function loadTrackingScripts() {
     }
 }
 
+// Contatore anonimo nostro (netlify/functions/track.mjs): parte sempre, anche
+// senza consenso, perché non usa cookie né identificativi. Pixel e gtag sotto
+// restano legati al consenso del banner.
+function countEvent(eventName, params) {
+    if (!navigator.sendBeacon) return;
+    try {
+        navigator.sendBeacon('/api/track', JSON.stringify({ e: eventName, ...params }));
+    } catch { /* il conteggio non deve mai bloccare la pagina */ }
+}
+
 function track(eventName, params = {}) {
     params = { src: SRC, ...AD_PARAMS, ...params };
     console.log('[track]', eventName, params);
+    countEvent(eventName, params);
 
     if (typeof fbq === 'function') {
         if (eventName === 'join_telegram') fbq('track', 'Lead', params);
@@ -466,6 +477,7 @@ function renderFallback() {
 // ---------- INIT ----------
 
 document.addEventListener('DOMContentLoaded', async () => {
+    countEvent('page_view', { src: SRC, ...AD_PARAMS });
     renderCookieBanner();
     setupClickTracking();
     renderTopbar();

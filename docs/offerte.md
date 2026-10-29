@@ -57,3 +57,22 @@ Formato e campo verificati sulla guida Meta "Specifiche per i parametri URL dina
 - Meta Pixel e Google Ads si caricano **solo dopo "Accetta"** sul banner cookie (GDPR). Prima il Pixel partiva nell'`<head>` senza consenso.
 - Eventi: `click_offer` (`brand`, `category`, `placement` = `promo` | `list`, `src`) → Meta `ClickOffer`; `join_telegram` (`placement`, `src`) → Meta `Lead`.
 - Conseguenza: chi rifiuta i cookie non viene più contato dal Pixel. Il dato affidabile di click e vendite resta quello di Metapic.
+
+## Contatore anonimo (senza consenso)
+
+Nel primo test ads (18–27/10/2026: 313 visite alla pagina secondo Meta) il Pixel ha ricevuto circa 9 PageView in tutto: quasi nessuno preme "Accetta", quindi `ClickOffer`/`CopyCode`/`Lead` restavano a zero e non si sapeva cosa fa sulla pagina chi arriva dalle ads. Per questo c'è un contatore nostro che parte **sempre**:
+
+- `offerte.js` → `countEvent()` manda con `navigator.sendBeacon` a `POST /api/track` gli eventi `page_view` (al caricamento), `click_offer`, `copy_code`, `join_telegram`, con `src`, `utm_campaign`, `utm_content` e `brand`
+- `netlify/functions/track.mjs` salva ogni evento come chiave vuota nello store Netlify Blobs `offer-events`: `giorno/evento/src/utm_campaign/utm_content/brand/id`. Logica pura e test in `netlify/lib/events.mjs` (`npm test`)
+- **Niente cookie, IP, user agent o identificativi**: solo conteggi aggregati, per questo non serve il consenso (scritto anche in `privacy.html`, sezione "Statistiche anonime"). Eventi sconosciuti e body oltre 1 KB vengono scartati; i testi sono ridotti a 60 caratteri senza `/`
+- Il Pixel resta dietro consenso com'era
+
+Lettura dei dati:
+
+```
+https://profile.mirkopapadopoli.com/api/stats?key=<STATS_KEY>&from=2026-10-30&to=2026-11-08
+```
+
+Risponde con `by_ad` (per fonte + campagna + ad: `page_view`, `click_offer`, `copy_code`, `join_telegram`) e `click_offer_by_brand`. Giorni in UTC, al massimo 92 per richiesta. `STATS_KEY` va impostata in Netlify → Site configuration → Environment variables; senza chiave (o con chiave sbagliata) l'endpoint risponde 404.
+
+Prova in locale: `STATS_KEY=prova npx netlify-cli dev --offline`, poi aprire `offerte.html?src=ads&utm_content=test` e leggere `/api/stats?key=prova`.
