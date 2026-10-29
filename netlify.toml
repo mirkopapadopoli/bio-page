@@ -23,6 +23,12 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
 
+# CSS senza questa regola usciva con max-age=14400: HTML nuovo + CSS vecchio per 4 ore
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
 # Blocca admin.html in produzione
 [[redirects]]
   from = "/admin.html"

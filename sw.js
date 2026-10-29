@@ -1,9 +1,13 @@
 // =============================================================================
 // 🔧 SERVICE WORKER — Bio Page PWA
-// Strategy: Cache-First for static assets, Network-First for HTML
+// Strategy: Network-First for HTML, JS, CSS and JSON (offers.json changes every
+// day, code changes with every deploy); Cache-First only for images and fonts.
+// Cache-First on JS/CSS/JSON served stale offerte.js/offerte.css/offers.json
+// forever to anyone who had visited the site: bump CACHE_NAME on any change to
+// this file's strategy so old caches get deleted on activate.
 // =============================================================================
 
-const CACHE_NAME = 'bio-page-v1';
+const CACHE_NAME = 'bio-page-v2';
 const STATIC_ASSETS = [
     '/',
     '/index.html',
@@ -67,14 +71,14 @@ self.addEventListener('fetch', (event) => {
     // Skip non-GET requests
     if (request.method !== 'GET') return;
 
-    // Network-First for HTML pages (always get fresh content)
-    if (request.headers.get('accept')?.includes('text/html')) {
-        event.respondWith(networkFirst(request));
+    // Images and fonts rarely change: Cache-First
+    if (['image', 'font'].includes(request.destination)) {
+        event.respondWith(cacheFirst(request));
         return;
     }
 
-    // Cache-First for everything else (CSS, JS, images, fonts)
-    event.respondWith(cacheFirst(request));
+    // Everything else (HTML, JS, CSS, offers.json): Network-First, cache only as offline fallback
+    event.respondWith(networkFirst(request));
 });
 
 /**

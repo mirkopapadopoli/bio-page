@@ -76,3 +76,12 @@ https://profile.mirkopapadopoli.com/api/stats?key=<STATS_KEY>&from=2026-10-30&to
 Risponde con `by_ad` (per fonte + campagna + ad: `page_view`, `click_offer`, `copy_code`, `join_telegram`) e `click_offer_by_brand`. Giorni in UTC, al massimo 92 per richiesta. `STATS_KEY` va impostata in Netlify → Site configuration → Environment variables; senza chiave (o con chiave sbagliata) l'endpoint risponde 404.
 
 Prova in locale: `STATS_KEY=prova npx netlify-cli dev --offline`, poi aprire `offerte.html?src=ads&utm_content=test` e leggere `/api/stats?key=prova`.
+
+## Cache e service worker
+
+La home registra `sw.js` (PWA), che poi controlla anche `offerte.html`. Fino al 29/10/2026 serviva JS, CSS e `offers.json` **dalla cache per sempre** (cache-first, cache `bio-page-v1` mai cambiata): chi aveva già visitato il sito riceveva HTML nuovo con `offerte.js`/`offerte.css` vecchi (pagina senza stile e senza offerte) e offerte vecchie. In navigazione anonima invece la pagina era giusta.
+
+- Ora `sw.js` va prima in rete per HTML, JS, CSS e JSON (cache solo se offline) e tiene cache-first solo per immagini e font
+- Cambiando la strategia del service worker va **cambiato `CACHE_NAME`** (`bio-page-v2` → `v3`…): all'attivazione il nuovo worker cancella le cache con un altro nome
+- `netlify.toml` manda `max-age=0, must-revalidate` per HTML, JS e CSS (il CSS prima usciva con 4 ore di cache)
+- I browser con il worker vecchio si sistemano da soli: alla prima visita dopo il deploy scaricano il nuovo `sw.js`, che si attiva subito (`skipWaiting` + `clients.claim`); dalla visita successiva la pagina è giusta
