@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-28",
+  "updated": "2026-10-30",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -12,6 +12,20 @@
       "promo": {
         "title": "Promo: camicie no stiro",
         "until": "2026-10-30"
+      }
+    },
+    {
+      "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
+      "url": "https://sharkninja-it.mpic.link/6926402",
+      "category": "altro",
+      "brand": "SharkNinja IT",
+      "code": "HALLOWEEN",
+      "promo": {
+        "title": "-15% con codice",
+        "detail": "Il 15% di sconto è valido su tutti i prodotti tranne sui bundle, ma solo fino a domenica. \nCodice: HALLOWEEN\n 31/10 - 01/11",
+        "until": "2026-10-31"
       }
     },
     {
@@ -32,20 +46,6 @@
       "promo": {
         "title": "Offerte!",
         "until": "2026-10-30"
-      }
-    },
-    {
-      "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
-      "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
-      "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
-      "url": "https://sharkninja-it.mpic.link/6926402",
-      "category": "altro",
-      "brand": "SharkNinja IT",
-      "code": "METAPIC15",
-      "promo": {
-        "title": "-15% con codice",
-        "detail": "Sconto 15% con codice METAPIC15 tranne sui nuovi prodotti e bundle",
-        "until": "2026-10-31"
       }
     },
     {
