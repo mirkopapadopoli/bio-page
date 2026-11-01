@@ -5,13 +5,24 @@ Pagina di offerte affiliate (link Metapic). **Conversione primaria: il click sul
 ## Struttura
 
 1. **Topbar** sticky: logo e "Aggiornato <data>" (da `offers.json.updated`).
-2. **Intro**: "Le promo attive oggi" e il numero di promo attive.
-3. **Chip categorie** in una riga scorrevole (solo le categorie presenti, "Altro" per ultima).
-4. **Card promo**: una per ogni offerta con `promo` attiva. Brand, promo in grande, dettaglio, scadenza, CTA unica "Vai alla promo su <brand>", "Verificata oggi alle …".
-5. **Altri negozi partner**: lista compatta a 2 colonne (3 su desktop) delle offerte senza promo, un negozio per brand. Ricerca solo da 12 negozi in su.
-6. **Footer**: disclaimer affiliazione e link.
+2. **Hero fluttuante** (da 3 promo in su): fino a 5 card bianche inclinate e sovrapposte con logo, negozio e sconto ("-10%", oppure "Promo"), che ondeggiano piano (ferme con "riduci movimento"). Sopra il titolo su mobile (150px), a destra del titolo da 960px. Un tap porta alla card della promo (`#promo-<brand>`), non al negozio: prima si vedono codice e condizioni. Sono un doppione decorativo (`aria-hidden`), il click al negozio resta sulle card
+3. **Intro**: "Le promo attive oggi" e il numero di promo attive.
+4. **Chip categorie** in una riga scorrevole (solo le categorie presenti, "Altro" per ultima).
+5. **Card promo**: una per ogni offerta con `promo` attiva, **prima quelle con un codice da copiare**. Brand, promo in grande, dettaglio (max 3 righe), scadenza, codice con "Copia codice", CTA unica "Vai alla promo su <brand>", "Verificata oggi alle …". Due colonne da 720px.
+6. **Altri negozi partner**: lista compatta a 2 colonne (3 da 720px, 4 da 1040px) delle offerte senza promo, un negozio per brand. Ricerca solo da 12 negozi in su.
+7. **Footer**: disclaimer affiliazione e link.
 
 I link affiliati sono `<a rel="sponsored">` veri, non `window.open`: funzionano anche se il JS è lento o bloccato e si possono aprire con un tap lungo.
+
+## Stile (da novembre 2026)
+
+Preso da `DESIGN.MD` nella root di BotTelegram (riferimento di stile "Shop"; nome e logo restano Affari al Volo). Le regole che contano:
+
+- Canvas `#f2f4f5`, card bianche con raggio 28px **senza bordo**, staccate solo dall'ombra doppia leggera; controlli tutti a pillola (chip, codice, pulsanti, ricerca, banner)
+- **Un solo colore saturo, il viola `#5433eb`**: la CTA "Vai alla promo" (con ombra viola) e il tondo della ricerca. Telegram, chip attiva, "Copia codice" e "Accetta" sono neri. Niente rosso per gli sconti, niente blu Telegram: un secondo colore toglierebbe forza al viola, che è l'azione che ci paga
+- La "costellazione" di card fluttuanti di DESIGN.MD usa i loghi dei negozi al posto delle foto prodotto (non le abbiamo). Altezza tenuta bassa: con la hero, su iPhone 13 codice e CTA della prima promo restano nella prima schermata (CTA a 659px su 664)
+- Inter 400/500/600, mai grassetti pesanti: la gerarchia la fanno dimensione e tracking negativo (titoli `-.05em`, testo `-.031em`)
+- Banner cookie e barra Telegram sono pillole/card bianche o nere che galleggiano a 12px dal fondo, non bande a tutta larghezza: il banner prima copriva il 21% dello schermo sopra la prima promo
 
 ## Dati: `offers.json`
 
@@ -32,6 +43,8 @@ Campi esistenti invariati (`title`, `url`, `icon`, `category`, `code`, `discount
 - `promo` e `code` li compila l'**agente Metapic** di BotTelegram dalla campagna attiva del brand (codice ufficiale, promo, scadenza; `docs/metapic-agent.md` in quel repo), dopo approvazione su Telegram. In futuro anche lo **store scout** (`docs/store-scout.md`) per le promo lette dal sito del negozio.
 - L'**ordine** delle offerte in `offers.json` è quello della pagina: l'agente mette prima i negozi pagati a click, poi quelli con codice o promo. Una promo con `until` passato viene ignorata e il negozio torna nella lista compatta.
 - Un'offerta senza `promo` ma con `code` (codice Metapic) diventa comunque una card: titolo "<discount> con codice" (o "Codice sconto riservato"), riquadro con il codice e il tasto "Copia codice" (evento `copy_code`), scadenza da `expiry`.
+- **Note per i creator nei testi Metapic** ("⚠️ NON promovibile nella bio/caption ⚠️"): le righe con ⚠️ o "non promovibile" non vengono mostrate, e un'offerta con quel divieto **non diventa una card** (resta nella lista compatta, senza codice). Successo con Westwing `METAPIC10` il 31/10/2026: la nota era visibile a tutti e il codice veniva promosso al traffico delle ads
+- Se il codice è solo nel testo della promo (`Codice: HALLOWEEN`) viene comunque mostrato con il pulsante "Copia codice"
 - `brand`: se manca, viene ricavato dal titolo ("Michael Kors IT" → "Michael Kors", "… | Prénatal" → "Prénatal").
 - Le icone favicon di shortlink (`*.mpic.link`, `*.mtpc.se`) sono sempre il globo generico: al loro posto si mostra l'iniziale del brand.
 
@@ -39,7 +52,8 @@ Campi esistenti invariati (`title`, `url`, `icon`, `category`, `code`, `discount
 
 | `src` | Telegram | Perché |
 |---|---|---|
-| `ads` | Card in alto + sticky bar | Il click pagato vale di più se diventa un iscritto, monetizzabile ogni giorno |
+| `ads` con `utm_content` che contiene `telegram` (retargeting) | Card in alto + sticky bar | Chi conosce già la Pagina: l'obiettivo è l'iscrizione |
+| `ads` (altre ad) | Card dopo la 2ª promo + sticky bar | L'ad promette un codice: deve vederlo subito. Fino al 31/10/2026 la card Telegram era in alto anche qui e il primo codice stava sotto la piega (7,5% di click ai negozi contro il 29% del retargeting) |
 | `tg` | Nessuna CTA | Sono già iscritti |
 | assente / altro (bio IG) | Una card dopo la 3ª promo + link nel footer | Prima le offerte |
 

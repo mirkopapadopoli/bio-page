@@ -2,7 +2,9 @@
 // 🛍️ OFFERTE.JS — Landing "Affari al Volo"
 // Dati: offers.json. Conversione primaria: click sull'offerta (link affiliato).
 // La CTA Telegram si adatta alla fonte del traffico (?src=):
-//   ads → Telegram in alto + sticky bar (l'iscritto vale più di un click singolo)
+//   ads → sticky bar Telegram; card Telegram in alto solo per le ad di
+//         retargeting (utm_content con "telegram"), per le altre dopo la 2ª promo:
+//         chi arriva da un'ad "codice sconto" deve vedere subito un codice
 //   tg  → nessuna CTA Telegram (sono già iscritti)
 //   altro/assente (bio Instagram) → offerte prima, Telegram dopo la 3ª promo
 //
@@ -27,6 +29,7 @@ const STICKY_DISMISS_KEY = 'aav-sticky-dismissed';
 const COOKIE_CONSENT_KEY = 'aav-cookie-consent';
 const FALLBACK_TELEGRAM = 'https://t.me/affarialvoloo';
 const TELEGRAM_AFTER_PROMO = 3;
+const TELEGRAM_AFTER_PROMO_ADS = 2;
 const SEARCH_MIN_STORES = 12;
 
 
@@ -53,11 +56,40 @@ function isExpired(offer) {
     return Boolean(offer.expiry) && endOfDay(offer.expiry) < new Date();
 }
 
+// I testi delle promo Metapic a volte contengono note per i creator
+// ("⚠️ NON promovibile nella bio/caption ⚠️"): non vanno mostrate al pubblico,
+// e un'offerta con quel divieto non va promossa come promo in card.
+const RESTRICTED = /non\s+promovibil/i;
+const CODE_IN_TEXT = /codice:?\s+([A-Z0-9][A-Z0-9_-]{2,})/;
+
+function isRestricted(offer) {
+    const p = offer.promo || {};
+    return RESTRICTED.test(`${p.title || ''} ${p.detail || ''}`);
+}
+
+function cleanDetail(detail) {
+    return String(detail || '').split('\n')
+        .filter(line => !line.includes('⚠') && !RESTRICTED.test(line))
+        .join('\n').trim();
+}
+
+// Codice da copiare: quello Metapic, oppure quello scritto nel testo della
+// promo ("Codice: HALLOWEEN"), così ha comunque il pulsante "Copia".
+function codeOf(offer) {
+    if (offer.code) return offer.code;
+    const p = offer.promo || {};
+    const m = `${p.title || ''}\n${p.detail || ''}`.match(CODE_IN_TEXT);
+    return m ? m[1] : null;
+}
+
 // Promo da mostrare in card: quella dello store scout, oppure il codice
 // sconto Metapic (offer.code) se non c'è una promo.
 function promoOf(offer) {
+    if (isRestricted(offer)) return null;
     const p = offer.promo;
-    if (p && p.title && !(p.until && endOfDay(p.until) < new Date())) return p;
+    if (p && p.title && !(p.until && endOfDay(p.until) < new Date())) {
+        return { ...p, detail: cleanDetail(p.detail) };
+    }
     if (offer.code) {
         return {
             title: offer.discount ? `${offer.discount} con codice` : 'Codice sconto riservato',
@@ -157,7 +189,7 @@ function renderCookieBanner() {
     banner.id = 'cookie-banner';
     banner.className = 'cookie-banner';
     banner.innerHTML = `
-        <p>Usiamo cookie tecnici e, con il tuo consenso, cookie di misurazione (Meta Pixel, Google Ads) per capire quali offerte funzionano meglio. <a href="privacy.html">Privacy & Cookie Policy</a>.</p>
+        <p>Cookie tecnici sempre; cookie di misurazione (Meta Pixel, Google Ads) solo col tuo consenso. <a href="privacy.html">Privacy</a></p>
         <div class="cookie-banner-actions">
             <button id="cookie-reject" class="cookie-btn cookie-btn-reject">Rifiuta</button>
             <button id="cookie-accept" class="cookie-btn cookie-btn-accept">Accetta</button>
@@ -274,9 +306,12 @@ function renderTopbar() {
         </div>`;
 }
 
+const PLANE_ICON = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3 3 10.5l7 2.5 2.5 7L21 3Z"/><path d="m10 13 4.5-4.5"/></svg>`;
+
 function telegramCard(placement, title, sub) {
     return `
         <aside class="tg-card">
+            <span class="tg-icon">${PLANE_ICON}</span>
             <div class="tg-card-text">
                 <strong>${title}</strong>
                 <span>${sub}</span>
@@ -285,11 +320,15 @@ function telegramCard(placement, title, sub) {
         </aside>`;
 }
 
+function isTelegramAd() {
+    return SRC === 'ads' && /telegram/i.test(AD_PARAMS.utm_content || '');
+}
+
 function renderTelegramTop() {
-    if (SRC !== 'ads') return;
+    if (!isTelegramAd()) return;
     document.getElementById('tg-top').innerHTML = telegramCard(
         'top',
-        '🔔 Ricevi le promo ogni mattina su Telegram',
+        'Le promo ogni mattina su Telegram',
         'Gratis · niente spam · esci quando vuoi'
     );
 }
@@ -297,17 +336,18 @@ function renderTelegramTop() {
 function promoCard(offer) {
     const brand = brandOf(offer);
     const p = promoOf(offer);
-    const until = p.until ? `<span class="chip-until">⏱ ${untilLabel(p.until)}</span>` : '';
+    const until = p.until ? `<span class="chip-until">${untilLabel(p.until)}</span>` : '';
     const detail = p.detail ? `<p class="promo-detail">${escapeHtml(p.detail)}</p>` : '';
-    const code = offer.code ? `
-            <button class="promo-code" data-code="${escapeHtml(offer.code)}" data-brand="${escapeHtml(brand)}">
-                <span class="promo-code-value">${escapeHtml(offer.code)}</span>
+    const value = codeOf(offer);
+    const code = value ? `
+            <button class="promo-code" data-code="${escapeHtml(value)}" data-brand="${escapeHtml(brand)}">
+                <span class="promo-code-value">${escapeHtml(value)}</span>
                 <span class="promo-code-label">Copia codice</span>
             </button>` : '';
     const verified = p.verified_at ? `<p class="promo-verified">✓ ${verifiedLabel(p.verified_at)} sul sito di ${escapeHtml(brand)}</p>` : '';
 
     return `
-        <article class="promo-card" data-category="${escapeHtml(offer.category)}" data-search="${escapeHtml((brand + ' ' + p.title).toLowerCase())}">
+        <article class="promo-card" id="${promoId(offer)}" data-category="${escapeHtml(offer.category)}" data-search="${escapeHtml((brand + ' ' + p.title).toLowerCase())}">
             <header class="promo-head">
                 ${logoHtml(offer, brand, 'md')}
                 <span class="promo-brand">${escapeHtml(brand)}</span>
@@ -324,8 +364,39 @@ function promoCard(offer) {
         </article>`;
 }
 
+// Hero: le promo attive come card che fluttuano sopra il titolo (la
+// "costellazione" di DESIGN.MD). Non abbiamo foto prodotto: ogni card è
+// logo + negozio + sconto. Un tap porta alla card della promo, non al negozio,
+// così chi arriva vede codice e condizioni prima di uscire.
+const HERO_MAX = 5;
+
+function promoId(offer) {
+    return 'promo-' + brandOf(offer).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+}
+
+function discountOf(offer) {
+    const m = promoOf(offer).title.match(/-?\s?\d+\s?%/);
+    return m ? '-' + m[0].replace(/[-\s]/g, '') : 'Promo';
+}
+
+function renderHero(promos) {
+    const hero = document.getElementById('hero');
+    if (promos.length < 3) return;
+    hero.innerHTML = promos.slice(0, HERO_MAX).map((o, i) => `
+        <a class="float-card float-${i}" href="#${promoId(o)}" tabindex="-1">
+            ${logoHtml(o, brandOf(o), 'sm')}
+            <span class="float-text">
+                <span class="float-brand">${escapeHtml(brandOf(o))}</span>
+                <span class="float-off">${escapeHtml(discountOf(o))}</span>
+            </span>
+        </a>`).join('');
+    hero.classList.add('visible');
+}
+
 function renderPromos() {
-    const promos = activeOffers().filter(hasActivePromo);
+    // Prima le promo con un codice da copiare: è quello che promettono le ads
+    const promos = activeOffers().filter(hasActivePromo)
+        .sort((a, b) => Boolean(codeOf(b)) - Boolean(codeOf(a)));
     const list = document.getElementById('promo-list');
     const sub = document.getElementById('intro-sub');
 
@@ -335,14 +406,16 @@ function renderPromos() {
         return;
     }
 
+    renderHero(promos);
     sub.textContent = `${promos.length} ${promos.length === 1 ? 'promo attiva' : 'promo attive'} oggi, prese dai siti dei negozi e controllate ogni mattina.`;
 
     const cards = promos.map(promoCard);
-    if (showTelegram() && SRC !== 'ads') {
-        const at = Math.min(TELEGRAM_AFTER_PROMO, cards.length);
+    if (showTelegram() && !isTelegramAd()) {
+        const after = SRC === 'ads' ? TELEGRAM_AFTER_PROMO_ADS : TELEGRAM_AFTER_PROMO;
+        const at = Math.min(after, cards.length);
         cards.splice(at, 0, telegramCard(
             'inline',
-            '🔔 Vuoi queste promo ogni mattina?',
+            'Vuoi queste promo ogni mattina?',
             'Te le mandiamo ogni mattina sul canale Telegram. Gratis.'
         ));
     }
@@ -377,6 +450,7 @@ function renderStores() {
         <label class="search">
             <span class="sr-only">Cerca un negozio</span>
             <input type="search" id="store-search" placeholder="Cerca un negozio…" autocomplete="off">
+            <span class="search-icon" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></svg></span>
         </label>` : '';
 
     section.innerHTML = `
@@ -442,7 +516,7 @@ function renderStickyBar() {
 
     const bar = document.getElementById('telegram-sticky');
     bar.innerHTML = `
-        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">🔔 Promo ogni mattina su Telegram · Entra gratis</a>
+        <a href="${telegramUrl()}" data-tg="sticky" target="_blank" rel="noopener noreferrer">Promo ogni mattina su Telegram · Entra gratis →</a>
         <button class="sticky-close" aria-label="Chiudi">✕</button>
     `;
     bar.classList.add('visible');
@@ -468,7 +542,7 @@ function renderFooter() {
 function renderFallback() {
     document.querySelector('.page').innerHTML = `
         <div class="fallback">
-            <h1>Ops, le offerte non si caricano 😅</h1>
+            <h1>Le offerte non si caricano</h1>
             <p>Le trovi tutte sul canale Telegram, aggiornate ogni giorno.</p>
             <a href="${FALLBACK_TELEGRAM}" class="tg-btn" data-tg="fallback" target="_blank" rel="noopener noreferrer">Apri il canale</a>
         </div>`;
