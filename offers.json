@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-30",
+  "updated": "2026-11-01",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -8,33 +8,15 @@
       "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
       "url": "https://camicissima-it.mpic.link/6926453",
       "category": "altro",
-      "brand": "Camicissima IT",
-      "promo": {
-        "title": "Promo: camicie no stiro",
-        "until": "2026-10-30"
-      }
+      "brand": "Camicissima IT"
     },
     {
-      "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
-      "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
-      "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
-      "url": "https://sharkninja-it.mpic.link/6926402",
-      "category": "altro",
-      "brand": "SharkNinja IT",
-      "code": "HALLOWEEN",
-      "promo": {
-        "title": "-15% con codice",
-        "detail": "Il 15% di sconto è valido su tutti i prodotti tranne sui bundle, ma solo fino a domenica. \nCodice: HALLOWEEN\n 31/10 - 01/11",
-        "until": "2026-10-31"
-      }
-    },
-    {
-      "title": "Morellato",
-      "description": "Morellato",
-      "icon": "https://www.google.com/s2/favicons?domain=bluespirit.com&sz=128",
-      "url": "https://morellato.mpic.link/6938149",
-      "category": "altro",
-      "brand": "Morellato"
+      "title": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
+      "description": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
+      "icon": "https://www.google.com/s2/favicons?domain=lookfantastic.it&sz=128",
+      "url": "https://lookfantastic-it.mpic.link/6970781",
+      "category": "beauty",
+      "brand": "LOOKFANTASTIC IT"
     },
     {
       "title": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
@@ -42,11 +24,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=www.footlocker.it&sz=128",
       "url": "https://footlocker.mpic.link/6926456",
       "category": "moda",
-      "brand": "Footlocker",
-      "promo": {
-        "title": "Offerte!",
-        "until": "2026-10-30"
-      }
+      "brand": "Footlocker"
     },
     {
       "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
@@ -57,25 +35,20 @@
       "brand": "TheBS"
     },
     {
-      "title": "Off Grid",
-      "description": "Off Grid",
-      "icon": "https://www.google.com/s2/favicons?domain=www.offgrid.bio&sz=128",
-      "url": "https://off-grid-it.mpic.link/6937598",
+      "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
+      "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
+      "url": "https://sharkninja-it.mpic.link/6926402",
       "category": "altro",
-      "brand": "Off Grid IT"
+      "brand": "SharkNinja IT"
     },
     {
-      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
-      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
-      "url": "https://etrusca-gioielli.mpic.link/6317249",
-      "category": "moda",
-      "brand": "Etrusca Gioielli",
-      "code": "PIC15",
-      "promo": {
-        "title": "-15% con codice",
-        "until": "2026-10-31"
-      }
+      "title": "Morellato",
+      "description": "Morellato",
+      "icon": "https://www.google.com/s2/favicons?domain=bluespirit.com&sz=128",
+      "url": "https://morellato.mpic.link/6938149",
+      "category": "altro",
+      "brand": "Morellato"
     },
     {
       "title": "PcComponentes.it | Negozio online di computer e tecnologia",
@@ -136,12 +109,33 @@
       }
     },
     {
+      "title": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "description": "Etrusca Gioielli: Gold Plated Made in Italy Creations",
+      "icon": "https://www.google.com/s2/favicons?domain=etruscagioielli.com&sz=128",
+      "url": "https://etrusca-gioielli.mpic.link/6317249",
+      "category": "moda",
+      "brand": "Etrusca Gioielli",
+      "code": "PIC15",
+      "promo": {
+        "title": "-15% con codice",
+        "detail": "15% di sconto sull'intero ordine Nessun requisito minimo per l'acquisto"
+      }
+    },
+    {
       "title": "Audible | Höre Hörbücher, Hörspiele und Podcasts jederzeit",
       "description": "Audible | Höre Hörbücher, Hörspiele und Podcasts jederzeit",
       "icon": "https://www.google.com/s2/favicons?domain=audible.it&sz=128",
       "url": "https://audible.mpic.link/6958070",
       "category": "altro",
       "brand": "Audible"
+    },
+    {
+      "title": "Off Grid",
+      "description": "Off Grid",
+      "icon": "https://www.google.com/s2/favicons?domain=www.offgrid.bio&sz=128",
+      "url": "https://off-grid-it.mpic.link/6937598",
+      "category": "altro",
+      "brand": "Off Grid IT"
     },
     {
       "title": "Vivaticket",
