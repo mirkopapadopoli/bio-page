@@ -1,15 +1,7 @@
 {
-  "updated": "2026-11-07",
+  "updated": "2026-11-10",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
-    {
-      "title": "Camicissima - Sito Ufficiale  | Camicissima",
-      "description": "Camicissima - Sito Ufficiale  | Camicissima",
-      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
-      "url": "https://camicissima-it.mpic.link/6926453",
-      "category": "altro",
-      "brand": "Camicissima IT"
-    },
     {
       "title": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
       "description": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
@@ -17,14 +9,6 @@
       "url": "https://lookfantastic-it.mpic.link/6970781",
       "category": "beauty",
       "brand": "LOOKFANTASTIC IT"
-    },
-    {
-      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
-      "url": "https://thebs.mpic.link/6926433",
-      "category": "moda",
-      "brand": "TheBS"
     },
     {
       "title": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
@@ -35,20 +19,26 @@
       "brand": "Footlocker"
     },
     {
+      "title": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "description": "Abbigliamento di lusso e accessori uomo, donna e bambino",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
+      "url": "https://thebs.mpic.link/6926433",
+      "category": "moda",
+      "brand": "TheBS"
+    },
+    {
       "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
       "url": "https://sharkninja-it.mpic.link/6926402",
       "category": "altro",
-      "brand": "SharkNinja IT"
-    },
-    {
-      "title": "Stradivarius IT",
-      "description": "Stradivarius IT",
-      "icon": "https://www.google.com/s2/favicons?domain=www.stradivarius.com&sz=128",
-      "url": "https://stradivarius-it.mpic.link/6321609",
-      "category": "altro",
-      "brand": "Stradivarius IT"
+      "brand": "SharkNinja IT",
+      "code": "METAPIC15",
+      "promo": {
+        "title": "-15% con codice",
+        "detail": "Sconto 15% su tutti i prodotti tranne i bundle",
+        "until": "2026-11-30"
+      }
     },
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
@@ -192,6 +182,14 @@
       "url": "https://massimo-dutti-it.mpic.link/6926458",
       "category": "altro",
       "brand": "Massimo Dutti IT"
+    },
+    {
+      "title": "Camicissima - Sito Ufficiale  | Camicissima",
+      "description": "Camicissima - Sito Ufficiale  | Camicissima",
+      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
+      "url": "https://camicissima-it.mpic.link/6926453",
+      "category": "altro",
+      "brand": "Camicissima IT"
     },
     {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
@@ -368,6 +366,14 @@
       "url": "https://marionnaud.mpic.link/6323648",
       "category": "beauty",
       "brand": "Marionnaud"
+    },
+    {
+      "title": "Stradivarius IT",
+      "description": "Stradivarius IT",
+      "icon": "https://www.google.com/s2/favicons?domain=www.stradivarius.com&sz=128",
+      "url": "https://stradivarius-it.mpic.link/6321609",
+      "category": "altro",
+      "brand": "Stradivarius IT"
     },
     {
       "title": "Make up occhi, viso e labbra e cura della pelle | KIKO",
