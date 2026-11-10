@@ -426,3 +426,20 @@ body.ready .page, body.ready .offerte-footer { opacity: 1; }
     * { transition: none !important; }
     .float-card { animation: none; }
 }
+
+/* ---------- PRIMO SCHERMO PER IL TRAFFICO DA ADS (mobile) ---------- */
+
+/* Chi arriva da un'ad ha già la promessa: deve vedere subito un codice.
+   Niente collage fluttuante e intestazione più stretta, così la prima
+   card con il pulsante "Copia codice" sta sopra la piega. */
+@media (max-width: 719px) {
+    .src-ads .page { padding-top: 12px; }
+    .src-ads .hero { display: none; }
+    .src-ads .intro { margin-bottom: 10px; }
+    .src-ads .intro-title { font-size: clamp(26px, 7vw, 32px); }
+    .src-ads .chips { margin-bottom: 12px; }
+}
+
+/* La barra Telegram aspetta che il banner cookie sia chiuso: le due pillole
+   erano sovrapposte in basso e coprivano il codice della prima card. */
+body:has(#cookie-banner) .telegram-sticky { display: none; }

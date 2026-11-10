@@ -551,6 +551,7 @@ function renderFallback() {
 // ---------- INIT ----------
 
 document.addEventListener('DOMContentLoaded', async () => {
+    if (SRC === 'ads') document.body.classList.add('src-ads');
     countEvent('page_view', { src: SRC, ...AD_PARAMS });
     renderCookieBanner();
     setupClickTracking();
