@@ -1,7 +1,15 @@
 {
-  "updated": "2026-11-12",
+  "updated": "2026-11-14",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
+    {
+      "title": "Camicissima - Sito Ufficiale  | Camicissima",
+      "description": "Camicissima - Sito Ufficiale  | Camicissima",
+      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
+      "url": "https://camicissima-it.mpic.link/6926453",
+      "category": "altro",
+      "brand": "Camicissima IT"
+    },
     {
       "title": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
       "description": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
@@ -24,11 +32,7 @@
       "icon": "https://www.google.com/s2/favicons?domain=www.thebs.com&sz=128",
       "url": "https://thebs.mpic.link/6926433",
       "category": "moda",
-      "brand": "TheBS",
-      "promo": {
-        "title": "Cod: singlesd per extra -11%",
-        "until": "2026-11-13"
-      }
+      "brand": "TheBS"
     },
     {
       "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
@@ -43,14 +47,6 @@
         "detail": "Sconto 15% su tutti i prodotti tranne i bundle",
         "until": "2026-11-30"
       }
-    },
-    {
-      "title": "Privé by Zalando: outlet online per la moda e la casa",
-      "description": "Privé by Zalando: outlet online per la moda e la casa",
-      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
-      "url": "https://prive-by-zalando-it.mpic.link/6318976",
-      "category": "moda",
-      "brand": "Privé by Zalando IT"
     },
     {
       "title": "Morellato",
@@ -186,14 +182,6 @@
       "url": "https://massimo-dutti-it.mpic.link/6926458",
       "category": "altro",
       "brand": "Massimo Dutti IT"
-    },
-    {
-      "title": "Camicissima - Sito Ufficiale  | Camicissima",
-      "description": "Camicissima - Sito Ufficiale  | Camicissima",
-      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
-      "url": "https://camicissima-it.mpic.link/6926453",
-      "category": "altro",
-      "brand": "Camicissima IT"
     },
     {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
@@ -386,6 +374,14 @@
       "url": "https://kiko-milano-it.mpic.link/6321606",
       "category": "beauty",
       "brand": "KIKO MILANO IT"
+    },
+    {
+      "title": "Privé by Zalando: outlet online per la moda e la casa",
+      "description": "Privé by Zalando: outlet online per la moda e la casa",
+      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
+      "url": "https://prive-by-zalando-it.mpic.link/6318976",
+      "category": "moda",
+      "brand": "Privé by Zalando IT"
     }
   ]
 }
