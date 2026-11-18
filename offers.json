@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-14",
+  "updated": "2026-11-18",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -49,12 +49,20 @@
       }
     },
     {
-      "title": "Morellato",
-      "description": "Morellato",
-      "icon": "https://www.google.com/s2/favicons?domain=bluespirit.com&sz=128",
-      "url": "https://morellato.mpic.link/6938149",
+      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
+      "url": "https://thefork-it.mpic.link/6358027",
       "category": "altro",
-      "brand": "Morellato"
+      "brand": "TheFork IT"
+    },
+    {
+      "title": "Privé by Zalando: outlet online per la moda e la casa",
+      "description": "Privé by Zalando: outlet online per la moda e la casa",
+      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
+      "url": "https://prive-by-zalando-it.mpic.link/6318976",
+      "category": "moda",
+      "brand": "Privé by Zalando IT"
     },
     {
       "title": "PcComponentes.it | Negozio online di computer e tecnologia",
@@ -134,6 +142,14 @@
       "url": "https://audible.mpic.link/6958070",
       "category": "altro",
       "brand": "Audible"
+    },
+    {
+      "title": "Morellato",
+      "description": "Morellato",
+      "icon": "https://www.google.com/s2/favicons?domain=morellato.mpic.link&sz=128",
+      "url": "https://morellato.mpic.link/6938149",
+      "category": "altro",
+      "brand": "Morellato"
     },
     {
       "title": "Off Grid",
@@ -264,14 +280,6 @@
       "brand": "Honor IT"
     },
     {
-      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
-      "url": "https://thefork-it.mpic.link/6358027",
-      "category": "altro",
-      "brand": "TheFork IT"
-    },
-    {
       "title": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
       "description": "Buy eSIM for International Travel | Instant Activation & Global Coverage – 4S eSIM",
       "icon": "https://www.google.com/s2/favicons?domain=4s.net&sz=128",
@@ -374,14 +382,6 @@
       "url": "https://kiko-milano-it.mpic.link/6321606",
       "category": "beauty",
       "brand": "KIKO MILANO IT"
-    },
-    {
-      "title": "Privé by Zalando: outlet online per la moda e la casa",
-      "description": "Privé by Zalando: outlet online per la moda e la casa",
-      "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
-      "url": "https://prive-by-zalando-it.mpic.link/6318976",
-      "category": "moda",
-      "brand": "Privé by Zalando IT"
     }
   ]
 }
