@@ -1,15 +1,7 @@
 {
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
-    {
-      "title": "Camicissima - Sito Ufficiale  | Camicissima",
-      "description": "Camicissima - Sito Ufficiale  | Camicissima",
-      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
-      "url": "https://camicissima-it.mpic.link/6926453",
-      "category": "altro",
-      "brand": "Camicissima IT"
-    },
     {
       "title": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
       "description": "LOOKFANTASTIC | Cosmetici e Profumi su oltre 700 marchi",
@@ -35,6 +27,14 @@
       "brand": "TheBS"
     },
     {
+      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
+      "url": "https://thefork-it.mpic.link/6358027",
+      "category": "altro",
+      "brand": "TheFork IT"
+    },
+    {
       "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
@@ -47,14 +47,6 @@
         "detail": "Sconto 15% su tutti i prodotti tranne i bundle",
         "until": "2026-11-30"
       }
-    },
-    {
-      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
-      "url": "https://thefork-it.mpic.link/6358027",
-      "category": "altro",
-      "brand": "TheFork IT"
     },
     {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
@@ -200,6 +192,14 @@
       "brand": "Massimo Dutti IT"
     },
     {
+      "title": "Camicissima - Sito Ufficiale  | Camicissima",
+      "description": "Camicissima - Sito Ufficiale  | Camicissima",
+      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
+      "url": "https://camicissima-it.mpic.link/6926453",
+      "category": "altro",
+      "brand": "Camicissima IT"
+    },
+    {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
       "description": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
       "icon": "https://www.google.com/s2/favicons?domain=suitsupply.com&sz=128",
@@ -330,10 +330,10 @@
     {
       "title": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
       "description": "Abbigliamento, Zaini e Scarpe Outdoor | The North Face IT",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thenorthface.com&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=the-north-face-it.mpic.link&sz=128",
       "url": "https://the-north-face-it.mpic.link/6353926",
       "category": "moda",
-      "brand": "The North Face IT"
+      "brand": "The North Face IT - chiuso"
     },
     {
       "title": "Aliexpress_IT",
