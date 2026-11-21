@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19",
+  "updated": "2026-11-21",
   "telegram": "https://t.me/affarialvoloo",
   "offers": [
     {
@@ -9,6 +9,14 @@
       "url": "https://lookfantastic-it.mpic.link/6970781",
       "category": "beauty",
       "brand": "LOOKFANTASTIC IT"
+    },
+    {
+      "title": "Camicissima - Sito Ufficiale  | Camicissima",
+      "description": "Camicissima - Sito Ufficiale  | Camicissima",
+      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
+      "url": "https://camicissima-it.mpic.link/6926453",
+      "category": "altro",
+      "brand": "Camicissima IT"
     },
     {
       "title": "Scarpe, Abbigliamento e Accessori  | Foot Locker Italy",
@@ -27,14 +35,6 @@
       "brand": "TheBS"
     },
     {
-      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
-      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
-      "url": "https://thefork-it.mpic.link/6358027",
-      "category": "altro",
-      "brand": "TheFork IT"
-    },
-    {
       "title": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "description": "SharkNinja Italia | Elettrodomestici, pulizia, la bellezza e non solo",
       "icon": "https://www.google.com/s2/favicons?domain=www.sharkninja.it&sz=128",
@@ -49,12 +49,24 @@
       }
     },
     {
+      "title": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "description": "TheFork - Prenota nei migliori ristoranti d'Italia",
+      "icon": "https://www.google.com/s2/favicons?domain=www.thefork.it&sz=128",
+      "url": "https://thefork-it.mpic.link/6358027",
+      "category": "altro",
+      "brand": "TheFork IT"
+    },
+    {
       "title": "Privé by Zalando: outlet online per la moda e la casa",
       "description": "Privé by Zalando: outlet online per la moda e la casa",
       "icon": "https://www.google.com/s2/favicons?domain=zalando-prive.it&sz=128",
       "url": "https://prive-by-zalando-it.mpic.link/6318976",
       "category": "moda",
-      "brand": "Privé by Zalando IT"
+      "brand": "Privé by Zalando IT",
+      "promo": {
+        "title": "COD: 10BFW26 -10% extra",
+        "until": "2026-11-23"
+      }
     },
     {
       "title": "PcComponentes.it | Negozio online di computer e tecnologia",
@@ -192,14 +204,6 @@
       "brand": "Massimo Dutti IT"
     },
     {
-      "title": "Camicissima - Sito Ufficiale  | Camicissima",
-      "description": "Camicissima - Sito Ufficiale  | Camicissima",
-      "icon": "https://www.google.com/s2/favicons?domain=camicissima.com&sz=128",
-      "url": "https://camicissima-it.mpic.link/6926453",
-      "category": "altro",
-      "brand": "Camicissima IT"
-    },
-    {
       "title": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
       "description": "Abiti uomo | Abiti matrimonio, formali e su misura | SUITSUPPLY",
       "icon": "https://www.google.com/s2/favicons?domain=suitsupply.com&sz=128",
@@ -218,7 +222,7 @@
     {
       "title": "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
       "description": "Scarpe e Abbigliamento | Sito ufficiale - New Balance",
-      "icon": "https://www.google.com/s2/favicons?domain=newbalance.it&sz=128",
+      "icon": "https://www.google.com/s2/favicons?domain=www.newbalance.it&sz=128",
       "url": "https://new-balance-it.mpic.link/6926399",
       "category": "moda",
       "brand": "New Balance IT"
